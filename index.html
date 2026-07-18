@@ -4,32 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Norvi - Sua rotina de estudos simplificada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg-page: #ffffff;
-            --bg-sidebar: #f8f9fa;
-            --text-main: #1a1a1a;
-            --text-muted: #6b6b6b;
-            --accent: #4a6cf7;
-            --accent-hover: #3554d1;
-            --border: #eaeaea;
+            --bg-page: #FDFBF7;
+            --bg-sidebar: #F5F1EA;
+            --text-main: #3A3A3A;
+            --text-muted: #6B7F8A;
+            --accent: #C87A4E;
+            --accent-hover: #a05d32;
+            --success: #8DA89B;
+            --border: #E6DED5;
             --shadow-soft: 0 2px 4px rgba(0,0,0,0.02);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         body.dark-mode {
-            --bg-page: #0a0e17;
-            --bg-sidebar: #111827;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border: #1f2937;
+            --bg-page: #181614;
+            --bg-sidebar: #221f1c;
+            --text-main: #E6DED5;
+            --text-muted: #8DA89B;
+            --accent: #C87A4E;
+            --accent-hover: #e09468;
+            --border: #3A3A3A;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Lora', 'Inter', serif;
             transition: background-color 0.3s, border-color 0.3s, color 0.3s;
         }
 
@@ -53,7 +60,7 @@
         .sidebar {
             width: 260px;
             background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
+            border-right: 2px double var(--border); /* Borda dupla artesanal */
             display: flex;
             flex-direction: column;
             padding: 24px 16px;
@@ -71,8 +78,9 @@
         }
 
         .sidebar-logo {
-            font-size: 22px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
             color: var(--text-main);
             display: flex;
             align-items: center;
@@ -81,25 +89,25 @@
         }
 
         .sidebar-logo span.brand {
-            background: linear-gradient(135deg, var(--accent), #6875f5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-style: italic;
+            color: var(--accent);
         }
 
         .sidebar-tagline {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
             margin-top: -24px;
             margin-bottom: 24px;
             padding-left: 8px;
-            line-height: 1.3;
+            line-height: 1.4;
+            font-style: italic;
         }
 
         .sidebar-menu {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .menu-item {
@@ -120,21 +128,27 @@
         }
 
         .menu-item:hover {
-            background: rgba(0, 0, 0, 0.04);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .menu-item:hover .menu-item-text {
+            font-style: italic; /* Microinteração: texto fica em itálico no hover */
         }
 
         .menu-item.active {
-            background: rgba(74, 108, 247, 0.08);
+            background: rgba(200, 122, 78, 0.06);
             color: var(--accent);
             font-weight: 700;
         }
 
         .menu-item-icon {
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
+            width: 18px;
+            height: 18px;
+            color: var(--text-muted);
+        }
+
+        .menu-item.active .menu-item-icon {
+            color: var(--accent);
         }
 
         /* Área Principal */
@@ -206,6 +220,12 @@
             cursor: pointer;
         }
 
+        .stat-item-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--accent);
+        }
+
         .xp-progress-container {
             display: flex;
             align-items: center;
@@ -215,7 +235,7 @@
         }
 
         .xp-bar-bg {
-            background: #e2e8f0;
+            background: var(--border);
             height: 8px;
             border-radius: 4px;
             overflow: hidden;
@@ -237,8 +257,9 @@
         }
 
         .view-title {
-            font-size: 28px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--text-main);
             margin-bottom: 4px;
         }
@@ -247,6 +268,7 @@
             font-size: 14px;
             color: var(--text-muted);
             font-weight: 500;
+            font-style: italic;
         }
 
         /* Lista de Tarefas (Checkboxes) */
@@ -260,7 +282,7 @@
             display: flex;
             align-items: flex-start;
             gap: 14px;
-            padding: 14px 16px;
+            padding: 16px;
             border-radius: 10px;
             border: 1px solid var(--border);
             background: var(--bg-page);
@@ -269,12 +291,12 @@
         }
 
         .task-item:hover {
-            border-color: #cbd5e1;
+            border-color: var(--accent);
             box-shadow: var(--shadow-soft);
         }
 
         .task-item.completed {
-            background: #f8fafc;
+            background: var(--bg-sidebar);
             border-color: var(--border);
             opacity: 0.7;
         }
@@ -284,7 +306,7 @@
             width: 20px;
             height: 20px;
             border-radius: 6px;
-            border: 2px solid #cbd5e1;
+            border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -296,7 +318,7 @@
 
         .task-checkbox:hover {
             border-color: var(--accent);
-            background: rgba(74, 108, 247, 0.04);
+            background: rgba(200, 122, 78, 0.04);
         }
 
         .task-checkbox.checked {
@@ -324,6 +346,7 @@
 
         .task-item.completed .task-title {
             text-decoration: line-through;
+            text-decoration-style: wavy; /* Linha ondulada artesanal */
             color: var(--text-muted);
         }
 
@@ -337,6 +360,7 @@
 
         .task-item.completed .task-desc {
             text-decoration: line-through;
+            text-decoration-style: wavy; /* Linha ondulada artesanal */
             color: #94a3b8;
         }
 
@@ -375,8 +399,8 @@
         }
 
         .timer-btn:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
+            background: var(--bg-sidebar);
+            border-color: var(--accent);
         }
 
         .timer-btn.running {
@@ -408,7 +432,7 @@
         }
 
         .add-task-trigger:hover {
-            background: rgba(74, 108, 247, 0.04);
+            background: rgba(200, 122, 78, 0.04);
         }
 
         .add-task-form {
@@ -436,6 +460,7 @@
             font-size: 14px;
             outline: none;
             color: var(--text-main);
+            background: var(--bg-page);
         }
 
         .add-task-input:focus {
@@ -464,7 +489,7 @@
         }
 
         .btn-add-cancel {
-            background: #f1f5f9;
+            background: var(--bg-sidebar);
             color: var(--text-muted);
             border: none;
             padding: 6px 12px;
@@ -475,7 +500,7 @@
         }
 
         .btn-add-cancel:hover {
-            background: #e2e8f0;
+            background: var(--border);
         }
 
         .btn-concluir-dia {
@@ -494,18 +519,18 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15);
+            box-shadow: 0 4px 12px rgba(200, 122, 78, 0.15);
         }
 
         .btn-concluir-dia:hover:not(:disabled) {
             background: var(--accent-hover);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(74, 108, 247, 0.25);
+            box-shadow: 0 6px 16px rgba(200, 122, 78, 0.25);
         }
 
         .btn-concluir-dia:disabled {
-            background: #f1f5f9;
-            color: #94a3b8;
+            background: var(--border);
+            color: var(--text-muted);
             cursor: not-allowed;
             box-shadow: none;
         }
@@ -514,13 +539,14 @@
         /* Calendário (Visão "Calendário") */
         .calendario-card {
             background: var(--bg-page);
-            border: 1px solid var(--border);
+            border: 2px double var(--border); /* Borda dupla artesanal */
             border-radius: 12px;
             padding: 24px;
         }
 
         .cal-header {
-            font-size: 18px;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
             font-weight: 700;
             margin-bottom: 16px;
             display: flex;
@@ -564,7 +590,7 @@
             border: 2px solid var(--accent);
             color: var(--accent);
             font-weight: 700;
-            background: rgba(74, 108, 247, 0.04);
+            background: rgba(200, 122, 78, 0.04);
         }
 
         .cal-dia.completo {
@@ -572,7 +598,7 @@
             color: #fff;
             font-weight: 700;
             border-color: var(--accent);
-            box-shadow: 0 2px 8px rgba(74, 108, 247, 0.3);
+            box-shadow: 0 2px 8px rgba(200, 122, 78, 0.3);
         }
 
         .cal-dia.vazio {
@@ -611,7 +637,7 @@
         /* Página VIP (Inspirada no Todoist Pro) */
         .vip-card {
             background: #fffbeb;
-            border: 1px solid #fef08a;
+            border: 2px double #fef08a; /* Borda dupla artesanal */
             border-radius: 12px;
             padding: 24px;
             text-align: center;
@@ -619,7 +645,8 @@
         }
 
         .vip-card h3 {
-            font-size: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
             color: #d97706;
             margin-bottom: 6px;
             display: flex;
@@ -736,7 +763,7 @@
 
         .ranking-item.user {
             border-color: var(--accent);
-            background: rgba(74, 108, 247, 0.04);
+            background: rgba(200, 122, 78, 0.04);
         }
 
         .rank-pos {
@@ -804,7 +831,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(253, 251, 247, 0.85);
             backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
@@ -815,6 +842,10 @@
             text-align: center;
             padding: 16px;
             transition: all 0.3s;
+        }
+
+        body.dark-mode .locked-overlay {
+            background: rgba(24, 22, 20, 0.85);
         }
 
         .locked-overlay span {
@@ -855,7 +886,7 @@
 
         .achievement-card.unlocked {
             border-color: var(--accent);
-            background: rgba(74, 108, 247, 0.04);
+            background: rgba(200, 122, 78, 0.04);
         }
 
         .achievement-icon {
@@ -905,7 +936,7 @@
 
         .modal-content {
             background: var(--bg-page);
-            border: 1px solid var(--border);
+            border: 2px double var(--border); /* Borda dupla artesanal */
             border-radius: 16px;
             padding: 28px;
             width: 100%;
@@ -926,6 +957,7 @@
         }
 
         .modal-title {
+            font-family: 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 10px;
@@ -1030,7 +1062,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.5); /* Escurece suavemente */
             z-index: 3000;
             display: flex;
             align-items: center;
@@ -1095,7 +1127,7 @@
         .tutorial-highlight {
             position: relative;
             z-index: 3100 !important;
-            box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.7), var(--shadow-md) !important;
+            box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.5), var(--shadow-md) !important;
             pointer-events: none;
         }
     </style>
@@ -1118,7 +1150,7 @@
 
         .slides-container {
             width: 100%;
-            max-width: 640px;
+            max-width: 720px; /* Largura otimizada para duas colunas */
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -1133,8 +1165,9 @@
         }
 
         .slides-title {
-            font-size: 18px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
             color: var(--text-main);
         }
 
@@ -1146,21 +1179,49 @@
             color: var(--text-muted);
         }
 
+        /* Layout de Duas Colunas para os Slides */
         .slide-card {
             background: var(--bg-sidebar);
-            border: 1px solid var(--border);
+            border: 2px double var(--border); /* Borda dupla artesanal */
             border-radius: 16px;
             padding: 32px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            min-height: 340px;
+            display: grid;
+            grid-template-columns: 70% 30%; /* 70% conteúdo, 30% glossário/nota */
+            gap: 24px;
             animation: fadeIn 0.3s ease;
         }
 
+        .slide-main-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-side-col {
+            border-left: 1px dashed var(--border);
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .slide-side-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
         .slide-content h4 {
-            font-size: 20px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 16px;
             color: var(--accent);
         }
@@ -1189,9 +1250,9 @@
         }
 
         .slide-content li::before {
-            content: '•';
+            content: '◆'; /* Marcador em forma de losango */
             color: var(--accent);
-            font-weight: bold;
+            font-size: 10px;
         }
 
         .slides-navigation {
@@ -1202,7 +1263,7 @@
         }
 
         .slides-nav-btn {
-            background: #f1f5f9;
+            background: var(--bg-sidebar);
             color: var(--text-main);
             border: 1px solid var(--border);
             padding: 8px 16px;
@@ -1214,7 +1275,7 @@
         }
 
         .slides-nav-btn:hover:not(:disabled) {
-            background: #e2e8f0;
+            background: var(--border);
         }
 
         .slides-nav-btn:disabled {
@@ -1222,34 +1283,25 @@
             cursor: not-allowed;
         }
 
-        .slides-progress-container {
+        /* Progresso em Círculos */
+        .slides-progress-circles {
             display: flex;
+            gap: 6px;
             align-items: center;
-            gap: 12px;
-            flex-grow: 1;
+            justify-content: center;
         }
 
-        .slides-progress-bar {
-            background: #e2e8f0;
-            height: 6px;
-            border-radius: 3px;
-            flex-grow: 1;
-            overflow: hidden;
+        .slides-progress-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s ease;
         }
 
-        .slides-progress-fill {
+        .slides-progress-circle.active {
             background: var(--accent);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        #slideProgressText {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            min-width: 70px;
-            text-align: right;
+            transform: scale(1.2);
         }
 
         .btn-praticar {
@@ -1257,7 +1309,7 @@
             padding: 14px;
             border: none;
             border-radius: 10px;
-            background: #10b981;
+            background: var(--success);
             color: white;
             font-weight: 700;
             font-size: 15px;
@@ -1267,11 +1319,11 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 4px 12px rgba(141, 168, 155, 0.15);
         }
 
         .btn-praticar:hover {
-            background: #059669;
+            background: #7a9488;
             transform: translateY(-1px);
         }
 
@@ -1279,14 +1331,14 @@
         .pratica-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             text-align: left;
         }
 
         .pratica-opcao {
             background: #ffffff;
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 14px 16px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1295,8 +1347,8 @@
         }
 
         .pratica-opcao:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
+            background: var(--bg-sidebar);
+            border-color: var(--accent);
         }
 
         .pratica-opcao.correta {
@@ -1311,11 +1363,12 @@
             color: #991b1b;
         }
     </style>
+</head>
 <body>
     <!-- TOP BAR (MOBILE) -->
     <div class="mobile-header">
         <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
-        <span class="logo" style="font-size: 18px; font-weight: 800;">🧠 <span class="brand">Norvi</span></span>
+        <span class="logo" style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 800;">🧠 <span class="brand">Norvi</span></span>
         <span class="vip-badge" id="vipBadgeMobile" style="display: none;">⭐ VIP</span>
     </div>
 
@@ -1337,7 +1390,7 @@
         <div class="tutorial-box" id="tutorialBox">
             <div class="tutorial-header">
                 <span id="tutorialStepNum">Passo 1 de 6</span>
-                <button class="tutorial-skip" onclick="pularTutorial()">Pular Tutorial ✕</button>
+                <button class="tutorial-skip" onclick="pularTutorial()">Prefiro explorar sozinho →</button>
             </div>
             <div class="tutorial-body" id="tutorialText">Explicação aqui...</div>
             <div class="tutorial-footer">
@@ -1361,10 +1414,9 @@
             <div class="slides-navigation">
                 <button class="slides-nav-btn" id="btnSlidePrev" onclick="slideAnterior()">◀ Anterior</button>
                 <div class="slides-progress-container">
-                    <div class="slides-progress-bar">
-                        <div class="slides-progress-fill" id="slideProgressFill"></div>
+                    <div class="slides-progress-circles" id="slideProgressCircles">
+                        <!-- Círculos de progresso gerados via JS -->
                     </div>
-                    <span id="slideProgressText">Slide 1 de 5</span>
                 </div>
                 <button class="slides-nav-btn" id="btnSlideNext" onclick="slideProximo()">Próximo ▶</button>
             </div>
@@ -1378,7 +1430,11 @@
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="#" class="sidebar-logo">
-                    <span>🧠</span>
+                    <!-- Ícone de Bússola SVG Minimalista -->
+                    <svg style="width: 24px; height: 24px; color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                    </svg>
                     <span class="brand">Norvi</span>
                 </a>
             </div>
@@ -1387,32 +1443,32 @@
             <ul class="sidebar-menu">
                 <li>
                     <button class="menu-item active" id="menu-inicio" onclick="switchTab('inicio')">
-                        <span class="menu-item-icon">📋</span>
-                        Hoje
+                        <span class="menu-item-icon"><i data-lucide="book-open"></i></span>
+                        <span class="menu-item-text">Hoje</span>
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" id="menu-calendario" onclick="switchTab('calendario')">
-                        <span class="menu-item-icon">📅</span>
-                        Calendário
+                        <span class="menu-item-icon"><i data-lucide="calendar"></i></span>
+                        <span class="menu-item-text">Calendário</span>
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" id="menu-ranking" onclick="switchTab('ranking')">
-                        <span class="menu-item-icon">🏆</span>
-                        Ranking
+                        <span class="menu-item-icon"><i data-lucide="award"></i></span>
+                        <span class="menu-item-text">Ranking</span>
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" id="menu-vip" onclick="switchTab('vip')">
-                        <span class="menu-item-icon">⭐</span>
-                        Assinar VIP
+                        <span class="menu-item-icon"><i data-lucide="star"></i></span>
+                        <span class="menu-item-text">Assinar VIP</span>
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" id="menu-perfil" onclick="switchTab('perfil')">
-                        <span class="menu-item-icon">⚙️</span>
-                        Perfil
+                        <span class="menu-item-icon"><i data-lucide="user"></i></span>
+                        <span class="menu-item-text">Perfil</span>
                     </button>
                 </li>
             </ul>
@@ -1430,7 +1486,7 @@
 
                 <!-- Toggle Dark Mode -->
                 <button onclick="toggleDarkMode()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-page); color: var(--text-main); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-soft);">
-                    🌓 <span id="darkModeText">Escuro</span>
+                    <i data-lucide="moon" style="width: 16px; height: 16px;"></i> <span id="darkModeText">Escuro</span>
                 </button>
             </div>
         </div>
@@ -1443,19 +1499,22 @@
                 <div class="gamification-bar" id="gamificationBar">
                     <div class="gamification-stats">
                         <div class="stat-item" onclick="mostrarExplicacaoOfensiva()">
-                            <span style="font-size: 16px;">🔥</span>
+                            <span class="stat-item-icon"><i data-lucide="flame"></i></span>
                             <span id="streakDisplay">0 dias</span>
                         </div>
                         <div class="stat-item">
-                            <span style="font-size: 16px; color: var(--accent);">⭐</span>
-                            <span id="levelDisplay">Nível 1</span>
+                            <span class="stat-item-icon"><i data-lucide="award"></i></span>
+                            <span id="levelDisplay">Estágio I</span>
                         </div>
                     </div>
                     <div class="xp-progress-container">
                         <div class="xp-bar-bg">
                             <div class="xp-bar-fill" id="xpBarFill"></div>
                         </div>
-                        <span id="xpDisplay" style="color: var(--text-muted); font-size: 12px;">0/100 XP</span>
+                        <span id="xpDisplay" style="color: var(--text-muted); font-size: 12px; display: flex; align-items: center; gap: 4px;">
+                            <i data-lucide="gem" style="width: 12px; height: 12px; color: var(--accent);"></i>
+                            <span id="xpText">0/100 XP</span>
+                        </span>
                     </div>
                 </div>
                 <!-- ================= ABA INÍCIO (HOJE) ================= -->
@@ -1463,6 +1522,20 @@
                     <div class="view-header">
                         <h1 class="view-title">Hoje</h1>
                         <div class="view-subtitle" id="currentDateDisplay">segunda-feira, 18 de julho</div>
+                        <div style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--text-muted); margin-top: 8px; border-left: 2px solid var(--accent); padding-left: 12px;" id="motivationalQuote">
+                            "Cada dia é uma nova página em branco."
+                        </div>
+                    </div>
+
+                    <!-- META DE DISCIPLINA -->
+                    <div class="card" id="metaDisciplinaCard" style="padding: 16px; border-style: dashed; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="target" style="width: 18px; height: 18px; color: var(--accent);"></i>
+                            <span id="metaDisciplinaText">Você está no Dia 1 de 7 da sua meta de disciplina!</span>
+                        </div>
+                        <div class="xp-bar-bg" style="max-width: 120px; height: 6px; margin: 0;">
+                            <div class="xp-bar-fill" id="metaDisciplinaProgress" style="width: 14%;"></div>
+                        </div>
                     </div>
 
                     <!-- LISTA DE TAREFAS -->
@@ -1498,7 +1571,7 @@
 
                     <!-- CAMPO ADICIONAR TAREFA -->
                     <div class="add-task-container" id="addTaskContainer">
-                        <button class="add-task-trigger" id="addTaskTrigger" onclick="showAddTaskForm()">+ Adicionar tarefa</button>
+                        <button class="add-task-trigger" id="addTaskTrigger" onclick="showAddTaskForm()">✧ Adicionar sua própria tarefa</button>
                         <div class="add-task-form" id="addTaskForm">
                             <input type="text" class="add-task-input" id="taskInputTitle" placeholder="Nome da tarefa (ex: Revisar Geografia)">
                             <input type="text" class="add-task-input" id="taskInputDesc" placeholder="Descrição da tarefa (opcional)">
@@ -1543,12 +1616,12 @@
                 <!-- ================= ABA RANKING ================= -->
                 <div id="tab-ranking" class="tab-content">
                     <div class="view-header">
-                        <h1 class="view-title">Ranking</h1>
-                        <div class="view-subtitle">Dispute o topo com outros estudantes!</div>
+                        <h1 class="view-title">Círculo de Disciplina</h1>
+                        <div class="view-subtitle">Inspire-se na consistência de outros estudantes</div>
                     </div>
 
                     <div class="card" style="border-radius: 12px; padding: 24px;">
-                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Ranking Semanal</h3>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Círculo dos Estudiosos</h3>
                         <div class="ranking-list" id="rankingList">
                             <!-- Gerado dinamicamente -->
                         </div>
@@ -1589,7 +1662,7 @@
 
                     <!-- Estatísticas -->
                     <div class="card locked-teaser" id="statsCard" style="border-radius: 12px; padding: 24px;">
-                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">📊 Estatísticas Avançadas</h3>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 16px;">📊 Estatísticas Avançadas</h3>
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <div class="stat-val" id="statTempo">0 min</div>
@@ -1608,9 +1681,17 @@
                         </div>
                     </div>
 
+                    <!-- Reflexão Diária (Diário de Disciplina) -->
+                    <div class="card" style="border-radius: 12px; padding: 24px;">
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px;">✍️ Reflexão Diária</h3>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Como foi seu estudo hoje? O que aprendeu ou sentiu?</p>
+                        <textarea id="reflexaoInput" style="width: 100%; height: 100px; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-page); color: var(--text-main); font-size: 14px; outline: none; resize: none; margin-bottom: 12px;" placeholder="Escreva aqui suas reflexões sobre o dia de hoje..."></textarea>
+                        <button class="btn-primary" style="width: auto; padding: 8px 16px; font-size: 13px;" onclick="salvarReflexao()">Salvar Reflexão</button>
+                    </div>
+
                     <!-- Conquistas -->
                     <div class="card" style="border-radius: 12px; padding: 24px;">
-                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Conquistas</h3>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Marcos</h3>
                         <div class="achievements-grid" id="achievementsGrid">
                             <!-- Gerado dinamicamente -->
                         </div>
@@ -1636,7 +1717,8 @@
             missoesConcluidasHoje: [],
             tempoFoco: 0,
             tarefasCustomizadas: [],
-            tutorialConcluido: false
+            tutorialConcluido: false,
+            reflexoesDiarias: {}
         };
 
         let estado = { ...ESTADO_PADRAO };
@@ -1664,7 +1746,7 @@
         }
 
         function mostrarExplicacaoOfensiva() {
-            showModal('🔥', 'Sistema de Ofensiva', 'Mantenha sua chama acesa estudando todos os dias! Se você ficar um dia sem concluir suas missões, sua ofensiva voltará a zero. A "Semana 2" representa a sua semana de estudos atual na plataforma.');
+            showModal('🔥', 'Chama da Consistência', 'Mantenha sua chama acesa estudando todos os dias! Se você ficar um dia sem concluir suas missões, sua ofensiva voltará a zero. A consistência é a chave para construir hábitos duradouros.');
         }
 
         // --- PERSISTÊNCIA ---
@@ -1676,6 +1758,7 @@
                     if (!estado.missoesConcluidasHoje) estado.missoesConcluidasHoje = [];
                     if (!estado.tempoFoco) estado.tempoFoco = 0;
                     if (!estado.tarefasCustomizadas) estado.tarefasCustomizadas = [];
+                    if (!estado.reflexoesDiarias) estado.reflexoesDiarias = {};
                 } catch (e) {
                     estado = { ...ESTADO_PADRAO };
                 }
@@ -1687,7 +1770,7 @@
                 if (!estado.diasCompletos.includes(ontemStr) && estado.ultimoDiaCompleto !== ontemStr) {
                     if (estado.streak > 0) {
                         estado.streak = 0;
-                        showToast('Sua ofensiva foi resetada. Comece uma nova hoje!');
+                        showToast('Sua Chama da Consistência se apagou. Comece uma nova hoje!');
                     }
                 }
                 estado.missoesConcluidasHoje = [];
@@ -1713,6 +1796,10 @@
             if (tabName === 'perfil') {
                 gerarConquistas();
                 atualizarStats();
+                
+                // Carrega reflexão de hoje se houver
+                const hojeStr = new Date().toISOString().split('T')[0];
+                document.getElementById("reflexaoInput").value = estado.reflexoesDiarias[hojeStr] || "";
             }
 
             if (window.innerWidth <= 768) {
@@ -1725,16 +1812,16 @@
         }
     </script>
     <script>
-        // --- TUTORIAL INTERATIVO (ONBOARDING) ---
+        // --- TUTORIAL INTERATIVO (ONBOARDING ARTESANAL) ---
         let tutorialStep = 1;
         const TUTORIAL_STEPS = [
             {
                 elementId: "sidebar",
-                text: "Este é o seu Menu Lateral. Aqui você pode navegar entre Hoje, Calendário, Ranking, VIP e Perfil."
+                text: "Bem-vindo ao Norvi. Um espaço para construir seu futuro, um passo de cada vez. Este é o seu Menu Lateral, onde você encontra suas ferramentas."
             },
             {
                 elementId: "taskList",
-                text: "Esta é a sua Lista de Tarefas. Aqui ficam as missões diárias geradas pelo nosso algoritmo com base no seu nível e dificuldades."
+                text: "Seu plano de estudos para hoje. Cada tarefa concluída é um tijolo na construção da sua disciplina."
             },
             {
                 elementId: "missao-1",
@@ -1742,15 +1829,15 @@
             },
             {
                 elementId: "addTaskContainer",
-                text: "Quer estudar algo a mais? Clique aqui para adicionar suas próprias tarefas personalizadas!"
+                text: "Quer adicionar seu próprio desafio? Use este espaço para criar tarefas personalizadas."
             },
             {
                 elementId: "gamificationBar",
-                text: "Aqui você acompanha seu nível, sua barra de XP e sua ofensiva de dias consecutivos de estudo."
+                text: "A chama da consistência. Estude todos os dias para mantê-la acesa e evoluir seu estágio de disciplina."
             },
             {
                 elementId: "btnConcluir",
-                text: "Após concluir todas as missões principais, clique aqui para fechar o seu dia de estudos, ganhar bônus de XP e aumentar sua ofensiva!"
+                text: "Ao finalizar todas as missões, marque aqui. Pequenas conquistas diárias geram grandes resultados a longo prazo."
             }
         ];
 
@@ -1762,7 +1849,6 @@
         }
 
         function mostrarPassoTutorial() {
-            // Remove highlights anteriores
             document.querySelectorAll(".tutorial-highlight").forEach(el => el.classList.remove("tutorial-highlight"));
 
             const step = TUTORIAL_STEPS[tutorialStep - 1];
@@ -1770,7 +1856,6 @@
             
             if (el) {
                 el.classList.add("tutorial-highlight");
-                // Se o elemento for a sidebar e estiver oculta no mobile, abre ela temporariamente
                 if (step.elementId === "sidebar" && window.innerWidth <= 768) {
                     el.classList.add("active");
                 }
@@ -1781,7 +1866,7 @@
             
             const btnNext = document.getElementById("btnTutorialNext");
             if (tutorialStep === TUTORIAL_STEPS.length) {
-                btnNext.textContent = "Finalizar 🎉";
+                btnNext.textContent = "Começar Jornada 🎉";
             } else {
                 btnNext.textContent = "Próximo ➡";
             }
@@ -1804,14 +1889,13 @@
             document.querySelectorAll(".tutorial-highlight").forEach(el => el.classList.remove("tutorial-highlight"));
             document.getElementById("tutorialOverlay").style.display = "none";
             
-            // Fecha sidebar no mobile se estiver aberta
             if (window.innerWidth <= 768) {
                 document.getElementById("sidebar").classList.remove("active");
             }
 
             estado.tutorialConcluido = true;
             salvarEstado();
-            showToast("Tutorial concluído! Bons estudos!");
+            showToast("Sua jornada de disciplina começou!");
         }
     </script>
     <script>
@@ -1826,145 +1910,82 @@
         const CONTEUDOS_SLIDES = {
             "fundamental_1": {
                 "Matemática": [
-                    { tipo: "Teórico", titulo: "Frações Simples", texto: "Uma fração representa uma parte de um todo que foi dividido em partes iguais. Por exemplo, se dividirmos uma pizza em 4 partes e comermos 1, comemos 1/4 da pizza!" },
-                    { tipo: "Visual", titulo: "Visualizando Frações", texto: "Imagine um círculo dividido ao meio. Cada metade é 1/2. Se dividirmos em 4, cada parte é 1/4. Quanto maior o denominador (número de baixo), menor é cada pedaço!" },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Se você tem 8 balas e dá metade para seu amigo, você deu 1/2 de 8, que é igual a 4 balas!" },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Se dividirmos uma barra de chocolate em 3 partes iguais e comermos 2 partes, qual fração representa o que comemos?", opcoes: ["1/3", "2/3", "3/2"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Fração é parte de um todo.<br>• O número de cima é o numerador (quantas partes pegamos).<br>• O número de baixo é o denominador (em quantas partes dividimos)." }
+                    { tipo: "Conceito", titulo: "Frações Simples", texto: "Uma fração representa uma parte de um todo que foi dividido em partes iguais. Por exemplo, se dividirmos uma pizza em 4 partes e comermos 1, comemos 1/4 da pizza!", nota: "Denominador: número de baixo (partes totais). Numerador: número de cima (partes que pegamos)." },
+                    { tipo: "Visual", titulo: "Visualizando Frações", texto: "Imagine um círculo dividido ao meio. Cada metade é 1/2. Se dividirmos em 4, cada parte é 1/4. Quanto maior o denominador, menor é cada pedaço!", nota: "Dica: 1/4 é menor do que 1/2!" },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Se você tem 8 balas e dá metade para seu amigo, você deu 1/2 de 8, que é igual a 4 balas!", nota: "Metade de qualquer número é o mesmo que dividir por 2." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Se dividirmos uma barra de chocolate em 3 partes iguais e comermos 2 partes, qual fração representa o que comemos?", opcoes: ["1/3", "2/3", "3/2"], correta: 1, nota: "Pense em quantas partes foram comidas sobre o total." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Fração é parte de um todo.<br>• O número de cima é o numerador.<br>• O número de baixo é o denominador.", nota: "◆ Fração = Divisão" }
                 ],
                 "História": [
-                    { tipo: "Teórico", titulo: "A Descoberta do Fogo", texto: "Há milhares de anos, os primeiros humanos descobriram como produzir e controlar o fogo. Isso mudou a história da humanidade para sempre!" },
-                    { tipo: "Visual", titulo: "Utilidades do Fogo", texto: "O fogo era usado para:<br>• Espantar animais selvagens perigosos.<br>• Cozinhar alimentos (tornando-os mais macios e saudáveis).<br>• Iluminar e aquecer as cavernas no frio." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Antes do fogo, os humanos comiam carne crua e vegetais duros. Com o fogo, aprenderam a assar e cozinhar, o que ajudou no desenvolvimento do cérebro!" },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual destas NÃO era uma utilidade do fogo para os primeiros humanos?", opcoes: ["Cozinhar alimentos", "Espantar animais", "Assistir televisão"], correta: 2 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• O fogo foi uma das maiores descobertas da pré-história.<br>• Trouxe proteção, calor, luz e alimentação cozida." }
+                    { tipo: "Conceito", titulo: "A Descoberta do Fogo", texto: "Há milhares de anos, os primeiros humanos descobriram como produzir e controlar o fogo. Isso mudou a história da humanidade para sempre!", nota: "O fogo permitiu a sobrevivência em climas frios." },
+                    { tipo: "Visual", titulo: "Utilidades do Fogo", texto: "O fogo era usado para:<br>• Espantar animais selvagens perigosos.<br>• Cozinhar alimentos (tornando-os mais macios e saudáveis).<br>• Iluminar e aquecer as cavernas no frio.", nota: "Cozinhar os alimentos ajudou na evolução do cérebro humano." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Antes do fogo, os humanos comiam carne crua e vegetais duros. Com o fogo, aprenderam a assar e cozinhar, o que facilitou a digestão!", nota: "A digestão mais fácil poupou energia para o corpo." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual destas NÃO era uma utilidade do fogo para os primeiros humanos?", opcoes: ["Cozinhar alimentos", "Espantar animais", "Assistir televisão"], correta: 2, nota: "Pense nas tecnologias disponíveis na pré-história." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• O fogo foi uma das maiores descobertas da pré-história.<br>• Trouxe proteção, calor, luz e alimentação cozida.", nota: "◆ Marco da evolução" }
                 ]
             },
             "fundamental_2": {
                 "Matemática": [
-                    { tipo: "Teórico", titulo: "Equações do 1º Grau", texto: "Uma equação do 1º grau é uma igualdade matemática que envolve uma incógnita (geralmente chamada de x). O objetivo é encontrar o valor de x que torna a igualdade verdadeira." },
-                    { tipo: "Visual", titulo: "A Balança de Pratos", texto: "Pense na equação como uma balança em equilíbrio. Tudo o que você fizer de um lado (somar, subtrair, multiplicar), deve fazer do outro lado para manter o equilíbrio!" },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Na equação x + 5 = 12, queremos isolar o x. Subtraímos 5 de ambos os lados:<br>x + 5 - 5 = 12 - 5<br>x = 7!" },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual é o valor de x na equação 2x = 10?", opcoes: ["x = 5", "x = 8", "x = 20"], correta: 0 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Equação busca encontrar o valor da incógnita x.<br>• Isole o x invertendo as operações (soma vira subtração, multiplicação vira divisão)." }
+                    { tipo: "Conceito", titulo: "Equações do 1º Grau", texto: "Uma equação do 1º grau é uma igualdade matemática que envolve uma incógnita (geralmente chamada de x). O objetivo é encontrar o valor de x que torna a igualdade verdadeira.", nota: "Incógnita: valor desconhecido que queremos descobrir." },
+                    { tipo: "Visual", titulo: "A Balança de Pratos", texto: "Pense na equação como uma balança em equilíbrio. Tudo o que você fizer de um lado (somar, subtrair, multiplicar), deve fazer do outro lado para manter o equilíbrio!", nota: "O sinal de igual (=) representa o equilíbrio da balança." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Na equação x + 5 = 12, queremos isolar o x. Subtraímos 5 de ambos os lados:<br>x + 5 - 5 = 12 - 5<br>x = 7!", nota: "Operação inversa: o que está somando passa subtraindo." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual é o valor de x na equação 2x = 10?", opcoes: ["x = 5", "x = 8", "x = 20"], correta: 0, nota: "O 2 está multiplicando o x. Qual a operação inversa?" },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Equação busca encontrar o valor da incógnita x.<br>• Isole o x invertendo as operações.", nota: "◆ Pratique para dominar!" }
                 ],
                 "História": [
-                    { tipo: "Teórico", titulo: "Feudalismo na Idade Média", texto: "O feudalismo foi o sistema político, econômico e social que predominou na Europa Ocidental durante a Idade Média. Era baseado na posse de terras (feudos) e em relações de vassalagem." },
-                    { tipo: "Visual", titulo: "A Sociedade Estamental", texto: "A sociedade era dividida em três ordens principais:<br>• Clero (os que rezam).<br>• Nobreza (os que guerreiam).<br>• Servos e Camponeses (os que trabalham)." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "O senhor feudal oferecia proteção militar e terras para cultivo. Em troca, os servos trabalhavam na terra e entregavam grande parte da produção como imposto." },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Quem estava no topo da pirâmide social feudal e detinha o poder espiritual?", opcoes: ["Os servos", "O clero", "Os camponeses"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Feudalismo baseava-se na terra e na servidão.<br>• Sociedade estamental sem mobilidade social." }
+                    { tipo: "Conceito", titulo: "Feudalismo na Idade Média", texto: "O feudalismo foi o sistema político, econômico e social que predominou na Europa Ocidental durante a Idade Média. Era baseado na posse de terras (feudos) e em relações de vassalagem.", nota: "Vassalagem: compromisso de fidelidade entre nobres." },
+                    { tipo: "Visual", titulo: "A Sociedade Estamental", texto: "A sociedade era dividida em três ordens principais:<br>• Clero (os que rezam).<br>• Nobreza (os que guerreiam).<br>• Servos e Camponeses (os que trabalham).", nota: "Sociedade estamental: quase não havia mobilidade social." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "O senhor feudal oferecia proteção militar e terras para cultivo. Em troca, os servos trabalhavam na terra e entregavam grande parte da produção como imposto.", nota: "Impostos feudais: talha, corveia e banalidades." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Quem estava no topo da pirâmide social feudal e detinha o poder espiritual?", opcoes: ["Os servos", "O clero", "Os camponeses"], correta: 1, nota: "Pense em quem controlava a religião e a cultura na época." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Feudalismo baseava-se na terra e na servidão.<br>• Sociedade estamental sem mobilidade social.", nota: "◆ Idade Média" }
                 ]
             },
             "medio": {
                 "Matemática": [
-                    { tipo: "Teórico", titulo: "Funções do 1º Grau", texto: "Uma função do 1º grau (ou função afim) é descrita pela fórmula f(x) = ax + b, onde 'a' é o coeficiente angular (declividade) e 'b' é o coeficiente linear (onde corta o eixo y)." },
-                    { tipo: "Visual", titulo: "O Gráfico da Função", texto: "O gráfico de uma função do 1º grau é sempre uma linha reta! Se 'a' for positivo, a reta é crescente. Se 'a' for negativo, a reta é decrescente." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Seja f(x) = 2x + 3. Se x = 4, calculamos:<br>f(4) = 2(4) + 3 = 8 + 3 = 11!" },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual é o coeficiente linear (onde corta o eixo y) na função f(x) = -3x + 5?", opcoes: ["-3", "5", "0"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• f(x) = ax + b gera um gráfico em linha reta.<br>• 'a' define a inclinação; 'b' define o ponto de partida no eixo y." }
+                    { tipo: "Conceito", titulo: "Funções do 1º Grau", texto: "Uma função do 1º grau (ou função afim) é descrita pela fórmula f(x) = ax + b, onde 'a' é o coeficiente angular (declividade) e 'b' é o coeficiente linear (onde corta o eixo y).", nota: "a: taxa de variação. b: valor inicial." },
+                    { tipo: "Visual", titulo: "O Gráfico da Função", texto: "O gráfico de uma função do 1º grau é sempre uma linha reta! Se 'a' for positivo, a reta é crescente. Se 'a' for negativo, a reta é decrescente.", nota: "Se a = 0, a função é constante." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Seja f(x) = 2x + 3. Se x = 4, calculamos:<br>f(4) = 2(4) + 3 = 8 + 3 = 11!", nota: "Substitua o x pelo valor desejado e resolva." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual é o coeficiente linear (onde corta o eixo y) na função f(x) = -3x + 5?", opcoes: ["-3", "5", "0"], correta: 1, nota: "O coeficiente linear é o termo independente 'b'." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• f(x) = ax + b gera um gráfico em linha reta.<br>• 'a' define a inclinação; 'b' define o ponto de partida no eixo y.", nota: "◆ Função Afim" }
                 ],
                 "História": [
-                    { tipo: "Teórico", titulo: "Grécia Antiga e a Pólis", texto: "A Grécia Antiga não era um país unificado, mas sim um conjunto de cidades-estado independentes chamadas 'pólis'. Cada pólis tinha suas próprias leis, governo e exército." },
-                    { tipo: "Visual", titulo: "Acrópole e Ágora", texto: "A pólis grega possuía dois espaços centrais:<br>• Acrópole: o ponto mais alto, com templos e defesas.<br>• Ágora: a praça pública onde ocorriam debates políticos e comércio." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Atenas e Esparta eram as duas pólis mais famosas. Atenas focava na filosofia, artes e democracia. Esparta focava no militarismo e na guerra." },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual era o nome da praça pública central na pólis grega onde ocorriam os debates políticos?", opcoes: ["Acrópole", "Ágora", "Partenon"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Pólis eram cidades-estado independentes.<br>• Atenas (democracia) e Esparta (militarismo) eram os maiores exemplos." }
+                    { tipo: "Conceito", titulo: "Grécia Antiga e a Pólis", texto: "A Grécia Antiga não era um país unificado, mas sim um conjunto de cidades-estado independentes chamadas 'pólis'. Cada pólis tinha suas próprias leis, governo e exército.", nota: "Pólis: berço do conceito moderno de cidadania." },
+                    { tipo: "Visual", titulo: "Acrópole e Ágora", texto: "A pólis grega possuía dois espaços centrais:<br>• Acrópole: o ponto mais alto, com templos e defesas.<br>• Ágora: a praça pública onde ocorriam debates políticos e comércio.", nota: "Ágora era o coração da democracia ateniense." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Atenas e Esparta eram as duas pólis mais famosas. Atenas focava na filosofia, artes e democracia. Esparta focava no militarismo e na guerra.", nota: "Modelos de sociedade completamente opostos." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual era o nome da praça pública central na pólis grega onde ocorriam os debates políticos?", opcoes: ["Acrópole", "Ágora", "Partenon"], correta: 1, nota: "Pense no espaço de debate público e comércio." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Pólis eram cidades-estado independentes.<br>• Atenas (democracia) e Esparta (militarismo) eram os maiores exemplos.", nota: "◆ Grécia Clássica" }
                 ]
             },
             "superior": {
                 "Matemática": [
-                    { tipo: "Teórico", titulo: "Cálculo Diferencial: Derivadas", texto: "A derivada de uma função f(x) mede a taxa de variação instantânea da função em relação a x. Geometricamente, representa a inclinação da reta tangente ao gráfico da função em um ponto." },
-                    { tipo: "Visual", titulo: "A Reta Tangente", texto: "À medida que aproximamos dois pontos de uma curva, a reta secante se transforma na reta tangente. O limite dessa inclinação é a derivada!" },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Usando a regra do tombo para f(x) = x², a derivada f'(x) é dada por 2x. No ponto x = 3, a inclinação da reta tangente é f'(3) = 6!" },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual é a derivada da função f(x) = 5x?", opcoes: ["5", "5x", "0"], correta: 0 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Derivada mede taxa de variação instantânea.<br>• Geometricamente é a inclinação da reta tangente." }
+                    { tipo: "Conceito", titulo: "Cálculo Diferencial: Derivadas", texto: "A derivada de uma função f(x) mede a taxa de variação instantânea da função em relação a x. Geometricamente, representa a inclinação da reta tangente ao gráfico da função em um ponto.", nota: "Derivada: limite da razão incremental." },
+                    { tipo: "Visual", titulo: "A Reta Tangente", texto: "À medida que aproximamos dois pontos de uma curva, a reta secante se transforma na reta tangente. O limite dessa inclinação é a derivada!", nota: "A inclinação indica se a função está crescendo ou decrescendo." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Usando a regra do tombo para f(x) = x², a derivada f'(x) é dada por 2x. No ponto x = 3, a inclinação da reta tangente é f'(3) = 6!", nota: "Regra do tombo: d/dx(x^n) = n*x^(n-1)." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual é a derivada da função f(x) = 5x?", opcoes: ["5", "5x", "0"], correta: 0, nota: "A derivada de uma função linear f(x) = ax é sempre 'a'." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Derivada mede taxa de variação instantânea.<br>• Geometricamente é a inclinação da reta tangente.", nota: "◆ Cálculo I" }
                 ],
                 "História": [
-                    { tipo: "Teórico", titulo: "A Revolução Industrial", texto: "A Revolução Industrial, iniciada na Inglaterra no século XVIII, marcou a transição da produção artesanal para a produção mecanizada em fábricas, transformando a economia e a sociedade global." },
-                    { tipo: "Visual", titulo: "Urbanização e Proletariado", texto: "A industrialização gerou:<br>• Êxodo rural em massa para as cidades.<br>• Surgimento da classe operária (proletariado).<br>• Condições de trabalho extremamente precárias nas fábricas." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "A máquina a vapor de James Watt e o tear mecânico permitiram produzir tecidos e mercadorias em escala nunca antes vista, barateando os custos e expandindo o capitalismo." },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Em qual país se iniciou a Revolução Industrial no século XVIII?", opcoes: ["França", "Inglaterra", "Alemanha"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Transição do artesanato para a indústria mecanizada.<br>• Consolidação do capitalismo e surgimento do proletariado." }
+                    { tipo: "Conceito", titulo: "A Revolução Industrial", texto: "A Revolução Industrial, iniciada na Inglaterra no século XVIII, marcou a transição da produção artesanal para a produção mecanizada em fábricas, transformando a economia e a sociedade global.", nota: "A Inglaterra tinha abundância de carvão e ferro." },
+                    { tipo: "Visual", titulo: "Urbanização e Proletariado", texto: "A industrialização gerou:<br>• Êxodo rural em massa para as cidades.<br>• Surgimento da classe operária (proletariado).<br>• Condições de trabalho extremamente precárias nas fábricas.", nota: "As cidades cresceram de forma desordenada e insalubre." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "A máquina a vapor de James Watt e o tear mecânico permitiram produzir tecidos e mercadorias em escala nunca antes vista, barateando os custos e expandindo o capitalismo.", nota: "O vapor substituiu a força humana e animal." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Em qual país se iniciou a Revolução Industrial no século XVIII?", opcoes: ["França", "Inglaterra", "Alemanha"], correta: 1, nota: "Pense na potência marítima e comercial da época." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Transição do artesanato para a indústria mecanizada.<br>• Consolidação do capitalismo e surgimento do proletariado.", nota: "◆ Século XVIII" }
                 ]
             },
             "pos": {
                 "Matemática": [
-                    { tipo: "Teórico", titulo: "Estatística Multivariada", texto: "A análise multivariada envolve a observação e análise simultânea de mais de uma variável estatística. É essencial para modelar fenômenos complexos onde as variáveis são interdependentes." },
-                    { tipo: "Visual", titulo: "Análise de Componentes Principais (PCA)", texto: "A PCA é uma técnica de redução de dimensionalidade que projeta os dados em direções de máxima variância (componentes principais), minimizando a perda de informação." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Em genética, a PCA permite agrupar milhares de expressões gênicas em apenas 2 ou 3 componentes principais, facilitando a visualização de padrões populacionais." },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual é o principal objetivo da técnica PCA na análise multivariada?", opcoes: ["Aumentar o número de variáveis", "Reduzir a dimensionalidade dos dados", "Calcular a média simples"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Análise multivariada estuda múltiplas variáveis interdependentes.<br>• PCA reduz dimensionalidade projetando dados na máxima variância." }
+                    { tipo: "Conceito", titulo: "Estatística Multivariada", texto: "A análise multivariada envolve a observação e análise simultânea de mais de uma variável estatística. É essencial para modelar fenômenos complexos onde as variáveis são interdependentes.", nota: "Essencial para Big Data e Data Science." },
+                    { tipo: "Visual", titulo: "Análise de Componentes Principais (PCA)", texto: "A PCA é uma técnica de redução de dimensionalidade que projeta os dados em direções de máxima variância (componentes principais), minimizando a perda de informação.", nota: "Os componentes principais são ortogonais entre si." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Em genética, a PCA permite agrupar milhares de expressões gênicas em apenas 2 ou 3 componentes principais, facilitando a visualização de padrões populacionais.", nota: "Ajuda a identificar clusters de dados complexos." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual é o principal objetivo da técnica PCA na análise multivariada?", opcoes: ["Aumentar o número de variáveis", "Reduzir a dimensionalidade dos dados", "Calcular a média simples"], correta: 1, nota: "Pense na simplificação de grandes conjuntos de dados." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Análise multivariada estuda múltiplas variáveis interdependentes.<br>• PCA reduz dimensionalidade projetando dados na máxima variância.", nota: "◆ Estatística Avançada" }
                 ],
                 "História": [
-                    { tipo: "Teórico", titulo: "Historiografia e Epistemologia", texto: "A historiografia estuda a forma como a história é escrita e interpretada ao longo do tempo. A epistemologia histórica investiga as condições de validade e produção do conhecimento histórico." },
-                    { tipo: "Visual", titulo: "A Escola dos Annales", texto: "Fundada por Marc Bloch e Lucien Febvre, a Escola dos Annales revolucionou a historiografia ao propor:<br>• A história de 'longa duração' (estruturas profundas).<br>• Abertura para outras ciências sociais (sociologia, geografia, economia)." },
-                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Em vez de focar apenas em grandes batalhas e reis (história factual), os historiadores dos Annales passaram a estudar a história do clima, da alimentação e das mentalidades coletivas." },
-                    { tipo: "Pergunta Rápida", titulo: "Pergunta Rápida", texto: "Qual escola historiográfica propôs o estudo da história de 'longa duração' e das mentalidades?", opcoes: ["Positivismo", "Escola dos Annales", "Marxismo"], correta: 1 },
-                    { tipo: "Resumo", titulo: "Resumo", texto: "• Historiografia analisa a escrita da história.<br>• Escola dos Annales expandiu o objeto histórico para além dos grandes eventos políticos." }
-                ]
-            }
-        };
-
-        const QUESTOES_PRATICA = {
-            "fundamental_1": {
-                "Matemática": [
-                    { q: "Se dividirmos uma pizza em 8 fatias e comermos 3, qual fração representa o que sobrou?", opts: ["3/8", "5/8", "8/5"], correta: 1 },
-                    { q: "Qual fração é equivalente a 1/2?", opts: ["2/4", "2/3", "1/4"], correta: 0 },
-                    { q: "Se você tem 12 chocolates e come 1/3 deles, quantos chocolates você comeu?", opts: ["3", "4", "6"], correta: 1 }
-                ],
-                "História": [
-                    { q: "Qual destas descobertas permitiu aos humanos cozinhar alimentos?", opts: ["A roda", "O fogo", "A escrita"], correta: 1 },
-                    { q: "Onde os primeiros humanos costumavam se abrigar do frio?", opts: ["Em casas de tijolo", "Em cavernas", "Em prédios"], correta: 1 },
-                    { q: "Como o fogo ajudava a proteger os humanos à noite?", opts: ["Iluminando o caminho para caçar", "Espantando animais selvagens", "Fazendo sinais de fumaça"], correta: 1 }
-                ]
-            },
-            "fundamental_2": {
-                "Matemática": [
-                    { q: "Resolva a equação: 3x - 4 = 11", opts: ["x = 5", "x = 3", "x = 15"], correta: 0 },
-                    { q: "Qual é o valor de x na equação: x/2 + 3 = 7?", opts: ["x = 8", "x = 10", "x = 4"], correta: 0 },
-                    { q: "Se 4x + 2 = 2x + 10, qual é o valor de x?", opts: ["x = 2", "x = 4", "x = 6"], correta: 1 }
-                ],
-                "História": [
-                    { q: "Qual era a principal unidade econômica e de produção no feudalismo?", opts: ["A cidade", "O feudo", "A fábrica"], correta: 1 },
-                    { q: "Quem eram os trabalhadores que cultivavam a terra no sistema feudal?", opts: ["Os nobres", "Os servos", "Os cavaleiros"], correta: 1 },
-                    { q: "Qual instituição detinha imenso poder político e espiritual na Idade Média?", opts: ["O exército", "A Igreja Católica", "As corporações de ofício"], correta: 1 }
-                ]
-            },
-            "medio": {
-                "Matemática": [
-                    { q: "Dada a função f(x) = -2x + 7, qual é o valor de f(3)?", opts: ["1", "3", "13"], correta: 1 },
-                    { q: "Qual é o ponto de interseção com o eixo y da função f(x) = 4x - 8?", opts: ["(0, 4)", "(0, -8)", "(4, 0)"], correta: 1 },
-                    { q: "Se o gráfico de uma função do 1º grau é uma reta crescente, o coeficiente angular 'a' deve ser:", opts: ["Positivo", "Negativo", "Zero"], correta: 0 }
-                ],
-                "História": [
-                    { q: "Qual cidade-estado grega era famosa por seu foco na democracia e filosofia?", opts: ["Esparta", "Atenas", "Tebas"], correta: 1 },
-                    { q: "O que eram as 'pólis' na Grécia Antiga?", opts: ["Templos religiosos", "Cidades-estado independentes", "Moedas de ouro"], correta: 1 },
-                    { q: "Qual era o papel da Acrópole na pólis grega?", opts: ["Praça de comércio", "Ponto mais alto com templos e defesas", "Teatro público"], correta: 1 }
-                ]
-            },
-            "superior": {
-                "Matemática": [
-                    { q: "Qual é a derivada da função f(x) = x³ + 4x?", opts: ["3x² + 4", "x² + 4", "3x + 4"], correta: 0 },
-                    { q: "A derivada de uma função constante f(x) = 10 é:", opts: ["10", "1", "0"], correta: 2 },
-                    { q: "Se f(x) = 3x², qual é o valor da derivada f'(2)?", opts: ["6", "12", "18"], correta: 1 }
-                ],
-                "História": [
-                    { q: "Qual fonte de energia foi fundamental para a mecanização na Primeira Revolução Industrial?", opts: ["Eletricidade", "Vapor (carvão mineral)", "Petróleo"], correta: 1 },
-                    { q: "Qual classe social surgiu diretamente com a industrialização e o trabalho nas fábricas?", opts: ["A nobreza", "O proletariado", "O clero"], correta: 1 },
-                    { q: "A Revolução Industrial provocou qual grande movimento populacional?", opts: ["Êxodo urbano", "Êxodo rural", "Migração internacional em massa"], correta: 1 }
-                ]
-            },
-            "pos": {
-                "Matemática": [
-                    { q: "Na técnica PCA, os componentes principais são ortogonais entre si. Isso significa que eles são:", opts: ["Altamente correlacionados", "Linearmente independentes (não correlacionados)", "Idênticos"], correta: 1 },
-                    { q: "Qual matriz é decomposta em autovalores e autovetores para realizar a PCA?", opts: ["Matriz de covariância ou correlação", "Matriz identidade", "Matriz de médias simples"], correta: 0 },
-                    { q: "A PCA projeta os dados originais em direções que maximizam qual propriedade estatística?", opts: ["A média", "A variância", "A mediana"], correta: 1 }
-                ],
-                "História": [
-                    { q: "Quem foi um dos fundadores da Escola dos Annales, autor da obra 'Apologia da História'?", opts: ["Leopold von Ranke", "Marc Bloch", "Karl Marx"], correta: 1 },
-                    { q: "A Escola dos Annales propôs a substituição da história puramente política e factual por qual abordagem?", opts: ["História das mentalidades e de longa duração", "História positivista e de grandes heróis", "História puramente militar"], correta: 0 },
-                    { q: "O conceito de 'longa duração' (longue durée) na historiografia refere-se a:", opts: ["Eventos políticos rápidos", "Estruturas sociais e geográficas profundas e lentas", "Biografias detalhadas de reis"], correta: 1 }
+                    { tipo: "Conceito", titulo: "Historiografia e Epistemologia", texto: "A historiografia estuda a forma como a história é escrita e interpretada ao longo do tempo. A epistemologia histórica investiga as condições de validade e produção do conhecimento histórico.", nota: "A história não é o passado, mas a narrativa sobre ele." },
+                    { tipo: "Visual", titulo: "A Escola dos Annales", texto: "Fundada por Marc Bloch e Lucien Febvre, a Escola dos Annales revolucionou a historiografia ao propor:<br>• A história de 'longa duração' (estruturas profundas).<br>• Abertura para outras ciências sociais (sociologia, geografia, economia).", nota: "Rompeu com a história puramente política e factual." },
+                    { tipo: "Exemplo", titulo: "Exemplo Prático", texto: "Em vez de focar apenas em grandes batalhas e reis (história factual), os historiadores dos Annales passaram a estudar a história do clima, da alimentação e das mentalidades coletivas.", nota: "A história vista de baixo e em múltiplos níveis." },
+                    { tipo: "Reflexão", titulo: "Pergunta Rápida", texto: "Qual escola historiográfica propôs o estudo da história de 'longa duração' e das mentalidades?", opcoes: ["Positivismo", "Escola dos Annales", "Marxismo"], correta: 1, nota: "Pense na escola francesa fundada em 1929." },
+                    { tipo: "Síntese", titulo: "Resumo", texto: "• Historiografia analisa a escrita da história.<br>• Escola dos Annales expandiu o objeto histórico para além dos grandes eventos políticos.", nota: "◆ Teoria da História" }
                 ]
             }
         };
@@ -1986,7 +2007,6 @@
             slideAtual = 0;
             emPratica = false;
 
-            // Carrega conteúdo com base no nível e matéria do usuário
             const nivel = dadosUsuario ? dadosUsuario.escolaridade : "medio";
             let nivelKey = "medio";
             if (nivel.includes("1º ao 5º")) nivelKey = "fundamental_1";
@@ -2016,7 +2036,7 @@
             card.innerHTML = "";
 
             let contentHTML = "";
-            if (slide.tipo === "Pergunta Rápida") {
+            if (slide.tipo === "Reflexão") {
                 let optsHTML = "";
                 slide.opcoes.forEach((opt, idx) => {
                     optsHTML += `
@@ -2024,21 +2044,33 @@
                     `;
                 });
                 contentHTML = `
-                    <div class="slide-content">
-                        <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${slide.tipo}</p>
-                        <h4>${slide.titulo}</h4>
-                        <p>${slide.texto}</p>
-                        <div class="pratica-container" style="margin-top: 16px;">
-                            ${optsHTML}
+                    <div class="slide-main-col">
+                        <div class="slide-content">
+                            <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${slide.tipo}</p>
+                            <h4 style="font-style: italic;">${slide.titulo}</h4>
+                            <p>${slide.texto}</p>
+                            <div class="pratica-container" style="margin-top: 16px;">
+                                ${optsHTML}
+                            </div>
                         </div>
+                    </div>
+                    <div class="slide-side-col">
+                        <div class="slide-side-title">Nota Lateral</div>
+                        <div>${slide.nota}</div>
                     </div>
                 `;
             } else {
                 contentHTML = `
-                    <div class="slide-content">
-                        <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${slide.tipo}</p>
-                        <h4>${slide.titulo}</h4>
-                        <p>${slide.texto}</p>
+                    <div class="slide-main-col">
+                        <div class="slide-content">
+                            <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${slide.tipo}</p>
+                            <h4>${slide.titulo}</h4>
+                            <p>${slide.texto}</p>
+                        </div>
+                    </div>
+                    <div class="slide-side-col">
+                        <div class="slide-side-title">Nota Lateral</div>
+                        <div>${slide.nota}</div>
                     </div>
                 `;
             }
@@ -2049,14 +2081,15 @@
             document.getElementById("btnSlidePrev").disabled = slideAtual === 0 || emPratica;
             document.getElementById("btnSlideNext").disabled = slideAtual === slidesAtivos.length - 1 || emPratica;
 
-            // Atualiza progresso
-            const progressFill = document.getElementById("slideProgressFill");
-            const progressText = document.getElementById("slideProgressText");
-            const pct = ((slideAtual + 1) / slidesAtivos.length) * 100;
-            progressFill.style.width = `${pct}%`;
-            progressText.textContent = `Slide ${slideAtual + 1} de ${slidesAtivos.length}`;
+            // Atualiza progresso em círculos
+            const circlesContainer = document.getElementById("slideProgressCircles");
+            circlesContainer.innerHTML = "";
+            slidesAtivos.forEach((_, idx) => {
+                const circle = document.createElement("div");
+                circle.className = `slides-progress-circle ${idx === slideAtual ? 'active' : ''}`;
+                circlesContainer.appendChild(circle);
+            });
 
-            // Se for o último slide, mostra o botão de praticar
             if (slideAtual === slidesAtivos.length - 1 && !emPratica) {
                 document.getElementById("btnPraticar").style.display = "block";
             } else {
@@ -2090,7 +2123,7 @@
             });
 
             if (idx === corretaIdx) {
-                showToast("Resposta correta! +5 XP");
+                showToast("Resposta correta! +5 pontos");
                 adicionarXP(5);
             } else {
                 showToast("Resposta incorreta! Continue lendo para aprender.");
@@ -2120,21 +2153,25 @@
             });
 
             card.innerHTML = `
-                <div class="slide-content">
-                    <p style="color: #10b981; font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">Questão Prática ${questaoAtualIdx + 1} de ${questoesAtivas.length}</p>
-                    <h4 style="color: var(--text-main); font-size: 18px; margin-bottom: 16px;">${q.q}</h4>
-                    <div class="pratica-container">
-                        ${optsHTML}
+                <div class="slide-main-col" style="grid-column: span 2;">
+                    <div class="slide-content">
+                        <p style="color: var(--success); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">Questão Prática ${questaoAtualIdx + 1} de ${questoesAtivas.length}</p>
+                        <h4 style="color: var(--text-main); font-size: 18px; margin-bottom: 16px;">${q.q}</h4>
+                        <div class="pratica-container">
+                            ${optsHTML}
+                        </div>
                     </div>
                 </div>
             `;
 
-            // Atualiza progresso
-            const progressFill = document.getElementById("slideProgressFill");
-            const progressText = document.getElementById("slideProgressText");
-            const pct = ((questaoAtualIdx + 1) / questoesAtivas.length) * 100;
-            progressFill.style.width = `${pct}%`;
-            progressText.textContent = `Questão ${questaoAtualIdx + 1} de ${questoesAtivas.length}`;
+            // Atualiza progresso em círculos
+            const circlesContainer = document.getElementById("slideProgressCircles");
+            circlesContainer.innerHTML = "";
+            questoesAtivas.forEach((_, idx) => {
+                const circle = document.createElement("div");
+                circle.className = `slides-progress-circle ${idx === questaoAtualIdx ? 'active' : ''}`;
+                circlesContainer.appendChild(circle);
+            });
         }
 
         function responderQuestaoPratica(idx, corretaIdx) {
@@ -2149,7 +2186,7 @@
             });
 
             if (idx === corretaIdx) {
-                showToast("Resposta correta! +10 XP");
+                showToast("Resposta correta! +10 pontos");
                 adicionarXP(10);
                 setTimeout(() => {
                     if (questaoAtualIdx < questoesAtivas.length - 1) {
@@ -2170,381 +2207,32 @@
         function finalizarMissaoComSucesso() {
             fecharEstudoGuiado();
             toggleMissao(missaoAtivaId, true);
-            showModal('🏆', 'Missão Concluída!', 'Parabéns! Você concluiu todos os slides e acertou as questões de prática. Continue assim!');
+            showModal('🏆', 'Mais um dia de consistência!', 'Parabéns! Você concluiu todos os slides e acertou as questões de prática. Continue assim!');
         }
     </script>
     <script>
-        // --- TAREFAS CUSTOMIZADAS ---
-        function showAddTaskForm() {
-            document.getElementById('addTaskTrigger').style.display = 'none';
-            document.getElementById('addTaskForm').style.display = 'flex';
-            document.getElementById('taskInputTitle').focus();
-        }
-
-        function hideAddTaskForm() {
-            document.getElementById('addTaskTrigger').style.display = 'flex';
-            document.getElementById('addTaskForm').style.display = 'none';
-            document.getElementById('taskInputTitle').value = '';
-            document.getElementById('taskInputDesc').value = '';
-        }
-
-        function adicionarTarefaCustomizada() {
-            const title = document.getElementById('taskInputTitle').value.trim();
-            const desc = document.getElementById('taskInputDesc').value.trim();
-
-            if (!title) {
-                showToast('Por favor, digite o nome da tarefa!');
-                return;
-            }
-
-            const novaTarefa = {
-                titulo: title,
-                desc: desc,
-                concluida: false
-            };
-
-            estado.tarefasCustomizadas.push(novaTarefa);
-            salvarEstado();
-            renderizarTarefasCustomizadas();
-            hideAddTaskForm();
-            showToast('Tarefa adicionada com sucesso!');
-        }
-
-        function toggleTarefaCustomizada(idx) {
+        // --- REFLEXÃO DIÁRIA ---
+        function salvarReflexao() {
+            const text = document.getElementById("reflexaoInput").value.trim();
             const hojeStr = new Date().toISOString().split('T')[0];
-            if (estado.diasCompletos.includes(hojeStr)) {
-                showToast('Você já concluiu o dia de estudos de hoje!');
-                return;
-            }
-
-            const tarefa = estado.tarefasCustomizadas[idx];
-            tarefa.concluida = !tarefa.concluida;
-
-            const xpGanho = estado.isVip ? 10 : 5;
-            if (tarefa.concluida) {
-                adicionarXP(xpGanho);
-                showToast(`Tarefa concluída! +${xpGanho} XP`);
-            } else {
-                adicionarXP(-xpGanho);
-                showToast(`Tarefa desmarcada. -${xpGanho} XP`);
-            }
-
-            salvarEstado();
-            renderizarTarefasCustomizadas();
-            atualizarUI();
-        }
-
-        function renderizarTarefasCustomizadas() {
-            document.querySelectorAll('.task-item-custom').forEach(el => el.remove());
-
-            const list = document.getElementById('taskList');
-            estado.tarefasCustomizadas.forEach((tarefa, idx) => {
-                const item = document.createElement('div');
-                item.className = `task-item task-item-custom ${tarefa.concluida ? 'completed' : ''}`;
-                item.innerHTML = `
-                    <div class="task-checkbox ${tarefa.concluida ? 'checked' : ''}" onclick="toggleTarefaCustomizada(${idx})"></div>
-                    <div class="task-content">
-                        <div class="task-title">${tarefa.titulo}</div>
-                        ${tarefa.desc ? `<div class="task-desc">${tarefa.desc}</div>` : ''}
-                    </div>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        // --- CALENDÁRIO ---
-        function gerarCalendario() {
-            const grid = document.getElementById('calGrid');
-            grid.innerHTML = '';
-
-            const hoje = new Date();
-            const ano = hoje.getFullYear();
-            const mes = hoje.getMonth();
-            const diaAtual = hoje.getDate();
-            const primeiroDia = new Date(ano, mes, 1).getDay();
-            const diasNoMes = new Date(ano, mes + 1, 0).getDate();
-
-            const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-            document.getElementById('calMonthYear').textContent = `📅 ${meses[mes]} ${ano}`;
-
-            for (let i = 0; i < primeiroDia; i++) {
-                const div = document.createElement('div');
-                div.className = 'cal-dia vazio';
-                grid.appendChild(div);
-            }
-
-            for (let d = 1; d <= diasNoMes; d++) {
-                const div = document.createElement('div');
-                div.className = 'cal-dia';
-                div.textContent = d;
-
-                const dataStr = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                
-                if (estado.diasCompletos.includes(dataStr)) {
-                    div.classList.add('completo');
-                }
-
-                if (d === diaAtual) {
-                    div.classList.add('hoje');
-                }
-
-                grid.appendChild(div);
-            }
-        }
-
-        function atualizarContadores() {
-            const hoje = new Date();
-            const ano = hoje.getFullYear();
-            const mes = hoje.getMonth();
-
-            document.getElementById('diasTotal').textContent = `${estado.diasCompletos.length} dias`;
-
-            const inicioSemana = new Date(hoje);
-            inicioSemana.setDate(hoje.getDate() - hoje.getDay());
-            inicioSemana.setHours(0, 0, 0, 0);
             
-            const fimSemana = new Date(inicioSemana);
-            fimSemana.setDate(inicioSemana.getDate() + 6);
-            fimSemana.setHours(23, 59, 59, 999);
-
-            let diasSemana = 0;
-            estado.diasCompletos.forEach(dataStr => {
-                const [y, m, d] = dataStr.split('-').map(Number);
-                const data = new Date(y, m - 1, d);
-                if (data >= inicioSemana && data <= fimSemana) {
-                    diasSemana++;
-                }
-            });
-            document.getElementById('diasSemana').textContent = `${diasSemana} dias`;
-
-            let diasMes = 0;
-            estado.diasCompletos.forEach(dataStr => {
-                const [y, m, d] = dataStr.split('-').map(Number);
-                if (y === ano && m === mes + 1) {
-                    diasMes++;
-                }
-            });
-            document.getElementById('diasMes').textContent = `${diasMes} dias`;
-        }
-    </script>
-    <script>
-        // --- RANKING ---
-        function gerarRanking() {
-            const list = document.getElementById('rankingList');
-            list.innerHTML = '';
-
-            const mockUsers = [
-                { nome: 'Ana Silva', xp: 450, vip: true },
-                { nome: 'Bruno Costa', xp: 380, vip: false },
-                { nome: 'Você', xp: estado.xp, vip: estado.isVip, isUser: true },
-                { nome: 'Carlos Souza', xp: 120, vip: false },
-                { nome: 'Diana Lima', xp: 90, vip: true }
-            ];
-
-            mockUsers.sort((a, b) => b.xp - a.xp);
-
-            mockUsers.forEach((user, index) => {
-                const pos = index + 1;
-                let posClass = '';
-                if (pos === 1) posClass = 'gold';
-                else if (pos === 2) posClass = 'silver';
-                else if (pos === 3) posClass = 'bronze';
-
-                const item = document.createElement('div');
-                item.className = `ranking-item ${user.isUser ? 'user' : ''}`;
-                item.innerHTML = `
-                    <div class="rank-pos ${posClass}">${pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos}</div>
-                    <div class="rank-name">
-                        ${user.nome}
-                        ${user.vip ? '<span class="vip-badge" style="padding: 1px 6px; font-size: 9px; box-shadow: none;">⭐ VIP</span>' : ''}
-                    </div>
-                    <div class="rank-xp">${user.xp} XP</div>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        // --- CONQUISTAS ---
-        function gerarConquistas() {
-            const grid = document.getElementById('achievementsGrid');
-            grid.innerHTML = '';
-
-            const conquistas = [
-                { id: 'primeiro_passo', icon: '🌱', title: 'Primeiro Passo', desc: 'Conclua sua primeira missão diária.', cond: estado.missoesConcluidasHoje.length > 0 || estado.diasCompletos.length > 0 },
-                { id: 'focado', icon: '⏱️', title: 'Foco Total', desc: 'Acumule 10 minutos de foco no timer.', cond: estado.tempoFoco >= 10 },
-                { id: 'inabalavel', icon: '🔥', title: 'Inabalável', desc: 'Alcance uma ofensiva de 3 dias.', cond: estado.streak >= 3 },
-                { id: 'vip_member', icon: '👑', title: 'Membro Real', desc: 'Assine o plano VIP.', cond: estado.isVip }
-            ];
-
-            conquistas.forEach(conq => {
-                const card = document.createElement('div');
-                card.className = `achievement-card ${conq.cond ? 'unlocked' : ''}`;
-                card.innerHTML = `
-                    <div class="achievement-icon">${conq.icon}</div>
-                    <div class="achievement-title">${conq.title}</div>
-                    <div class="achievement-desc">${conq.desc}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // --- ESTATÍSTICAS ---
-        function atualizarStats() {
-            const statsOverlay = document.getElementById('statsOverlay');
-            if (estado.isVip) {
-                statsOverlay.style.display = 'none';
-                document.getElementById('statTempo').textContent = `${estado.tempoFoco} min`;
-                const totalMissoes = estado.diasCompletos.length * 2 + estado.missoesConcluidasHoje.length;
-                const aproveitamento = totalMissoes > 0 ? '100%' : '0%';
-                document.getElementById('statPrecisao').textContent = aproveitamento;
-            } else {
-                statsOverlay.style.display = 'flex';
-            }
-        }
-
-        // --- ASSINATURA VIP ---
-        function assinarVip() {
-            if (estado.isVip) {
-                showToast('Você já é VIP!');
-                return;
-            }
-            estado.isVip = true;
-            showModal('🎉', 'Parabéns!', 'Agora você é um membro VIP! Você ganhou o badge dourado, XP em dobro em todas as missões e acesso total às Estatísticas Avançadas.');
-            atualizarUI();
-        }
-
-        // --- TIMERS ---
-        function toggleTimer(id, minutes) {
-            const btn = document.getElementById(`timer-btn-${id}`);
-            
-            if (timers[id]) {
-                clearInterval(timers[id].interval);
-                delete timers[id];
-                btn.textContent = '▶ Iniciar';
-                btn.classList.remove('running');
-                showToast('Timer pausado!');
-            } else {
-                let seconds = minutes * 60;
-                btn.classList.add('running');
-                showToast('Timer iniciado! Concentre-se.');
-
-                const interval = setInterval(() => {
-                    seconds--;
-                    const m = Math.floor(seconds / 60);
-                    const s = seconds % 60;
-                    btn.textContent = `⏱️ ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-
-                    if (seconds % 60 === 0) {
-                        estado.tempoFoco++;
-                        salvarEstado();
-                    }
-
-                    if (seconds <= 0) {
-                        clearInterval(interval);
-                        delete timers[id];
-                        btn.textContent = '▶ Iniciar';
-                        btn.classList.remove('running');
-                        showModal('⏰', 'Tempo Esgotado!', 'Parabéns por concluir o tempo de foco desta missão! Agora marque-a como concluída.');
-                        toggleMissao(id, true);
-                    }
-                }, 1000);
-
-                timers[id] = { interval, seconds };
-            }
-        }
-    </script>
-    <script>
-        // --- MISSÕES ---
-        function toggleMissao(id, forceCheck = false) {
-            const hojeStr = new Date().toISOString().split('T')[0];
-            if (estado.diasCompletos.includes(hojeStr)) {
-                showToast('Você já concluiu o dia de estudos de hoje!');
-                return;
-            }
-
-            const index = estado.missoesConcluidasHoje.indexOf(id);
-            const item = document.getElementById(`missao-${id}`);
-            const checkbox = item.querySelector('.task-checkbox');
-
-            if (index === -1 || forceCheck) {
-                if (index === -1) {
-                    estado.missoesConcluidasHoje.push(id);
-                }
-                checkbox.classList.add('checked');
-                item.classList.add('completed');
-                
-                const xpGanho = estado.isVip ? 10 : 5;
-                adicionarXP(xpGanho);
-                showToast(`Tarefa concluída! +${xpGanho} XP`);
-            } else {
-                estado.missoesConcluidasHoje.splice(index, 1);
-                checkbox.classList.remove('checked');
-                item.classList.remove('completed');
-                
-                const xpPerdido = estado.isVip ? 10 : 5;
-                adicionarXP(-xpPerdido);
-                showToast(`Tarefa desmarcada. -${xpPerdido} XP`);
-            }
-
-            atualizarUI();
-        }
-
-        function concluirDia() {
-            const hojeStr = new Date().toISOString().split('T')[0];
-
-            if (estado.diasCompletos.includes(hojeStr)) {
-                showToast('Você já concluiu o dia de hoje!');
-                return;
-            }
-
-            if (estado.missoesConcluidasHoje.length < 2) {
-                showModal('⚠️', 'Quase lá!', 'Conclua e marque todas as missões principais do dia antes de finalizar o seu dia de estudos!');
-                return;
-            }
-
-            estado.diasCompletos.push(hojeStr);
-
-            const xpBonus = estado.isVip ? 20 : 10;
-            adicionarXP(xpBonus);
-
-            const ontem = new Date();
-            ontem.setDate(ontem.getDate() - 1);
-            const ontemStr = ontem.toISOString().split('T')[0];
-
-            if (estado.ultimoDiaCompleto === ontemStr) {
-                estado.streak += 1;
-            } else if (estado.ultimoDiaCompleto !== hojeStr) {
-                estado.streak = 1;
-            }
-            estado.ultimoDiaCompleto = hojeStr;
-
-            showModal('🎉', 'Dia Concluído!', `Parabéns! Você completou todas as missões de hoje e garantiu +${xpBonus} XP de bônus! Sua ofensiva agora é de ${estado.streak} dias.`);
-            atualizarUI();
-        }
-
-        // --- XP E NÍVEL ---
-        function adicionarXP(qtd) {
-            estado.xp += qtd;
-            if (estado.xp < 0) estado.xp = 0;
-
-            const nivelAtual = Math.floor(estado.xp / 100) + 1;
-            const nivelAnterior = Math.floor((estado.xp - qtd) / 100) + 1;
-
-            if (nivelAtual > nivelAnterior && qtd > 0) {
-                setTimeout(() => {
-                    showModal('👑 LEVEL UP!', `Parabéns! Você subiu para o Nível ${nivelAtual}! Continue estudando firme.`, 'Você está progredindo muito bem!');
-                }, 1000);
-            }
+            estado.reflexoesDiarias[hojeStr] = text;
             salvarEstado();
+            showToast("Sua reflexão diária foi salva com sucesso!");
         }
 
         // --- ATUALIZAR UI GERAL ---
         function atualizarUI() {
+            // Estágio de Disciplina (Nível)
             const nivel = Math.floor(estado.xp / 100) + 1;
             const xpNoNivel = estado.xp % 100;
             
-            document.getElementById('levelDisplay').textContent = `Nível ${nivel}`;
-            document.getElementById('xpDisplay').textContent = `${xpNoNivel}/100 XP`;
+            // Converte nível para algarismos romanos
+            const algarismosRomanos = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+            const nivelRomano = algarismosRomanos[nivel - 1] || nivel;
+
+            document.getElementById('levelDisplay').textContent = `Estágio ${nivelRomano}`;
+            document.getElementById('xpText').textContent = `${xpNoNivel}/100 XP`;
             document.getElementById('xpBarFill').style.width = `${xpNoNivel}%`;
 
             const vipBadgeMobile = document.getElementById('vipBadgeMobile');
@@ -2571,7 +2259,18 @@
                 if (sidebarVipBadge) sidebarVipBadge.remove();
             }
 
+            // Chama da Consistência (Ofensiva)
             document.getElementById('streakDisplay').textContent = `${estado.streak} dias`;
+
+            // Atualiza a meta de disciplina
+            if (dadosUsuario && dadosUsuario.metaDisciplinaDias) {
+                const metaDias = dadosUsuario.metaDisciplinaDias;
+                const diaAtual = Math.min(estado.streak + 1, metaDias);
+                const pct = (estado.streak / metaDias) * 100;
+                
+                document.getElementById('metaDisciplinaText').textContent = `Você está no Dia ${diaAtual} de ${metaDias} da sua meta de disciplina!`;
+                document.getElementById('metaDisciplinaProgress').style.width = `${pct}%`;
+            }
 
             const hojeStr = new Date().toISOString().split('T')[0];
             const jaConcluiuDia = estado.diasCompletos.includes(hojeStr);
@@ -2610,263 +2309,6 @@
         }
 
         let dadosUsuario = null;
-        let currentLang = localStorage.getItem("norvi_lang") || "pt-BR";
-
-        const UI_TEXTS = {
-            "pt-BR": {
-                menuHoje: "📋 Hoje",
-                menuCalendario: "📅 Calendário",
-                menuRanking: "🏆 Ranking",
-                menuVip: "⭐ Assinar VIP",
-                menuPerfil: "⚙️ Perfil",
-                titleHoje: "Hoje",
-                btnAddTarefa: "+ Adicionar tarefa",
-                btnConcluirDia: "✅ CONCLUIR DIA DE ESTUDOS",
-                titleCalendario: "Calendário",
-                subtitleCalendario: "Acompanhe sua consistência de estudos",
-                incentivoCalendario: "Seu primeiro dia de estudos será marcado aqui!",
-                resumoTotal: "Total:",
-                resumoSemana: "Semana:",
-                resumoMes: "Mês:",
-                titleRanking: "Ranking",
-                subtitleRanking: "Dispute o topo com outros estudantes!",
-                titleVip: "Assinar VIP",
-                subtitleVip: "Desbloqueie todo o potencial dos seus estudos",
-                vipCardTitle: "⭐ Norvi VIP",
-                vipCardSubtitle: "Acelere seu aprendizado com recursos exclusivos",
-                vipCardPrice: "R$ 19,90 <small>/mês</small>",
-                vipCardBtn: "🚀 ASSINAR AGORA",
-                vipCardSeguro: "🔒 Pagamento Seguro • PIX, Cartão ou Boleto",
-                titlePerfil: "Perfil",
-                subtitlePerfil: "Gerencie suas conquistas e estatísticas",
-                statsTitle: "📊 Estatísticas Avançadas",
-                statsTempo: "Tempo de Foco",
-                statsAproveitamento: "Aproveitamento",
-                statsOverlay: "Disponível apenas para membros VIP",
-                achievementsTitle: "🏆 Conquistas",
-                darkModeClaro: "Claro",
-                darkModeEscuro: "Escuro"
-            },
-            "pt-PT": {
-                menuHoje: "📋 Hoje",
-                menuCalendario: "📅 Calendário",
-                menuRanking: "🏆 Ranking",
-                menuVip: "⭐ Assinar VIP",
-                menuPerfil: "⚙️ Perfil",
-                titleHoje: "Hoje",
-                btnAddTarefa: "+ Adicionar tarefa",
-                btnConcluirDia: "✅ CONCLUIR DIA DE ESTUDOS",
-                titleCalendario: "Calendário",
-                subtitleCalendario: "Acompanhe a sua consistência de estudos",
-                incentivoCalendario: "O seu primeiro dia de estudos será marcado aqui!",
-                resumoTotal: "Total:",
-                resumoSemana: "Semana:",
-                resumoMes: "Mês:",
-                titleRanking: "Ranking",
-                subtitleRanking: "Dispute o topo com outros estudantes!",
-                titleVip: "Assinar VIP",
-                subtitleVip: "Desbloqueie todo o potencial dos seus estudos",
-                vipCardTitle: "⭐ Norvi VIP",
-                vipCardSubtitle: "Acelere o seu aprendizado com recursos exclusivos",
-                vipCardPrice: "R$ 19,90 <small>/mês</small>",
-                vipCardBtn: "🚀 ASSINAR AGORA",
-                vipCardSeguro: "🔒 Pagamento Seguro • PIX, Cartão ou Boleto",
-                titlePerfil: "Perfil",
-                subtitlePerfil: "Gerencie as suas conquistas e estatísticas",
-                statsTitle: "📊 Estatísticas Avançadas",
-                statsTempo: "Tempo de Foco",
-                statsAproveitamento: "Aproveitamento",
-                statsOverlay: "Disponível apenas para membros VIP",
-                achievementsTitle: "🏆 Conquistas",
-                darkModeClaro: "Claro",
-                darkModeEscuro: "Escuro"
-            },
-            "en": {
-                menuHoje: "📋 Today",
-                menuCalendario: "📅 Calendar",
-                menuRanking: "🏆 Ranking",
-                menuVip: "⭐ Subscribe VIP",
-                menuPerfil: "⚙️ Profile",
-                titleHoje: "Today",
-                btnAddTarefa: "+ Add task",
-                btnConcluirDia: "✅ COMPLETE STUDY DAY",
-                titleCalendario: "Calendar",
-                subtitleCalendario: "Track your study consistency",
-                incentivoCalendario: "Your first study day will be marked here!",
-                resumoTotal: "Total:",
-                resumoSemana: "Week:",
-                resumoMes: "Month:",
-                titleRanking: "Ranking",
-                subtitleRanking: "Compete for the top with other students!",
-                titleVip: "Subscribe VIP",
-                subtitleVip: "Unlock the full potential of your studies",
-                vipCardTitle: "⭐ Norvi VIP",
-                vipCardSubtitle: "Accelerate your learning with exclusive features",
-                vipCardPrice: "$19.90 <small>/month</small>",
-                vipCardBtn: "🚀 SUBSCRIBE NOW",
-                vipCardSeguro: "🔒 Secure Payment • PIX, Card or Boleto",
-                titlePerfil: "Profile",
-                subtitlePerfil: "Manage your achievements and statistics",
-                statsTitle: "📊 Advanced Statistics",
-                statsTempo: "Focus Time",
-                statsAproveitamento: "Performance",
-                statsOverlay: "Available only for VIP members",
-                achievementsTitle: "🏆 Achievements",
-                darkModeClaro: "Light",
-                darkModeEscuro: "Dark"
-            },
-            "es": {
-                menuHoje: "📋 Hoy",
-                menuCalendario: "📅 Calendario",
-                menuRanking: "🏆 Ranking",
-                menuVip: "⭐ Suscribirse VIP",
-                menuPerfil: "⚙️ Perfil",
-                titleHoje: "Hoy",
-                btnAddTarefa: "+ Añadir tarea",
-                btnConcluirDia: "✅ COMPLETAR DÍA DE ESTUDIO",
-                titleCalendario: "Calendario",
-                subtitleCalendario: "Sigue tu consistencia de estudio",
-                incentivoCalendario: "¡Tu primer día de estudio se marcará aquí!",
-                resumoTotal: "Total:",
-                resumoSemana: "Semana:",
-                resumoMes: "Mes:",
-                titleRanking: "Ranking",
-                subtitleRanking: "¡Compite por el primer puesto con otros estudiantes!",
-                titleVip: "Suscribirse VIP",
-                subtitleVip: "Desbloquea todo el potencial de tus estudios",
-                vipCardTitle: "⭐ Norvi VIP",
-                vipCardSubtitle: "Acelera tu aprendizaje con funciones exclusivas",
-                vipCardPrice: "$19.90 <small>/mes</small>",
-                vipCardBtn: "🚀 SUSCRIBIRSE AHORA",
-                vipCardSeguro: "🔒 Pago Seguro • PIX, Tarjeta o Boleto",
-                titlePerfil: "Perfil",
-                subtitlePerfil: "Gestiona tus logros y estadísticas",
-                statsTitle: "📊 Estadísticas Avanzadas",
-                statsTempo: "Tiempo de Enfoque",
-                statsAproveitamento: "Rendimiento",
-                statsOverlay: "Disponible solo para miembros VIP",
-                achievementsTitle: "🏆 Logros",
-                darkModeClaro: "Claro",
-                darkModeEscuro: "Oscuro"
-            },
-            "fr": {
-                menuHoje: "📋 Aujourd'hui",
-                menuCalendario: "📅 Calendrier",
-                menuRanking: "🏆 Classement",
-                menuVip: "⭐ S'abonner VIP",
-                menuPerfil: "⚙️ Profil",
-                titleHoje: "Aujourd'hui",
-                btnAddTarefa: "+ Ajouter une tâche",
-                btnConcluirDia: "✅ COMPLÉTER LA JOURNÉE D'ÉTUDE",
-                titleCalendario: "Calendrier",
-                subtitleCalendario: "Suivez votre régularité d'étude",
-                incentivoCalendario: "Votre premier jour d'étude sera marqué ici !",
-                resumoTotal: "Total :",
-                resumoSemana: "Semaine :",
-                resumoMes: "Mois :",
-                titleRanking: "Classement",
-                subtitleRanking: "Affrontez d'autres étudiants pour le sommet !",
-                titleVip: "S'abonner VIP",
-                subtitleVip: "Débloquez tout le potentiel de vos études",
-                vipCardTitle: "⭐ Norvi VIP",
-                vipCardSubtitle: "Accélérez votre apprentissage avec des fonctionnalités exclusives",
-                vipCardPrice: "19,90 € <small>/mois</small>",
-                vipCardBtn: "🚀 S'ABONNER MAINTENANT",
-                vipCardSeguro: "🔒 Paiement Sécurisé • PIX, Carte ou Boleto",
-                titlePerfil: "Profil",
-                subtitlePerfil: "Gerez vos réussites et vos statistiques",
-                statsTitle: "📊 Statistiques Avancées",
-                statsTempo: "Temps de Concentration",
-                statsAproveitamento: "Performance",
-                statsOverlay: "Disponible uniquement pour les membres VIP",
-                achievementsTitle: "🏆 Réussites",
-                darkModeClaro: "Clair",
-                darkModeEscuro: "Sombre"
-            }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem("norvi_lang", lang);
-            document.getElementById("langSelector").value = lang;
-
-            const texts = UI_TEXTS[lang];
-
-            // Traduz Menu Lateral
-            document.getElementById("menu-inicio").innerHTML = `<span class="menu-item-icon">📋</span> ${texts.menuHoje}`;
-            document.getElementById("menu-calendario").innerHTML = `<span class="menu-item-icon">📅</span> ${texts.menuCalendario}`;
-            document.getElementById("menu-ranking").innerHTML = `<span class="menu-item-icon">🏆</span> ${texts.menuRanking}`;
-            document.getElementById("menu-vip").innerHTML = `<span class="menu-item-icon">⭐</span> ${texts.menuVip}`;
-            document.getElementById("menu-perfil").innerHTML = `<span class="menu-item-icon">⚙️</span> ${texts.menuPerfil}`;
-
-            // Traduz Aba Hoje
-            document.querySelector("#tab-inicio .view-title").textContent = texts.titleHoje;
-            document.getElementById("addTaskTrigger").textContent = texts.btnAddTarefa;
-            
-            const btnConcluir = document.getElementById("btnConcluir");
-            if (btnConcluir && !btnConcluir.disabled) {
-                btnConcluir.textContent = texts.btnConcluirDia;
-            }
-
-            // Traduz Aba Calendário
-            document.querySelector("#tab-calendario .view-title").textContent = texts.titleCalendario;
-            document.querySelector("#tab-calendario .view-subtitle").textContent = texts.subtitleCalendario;
-            document.querySelector(".cal-incentivo").textContent = texts.incentivoCalendario;
-            
-            const resumoSpans = document.querySelectorAll(".cal-resumo span");
-            if (resumoSpans.length >= 3) {
-                resumoSpans[0].innerHTML = `${texts.resumoTotal} <strong id="diasTotal">${estado.diasCompletos.length} dias</strong>`;
-                // Os contadores semana/mês serão atualizados na função atualizarContadores()
-            }
-
-            // Traduz Aba Ranking
-            document.querySelector("#tab-ranking .view-title").textContent = texts.titleRanking;
-            document.querySelector("#tab-ranking .view-subtitle").textContent = texts.subtitleRanking;
-            document.querySelector("#tab-ranking h3").textContent = `🏆 ${texts.menuRanking} Semanal`;
-
-            // Traduz Aba VIP
-            document.querySelector("#tab-vip .view-title").textContent = texts.titleVip;
-            document.querySelector("#tab-vip .view-subtitle").textContent = texts.subtitleVip;
-            
-            const vipCard = document.getElementById("cardAssinatura");
-            if (vipCard) {
-                vipCard.querySelector("h3").textContent = texts.vipCardTitle;
-                vipCard.querySelector("p").textContent = texts.vipCardSubtitle;
-                vipCard.querySelector(".preco").innerHTML = texts.vipCardPrice;
-                vipCard.querySelector(".btn-assinar").textContent = texts.vipCardBtn;
-                vipCard.querySelector(".seguro").innerHTML = texts.vipCardSeguro;
-            }
-
-            // Traduz Aba Perfil
-            document.querySelector("#tab-perfil .view-title").textContent = texts.titlePerfil;
-            document.querySelector("#tab-perfil .view-subtitle").textContent = texts.subtitlePerfil;
-            document.querySelector("#statsCard h3").textContent = texts.statsTitle;
-            document.querySelector("#statsOverlay p").textContent = texts.statsTitle.replace("📊 ", "");
-            document.querySelector("#statsOverlay small").textContent = texts.statsOverlay;
-            document.querySelector("#tab-perfil h3:last-of-type").textContent = `🏆 ${texts.achievementsTitle}`;
-
-            const statCards = document.querySelectorAll(".stat-card");
-            if (statCards.length >= 2) {
-                statCards[0].querySelector(".stat-lbl").textContent = texts.statsTempo;
-                statCards[1].querySelector(".stat-lbl").textContent = texts.statsAproveitamento;
-            }
-
-            // Atualiza textos de Dark Mode
-            const isDark = document.body.classList.contains("dark-mode");
-            document.getElementById("darkModeText").textContent = isDark ? texts.darkModeClaro : texts.darkModeEscuro;
-
-            // Recarrega dados do usuário para atualizar as missões no novo idioma
-            carregarUsuario();
-            atualizarUI();
-        }
-
-        function toggleDarkMode() {
-            const isDark = document.body.classList.toggle("dark-mode");
-            localStorage.setItem("norvi_dark_mode", isDark);
-            
-            const texts = UI_TEXTS[currentLang];
-            document.getElementById("darkModeText").textContent = isDark ? texts.darkModeClaro : texts.darkModeEscuro;
-        }
 
         function carregarUsuario() {
             const salvo = localStorage.getItem('usuario_estudos');
@@ -2919,7 +2361,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Aplica Dark Mode se estiver ativo
             const isDark = localStorage.getItem("norvi_dark_mode") === "true";
             if (isDark) {
                 document.body.classList.add("dark-mode");
@@ -2929,10 +2370,10 @@
             carregarUsuario();
             renderizarTarefasCustomizadas();
             
-            // Aplica idioma inicial
             changeLanguage(currentLang);
             
             iniciarTutorial();
+            lucide.createIcons();
         });
     </script>
 </body>

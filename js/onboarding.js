@@ -1,13 +1,13 @@
 const PERGUNTAS_BASE = [
     {
         id: 1,
-        categoria: "Nível Acadêmico",
+        categoria: "Seu Ponto de Partida",
         pergunta: {
-            "pt-BR": "Qual é o seu nível de escolaridade?",
-            "pt-PT": "Qual é o seu nível de escolaridade?",
-            "en": "What is your level of education?",
-            "es": "¿Cuál es tu nivel de escolaridad?",
-            "fr": "Quel est votre niveau d'études?"
+            "pt-BR": "Conte-nos um pouco sobre sua jornada acadêmica.",
+            "pt-PT": "Conte-nos um pouco sobre a sua jornada académica.",
+            "en": "Tell us a bit about your academic journey.",
+            "es": "Cuéntanos un poco sobre tu trayectoria académica.",
+            "fr": "Parlez-nous un peu de votre parcours académique."
         },
         multipla: false,
         opcoes: [
@@ -20,7 +20,7 @@ const PERGUNTAS_BASE = [
     },
     {
         id: 2,
-        categoria: "Área de Conhecimento",
+        categoria: "O Que Te Move",
         pergunta: {
             "pt-BR": "Qual é a sua área de conhecimento principal?",
             "pt-PT": "Qual é a sua área de conhecimento principal?",
@@ -39,63 +39,59 @@ const PERGUNTAS_BASE = [
     },
     {
         id: 3,
-        categoria: "Matérias com Dificuldade",
+        categoria: "Desafios do Caminho",
         pergunta: {
-            "pt-BR": "Em quais matérias você tem MAIS dificuldade? (Escolha até 3)",
-            "pt-PT": "Em quais disciplinas tem MAIS dificuldade? (Escolha até 3)",
-            "en": "In which subjects do you have the MOST difficulty? (Choose up to 3)",
-            "es": "¿En qué materias tienes MÁS dificultad? (Elige até 3)",
-            "fr": "Dans quelles matières avez-vous le PLUS de difficultés? (Choisissez jusqu'à 3)"
+            "pt-BR": "Onde você sente que pode usar uma mão amiga? (Escolha até 3)",
+            "pt-PT": "Onde sente que pode usar uma mão amiga? (Escolha até 3)",
+            "en": "Where do you feel you could use a helping hand? (Choose up to 3)",
+            "es": "¿Dónde sientes que te vendría bien una ayuda? (Elige até 3)",
+            "fr": "Où sentez-vous que vous auriez besoin d'un coup de main? (Choisissez jusqu'à 3)"
         },
         multipla: true,
         maxSelecoes: 3,
         opcoes: [
+            // Fundamental I
             { texto: { "pt-BR": "Matemática", "pt-PT": "Matemática", "en": "Mathematics", "es": "Matemáticas", "fr": "Mathématiques" }, valor: "Matemática", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
             { texto: { "pt-BR": "Português", "pt-PT": "Português", "en": "Portuguese", "es": "Portugués", "fr": "Portugais" }, valor: "Português", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
+            { texto: { "pt-BR": "Ciências da Natureza", "pt-PT": "Ciências da Natureza", "en": "Natural Sciences", "es": "Ciencias de la Naturaleza", "fr": "Sciences de la Nature" }, valor: "Ciências", niveis: ["fundamental_1"] },
             { texto: { "pt-BR": "História", "pt-PT": "História", "en": "History", "es": "Historia", "fr": "Histoire" }, valor: "História", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
             { texto: { "pt-BR": "Geografia", "pt-PT": "Geografia", "en": "Geography", "es": "Geografía", "fr": "Géographie" }, valor: "Geografia", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Ciências/Biologia", "pt-PT": "Ciências/Biologia", "en": "Science/Biology", "es": "Ciencias/Biología", "fr": "Sciences/Biologie" }, valor: "Ciências", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
+            { texto: { "pt-BR": "Arte", "pt-PT": "Arte", "en": "Art", "es": "Arte", "fr": "Art" }, valor: "Arte", niveis: ["fundamental_1"] },
+            { texto: { "pt-BR": "Educação Física", "pt-PT": "Educação Física", "en": "Physical Education", "es": "Educación Física", "fr": "Éducation Physique" }, valor: "Educação Física", niveis: ["fundamental_1"] },
+            
+            // Fundamental II
+            { texto: { "pt-BR": "Ciências", "pt-PT": "Ciências", "en": "Science", "es": "Ciencias", "fr": "Sciences" }, valor: "Ciências", niveis: ["fundamental_2"] },
+            { texto: { "pt-BR": "Inglês", "pt-PT": "Inglês", "en": "English", "es": "Inglés", "fr": "Anglais" }, valor: "Inglês", niveis: ["fundamental_2", "medio", "superior", "pos"] },
+
+            // Ensino Médio
             { texto: { "pt-BR": "Física", "pt-PT": "Física", "en": "Physics", "es": "Física", "fr": "Physique" }, valor: "Física", niveis: ["medio", "superior", "pos"] },
             { texto: { "pt-BR": "Química", "pt-PT": "Química", "en": "Chemistry", "es": "Química", "fr": "Chimie" }, valor: "Química", niveis: ["medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Inglês", "pt-PT": "Inglês", "en": "English", "es": "Inglés", "fr": "Anglais" }, valor: "Inglês", niveis: ["fundamental_2", "medio", "superior", "pos"] },
+            { texto: { "pt-BR": "Biologia", "pt-PT": "Biologia", "en": "Biology", "es": "Biología", "fr": "Biologie" }, valor: "Biologia", niveis: ["medio"] },
             { texto: { "pt-BR": "Filosofia", "pt-PT": "Filosofia", "en": "Philosophy", "es": "Filosofía", "fr": "Philosophie" }, valor: "Filosofia", niveis: ["medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Sociologia", "pt-PT": "Sociologia", "en": "Sociology", "es": "Sociología", "fr": "Sociologie" }, valor: "Sociologia", niveis: ["medio", "superior", "pos"] }
+            { texto: { "pt-BR": "Sociologia", "pt-PT": "Sociologia", "en": "Sociology", "es": "Sociología", "fr": "Sociologie" }, valor: "Sociologia", niveis: ["medio", "superior", "pos"] },
+
+            // Graduação
+            { texto: { "pt-BR": "Cálculo", "pt-PT": "Cálculo", "en": "Calculus", "es": "Cálculo", "fr": "Calcul" }, valor: "Cálculo", niveis: ["superior"] },
+            { texto: { "pt-BR": "Estatística", "pt-PT": "Estatística", "en": "Statistics", "es": "Estadística", "fr": "Statistiques" }, valor: "Estatística", niveis: ["superior"] },
+            { texto: { "pt-BR": "Programação", "pt-PT": "Programação", "en": "Programming", "es": "Programación", "fr": "Programmation" }, valor: "Programação", niveis: ["superior"] },
+            { texto: { "pt-BR": "Metodologia Científica", "pt-PT": "Metodologia Científica", "en": "Scientific Methodology", "es": "Metodología Científica", "fr": "Méthodologie Scientifique" }, valor: "Metodologia", niveis: ["superior"] },
+
+            // Pós-Graduação
+            { texto: { "pt-BR": "Métodos Quantitativos", "pt-PT": "Métodos Quantitativos", "en": "Quantitative Methods", "es": "Métodos Cuantitativos", "fr": "Méthodes Quantitatives" }, valor: "Métodos Quantitativos", niveis: ["pos"] },
+            { texto: { "pt-BR": "Escrita Científica", "pt-PT": "Escrita Científica", "en": "Scientific Writing", "es": "Escrita Científica", "fr": "Écriture Scientifique" }, valor: "Escrita Científica", niveis: ["pos"] },
+            { texto: { "pt-BR": "Revisão Bibliográfica", "pt-PT": "Revisão Bibliográfica", "en": "Literature Review", "es": "Revisión Bibliográfica", "fr": "Revue de la Littérature" }, valor: "Revisão Bibliográfica", niveis: ["pos"] },
+            { texto: { "pt-BR": "Ética na Pesquisa", "pt-PT": "Ética na Pesquisa", "en": "Research Ethics", "es": "Ética en la Investigación", "fr": "Éthique de la Recherche" }, valor: "Ética", niveis: ["pos"] }
         ]
     },
     {
         id: 4,
-        categoria: "Matérias com Facilidade",
+        categoria: "Seu Ritmo",
         pergunta: {
-            "pt-BR": "Em quais matérias você tem MENOS dificuldade? (Escolha até 2)",
-            "pt-PT": "Em quais disciplinas tem MENOS dificuldade? (Escolha até 2)",
-            "en": "In which subjects do you have the LEAST difficulty? (Choose up to 2)",
-            "es": "¿En qué materias tienes MENOS dificultad? (Elige até 2)",
-            "fr": "Dans quelles matières avez-vous le MOINS de difficultés? (Choisissez jusqu'à 2)"
-        },
-        multipla: true,
-        maxSelecoes: 2,
-        opcoes: [
-            { texto: { "pt-BR": "Matemática", "pt-PT": "Matemática", "en": "Mathematics", "es": "Matemáticas", "fr": "Mathématiques" }, valor: "Matemática", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Português", "pt-PT": "Português", "en": "Portuguese", "es": "Portugués", "fr": "Portugais" }, valor: "Português", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "História", "pt-PT": "História", "en": "History", "es": "Historia", "fr": "Histoire" }, valor: "História", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Geografia", "pt-PT": "Geografia", "en": "Geography", "es": "Geografía", "fr": "Géographie" }, valor: "Geografia", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Ciências/Biologia", "pt-PT": "Ciências/Biologia", "en": "Science/Biology", "es": "Ciencias/Biología", "fr": "Sciences/Biologie" }, valor: "Ciências", niveis: ["fundamental_1", "fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Física", "pt-PT": "Física", "en": "Physics", "es": "Física", "fr": "Physique" }, valor: "Física", niveis: ["medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Química", "pt-PT": "Química", "en": "Chemistry", "es": "Química", "fr": "Chimie" }, valor: "Química", niveis: ["medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Inglês", "pt-PT": "Inglês", "en": "English", "es": "Inglés", "fr": "Anglais" }, valor: "Inglês", niveis: ["fundamental_2", "medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Filosofia", "pt-PT": "Filosofia", "en": "Philosophy", "es": "Filosofía", "fr": "Philosophie" }, valor: "Filosofia", niveis: ["medio", "superior", "pos"] },
-            { texto: { "pt-BR": "Sociologia", "pt-PT": "Sociologia", "en": "Sociology", "es": "Sociología", "fr": "Sociologie" }, valor: "Sociologia", niveis: ["medio", "superior", "pos"] }
-        ]
-    },
-    {
-        id: 5,
-        categoria: "Estilo de Aprendizagem",
-        pergunta: {
-            "pt-BR": "Qual é o seu estilo de aprendizagem preferido?",
-            "pt-PT": "Qual é o seu estilo de aprendizagem preferido?",
-            "en": "What is your preferred learning style?",
-            "es": "¿Cuál es tu estilo de aprendizaje preferido?",
-            "fr": "Quel est votre style d'apprentissage préféré?"
+            "pt-BR": "Como você gosta de aprender?",
+            "pt-PT": "Como gosta de aprender?",
+            "en": "How do you like to learn?",
+            "es": "¿Cómo te gusta aprender?",
+            "fr": "Comment aimez-vous apprendre?"
         },
         multipla: false,
         opcoes: [
@@ -106,50 +102,52 @@ const PERGUNTAS_BASE = [
         ]
     },
     {
-        id: 6,
-        categoria: "Disponibilidade de Tempo",
+        id: 5,
+        categoria: "Sua Agenda",
         pergunta: {
-            "pt-BR": "Quanto tempo por dia você consegue reservar para estudar?",
-            "pt-PT": "Quanto tempo por dia consegue reservar para estudar?",
-            "en": "How much time per day can you set aside to study?",
-            "es": "¿Cuánto tiempo al día puedes reservar para estudiar?",
-            "fr": "Combien de temps par jour pouvez-vous consacrer à l'étude?"
+            "pt-BR": "Quanto tempo você quer dedicar a essa jornada por dia?",
+            "pt-PT": "Quanto tempo quer dedicar a esta jornada por dia?",
+            "en": "How much time do you want to dedicate to this journey per day?",
+            "es": "¿Cuánto tiempo quieres dedicar a este viaje por día?",
+            "fr": "Combien de temps voulez-vous consacrer à ce voyage par jour?"
         },
         multipla: false,
         opcoes: [
-            { texto: { "pt-BR": "Menos de 15 minutos ⏱️", "pt-PT": "Menos de 15 minutos ⏱️", "en": "Less than 15 minutes ⏱️", "es": "Menos de 15 minutos ⏱️", "fr": "Moins de 15 minutes ⏱️" }, valor: "15min", tempoMinutos: 15 },
-            { texto: { "pt-BR": "15 a 30 minutos", "pt-PT": "15 a 30 minutos", "en": "15 to 30 minutes", "es": "15 a 30 minutos", "fr": "15 à 30 minutes" }, valor: "30min", tempoMinutos: 20 },
-            { texto: { "pt-BR": "30 a 60 minutos", "pt-PT": "30 a 60 minutos", "en": "30 to 60 minutes", "es": "30 a 60 minutos", "fr": "30 à 60 minutes" }, valor: "60min", tempoMinutos: 30 },
-            { texto: { "pt-BR": "Mais de 1 hora", "pt-PT": "Mais de 1 hora", "en": "More than 1 hour", "es": "Más de 1 hora", "fr": "Plus d'une heure" }, valor: "1h+", tempoMinutos: 45 }
+            { texto: { "pt-BR": "10 minutos (Foco em Micro-Hábitos) ⏱️", "pt-PT": "10 minutos (Foco em Micro-Hábitos) ⏱️", "en": "10 minutes (Micro-Habits Focus) ⏱️", "es": "10 minutos (Enfoque en Microhábitos) ⏱️", "fr": "10 minutes (Focus Micro-Habitudes) ⏱️" }, valor: "10min", tempoMinutos: 10 },
+            { texto: { "pt-BR": "15 minutos", "pt-PT": "15 minutos", "en": "15 minutes", "es": "15 minutos", "fr": "15 minutes" }, valor: "15min", tempoMinutos: 15 },
+            { texto: { "pt-BR": "20 minutos", "pt-PT": "20 minutos", "en": "20 minutes", "es": "20 minutos", "fr": "20 minutes" }, valor: "20min", tempoMinutos: 20 },
+            { texto: { "pt-BR": "30 minutos", "pt-PT": "30 minutos", "en": "30 minutes", "es": "30 minutos", "fr": "30 minutes" }, valor: "30min", tempoMinutos: 30 },
+            { texto: { "pt-BR": "45 minutos", "pt-PT": "45 minutos", "en": "45 minutes", "es": "45 minutos", "fr": "45 minutes" }, valor: "45min", tempoMinutos: 45 },
+            { texto: { "pt-BR": "60 minutos", "pt-PT": "60 minutos", "en": "60 minutes", "es": "60 minutos", "fr": "60 minutes" }, valor: "60min", tempoMinutos: 60 }
+        ]
+    },
+    {
+        id: 6,
+        categoria: "Compromisso Diário",
+        pergunta: {
+            "pt-BR": "Qual horário do dia você pretende estudar?",
+            "pt-PT": "Qual horário do dia pretende estudar?",
+            "en": "What time of day do you plan to study?",
+            "es": "¿A qué hora del día piensas estudiar?",
+            "fr": "À quelle heure de la journée prévoyez-vous d'étudier?"
+        },
+        multipla: false,
+        opcoes: [
+            { texto: { "pt-BR": "Pela manhã (ex: 08:00) 🌅", "pt-PT": "Pela manhã (ex: 08:00) 🌅", "en": "In the morning (e.g., 08:00) 🌅", "es": "Por la mañana (ej: 08:00) 🌅", "fr": "Le matin (ex: 08:00) 🌅" }, valor: "08:00" },
+            { texto: { "pt-BR": "À tarde (ex: 14:00) ☀️", "pt-PT": "À tarde (ex: 14:00) ☀️", "en": "In the afternoon (e.g., 14:00) ☀️", "es": "Por la tarde (ej: 14:00) ☀️", "fr": "L'après-midi (ex: 14:00) ☀️" }, valor: "14:00" },
+            { texto: { "pt-BR": "No início da noite (ex: 19:00) 🌆", "pt-PT": "No início da noite (ex: 19:00) 🌆", "en": "In the early evening (e.g., 19:00) 🌆", "es": "Al principio de la noche (ej: 19:00) 🌆", "fr": "En début de soirée (ex: 19:00) 🌆" }, valor: "19:00" },
+            { texto: { "pt-BR": "Mais tarde da noite (ex: 21:00) 🌙", "pt-PT": "Mais tarde da noite (ex: 21:00) 🌙", "en": "Later at night (e.g., 21:00) 🌙", "es": "Más tarde en la noche (ej: 21:00) 🌙", "fr": "Plus tard dans la soirée (ex: 21:00) 🌙" }, valor: "21:00" }
         ]
     },
     {
         id: 7,
-        categoria: "Frequência de Estudos",
+        categoria: "Seu Objetivo Final",
         pergunta: {
-            "pt-BR": "Com que frequência você ESTUDA atualmente?",
-            "pt-PT": "Com que frequência ESTUDA atualmente?",
-            "en": "How often do you currently STUDY?",
-            "es": "¿Con qué frecuencia ESTUDIAS actualmente?",
-            "fr": "À quelle fréquence ÉTUDIEZ-vous actuellement?"
-        },
-        multipla: false,
-        opcoes: [
-            { texto: { "pt-BR": "Raramente (menos de 1x por semana)", "pt-PT": "Raramente (menos de 1x por semana)", "en": "Rarely (less than once a week)", "es": "Raramente (menos de 1 vez por semana)", "fr": "Rarement (moins d'une fois par semaine)" }, valor: "raramente" },
-            { texto: { "pt-BR": "1 a 2 vezes por semana", "pt-PT": "1 a 2 vezes por semana", "en": "1 to 2 times a week", "es": "1 a 2 veces por semana", "fr": "1 à 2 fois par semaine" }, valor: "1-2x" },
-            { texto: { "pt-BR": "3 a 4 vezes por semana", "pt-PT": "3 a 4 vezes por semana", "en": "3 to 4 times a week", "es": "3 a 4 veces por semana", "fr": "3 à 4 fois par semaine" }, valor: "3-4x" },
-            { texto: { "pt-BR": "Todos os dias (ou quase)", "pt-PT": "Todos os dias (ou quase)", "en": "Every day (or almost)", "es": "Todos los días (o casi)", "fr": "Tous les jours (ou presque)" }, valor: "diario" }
-        ]
-    },
-    {
-        id: 8,
-        categoria: "Objetivo Principal",
-        pergunta: {
-            "pt-BR": "Qual é seu objetivo principal com os estudos?",
-            "pt-PT": "Qual é o seu objetivo principal com os estudos?",
-            "en": "What is your main goal with your studies?",
-            "es": "¿Cuál es tu objetivo principal con los estudios?",
-            "fr": "Quel est votre objectif principal avec vos études?"
+            "pt-BR": "Qual é o seu grande 'porquê'?",
+            "pt-PT": "Qual é o seu grande 'porquê'?",
+            "en": "What is your big 'why'?",
+            "es": "¿Cuál es tu gran 'por qué'?",
+            "fr": "Quel est votre grand 'pourquoi'?"
         },
         multipla: false,
         opcoes: [
@@ -160,14 +158,14 @@ const PERGUNTAS_BASE = [
         ]
     },
     {
-        id: 9,
-        categoria: "Maior Obstáculo",
+        id: 8,
+        categoria: "O Que Te Atrapalha",
         pergunta: {
-            "pt-BR": "Qual é seu maior obstáculo para estudar?",
-            "pt-PT": "Qual é o seu maior obstáculo para estudar?",
-            "en": "What is your biggest obstacle to studying?",
-            "es": "¿Cuál es tu mayor obstáculo para estudiar?",
-            "fr": "Quel est votre plus grand obstacle à l'étude?"
+            "pt-BR": "O que costuma te tirar do foco?",
+            "pt-PT": "O que costuma tirar-lhe o foco?",
+            "en": "What usually takes away your focus?",
+            "es": "¿Qué suele quitarte el enfoque?",
+            "fr": "Qu'est-ce qui vous distrait le plus?"
         },
         multipla: false,
         opcoes: [
@@ -178,21 +176,21 @@ const PERGUNTAS_BASE = [
         ]
     },
     {
-        id: 10,
-        categoria: "Meta de Curto Prazo",
+        id: 9,
+        categoria: "Sua Primeira Meta",
         pergunta: {
-            "pt-BR": "Qual sua meta para o próximo mês?",
-            "pt-PT": "Qual é a sua meta para o próximo mês?",
-            "en": "What is your goal for the next month?",
-            "es": "¿Cuál es tu meta para el próximo mes?",
-            "fr": "Quel est votre objectif pour le mois prochain?"
+            "pt-BR": "Qual é sua meta inicial de disciplina?",
+            "pt-PT": "Qual é a sua meta inicial de disciplina?",
+            "en": "What is your initial discipline goal?",
+            "es": "¿Cuál es tu meta inicial de disciplina?",
+            "fr": "Quel est votre objectif initial de discipline?"
         },
         multipla: false,
         opcoes: [
-            { texto: { "pt-BR": "Criar o hábito (estudar pelo menos 3x/semana)", "pt-PT": "Criar o hábito (estudar pelo menos 3x/semana)", "en": "Build the habit (study at least 3x/week)", "es": "Crear el hábito (estudiar al menos 3x/semana)", "fr": "Créer l'habitude (étudier au moins 3x/semaine)" }, valor: "habito_3x" },
-            { texto: { "pt-BR": "Finalizar um assunto específico", "pt-PT": "Finalizar um assunto específico", "en": "Finish a specific subject", "es": "Finalizar un tema específico", "fr": "Terminer un sujet spécifique" }, valor: "finalizar_assunto" },
-            { texto: { "pt-BR": "Estudar pelo menos 5 dias por semana", "pt-PT": "Estudar pelo menos 5 dias por semana", "en": "Study at least 5 days a week", "es": "Estudiar al menos 5 días por semana", "fr": "Étudier au moins 5 jours par semaine" }, valor: "estudar_5x" },
-            { texto: { "pt-BR": "Manter uma ofensiva de 30 dias sem falhar", "pt-PT": "Manter uma ofensiva de 30 dias sem falhar", "en": "Keep a 30-day streak without failing", "es": "Mantener una racha de 30 días sin fallar", "fr": "Garder une série de 30 jours sans faillir" }, valor: "ofensiva_30d" }
+            { texto: { "pt-BR": "Estudar 3 dias seguidos 🎯", "pt-PT": "Estudar 3 dias seguidos 🎯", "en": "Study 3 days in a row 🎯", "es": "Estudiar 3 días seguidos 🎯", "fr": "Étudier 3 jours de suite 🎯" }, valor: "3d", dias: 3 },
+            { texto: { "pt-BR": "Estudar 7 dias seguidos (1 semana) 🔥", "pt-PT": "Estudar 7 dias seguidos (1 semana) 🔥", "en": "Study 7 days in a row (1 week) 🔥", "es": "Estudiar 7 días seguidos (1 semana) 🔥", "fr": "Étudier 7 jours de suite (1 semaine) 🔥" }, valor: "7d", dias: 7 },
+            { texto: { "pt-BR": "Estudar 15 dias seguidos (2 semanas) ⚡", "pt-PT": "Estudar 15 dias seguidos (2 semanas) ⚡", "en": "Study 15 days in a row (2 weeks) ⚡", "es": "Estudiar 15 días seguidos (2 semanas) ⚡", "fr": "Étudier 15 jours de suite (2 semaines) ⚡" }, valor: "15d", dias: 15 },
+            { texto: { "pt-BR": "Estudar 30 dias seguidos (1 mês) 👑", "pt-PT": "Estudar 30 dias seguidos (1 mês) 👑", "en": "Study 30 days in a row (1 month) 👑", "es": "Estudiar 30 días seguidos (1 mes) 👑", "fr": "Étudier 30 jours de suite (1 mois) 👑" }, valor: "30d", dias: 30 }
         ]
     }
 ];
@@ -269,7 +267,7 @@ const PERGUNTAS_BASE = [
             finalSubtitulo: "Com base no seu perfil, estruturámos a rotina ideal para si:",
             finalNome: "👤 Nome",
             finalPontos: "📊 Pontuação",
-            finalFrequencia: "📅 Frequência",
+            finalFrequencia: "📅 Frecuencia",
             finalTempo: "⏱️ Tempo",
             finalMaterias: "📚 Disciplinas",
             finalMeta: "📝 Meta Diária",
@@ -388,33 +386,20 @@ const PERGUNTAS_BASE = [
             btnComecarEstudar: "🚀 COMMENCER À ÉTUDIER"
         }
     };
-    function showToast(message) {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<span>✨</span> ${message}`;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-
     function changeLanguage(lang) {
         currentLang = lang;
         localStorage.setItem("norvi_lang", lang);
+        document.getElementById("langSelector").value = lang;
         
-        // Traduz elementos estáticos da Landing Page
         const texts = UI_TEXTS[lang];
-        document.querySelector("#tela-inicial .logo").textContent = texts.logo;
         document.querySelector("#tela-inicial .subtitulo").innerHTML = texts.tagline;
         document.querySelector("#tela-inicial button").textContent = texts.btnComecar;
 
-        // Traduz botões de navegação do diagnóstico
         document.getElementById("btn-voltar").textContent = texts.btnVoltar;
         document.getElementById("btn-proximo").textContent = texts.btnProximo;
 
-        // Traduz tela de autenticação
         atualizarTextosAuth();
 
-        // Se estiver no diagnóstico, re-renderiza a pergunta atual para atualizar o idioma
         if (document.getElementById("tela-diagnostico").style.display === "block") {
             renderizarPergunta();
         }
@@ -473,7 +458,7 @@ const PERGUNTAS_BASE = [
     function renderizarProgresso() {
         const progresso = document.getElementById("progresso");
         progresso.innerHTML = "";
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 9; i++) { // Temos 9 etapas agora
             const ponto = document.createElement("div");
             ponto.className = "ponto";
             if (i < perguntaAtual) ponto.classList.add("feito");
@@ -488,10 +473,9 @@ const PERGUNTAS_BASE = [
         const q = PERGUNTAS_BASE[perguntaAtual - 1];
         const selecionadas = respostas[perguntaAtual] || [];
 
-        // --- FILTRAGEM DINÂMICA DE MATÉRIAS (P3 e P4) ---
-        // Se for a pergunta 3 ou 4, filtramos as opções com base no nível escolar selecionado na pergunta 1!
+        // --- FILTRAGEM DINÂMICA DE MATÉRIAS (P3) ---
         let opcoesFiltradas = q.opcoes;
-        if (q.id === 3 || q.id === 4) {
+        if (q.id === 3) {
             const p1Idx = respostas[1] ? respostas[1][0] : null;
             if (p1Idx !== null) {
                 const nivelEscolar = PERGUNTAS_BASE[0].opcoes[p1Idx].valor;
@@ -501,7 +485,6 @@ const PERGUNTAS_BASE = [
 
         let opcoesHTML = "";
         opcoesFiltradas.forEach((opt, idx) => {
-            // Acha o índice real na lista original para salvar a resposta corretamente
             const realIdx = q.opcoes.indexOf(opt);
             const isSel = selecionadas.includes(realIdx);
             const textoTraduzido = opt.texto[currentLang] || opt.texto["pt-BR"];
@@ -509,16 +492,21 @@ const PERGUNTAS_BASE = [
             opcoesHTML += `
                 <div class="opcao ${isSel ? 'selecionada' : ''}" onclick="selecionarOpcao(${realIdx})">
                     <span>${textoTraduzido}</span>
-                    ${q.multipla ? '<div class="opcao-checkbox"></div>' : ''}
+                    <span class="opcao-star">✧</span>
                 </div>
             `;
         });
 
         const perguntaTraduzida = q.pergunta[currentLang] || q.pergunta["pt-BR"];
 
+        let etapaNome = `Etapa ${perguntaAtual}`;
+        if (currentLang === "en") etapaNome = `Step ${perguntaAtual}`;
+        else if (currentLang === "es") etapaNome = `Etapa ${perguntaAtual}`;
+        else if (currentLang === "fr") etapaNome = `Étape ${perguntaAtual}`;
+
         container.innerHTML = `
-            <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${q.categoria}</p>
-            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; text-align: left;">${perguntaTraduzida}</h3>
+            <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${etapaNome} - ${q.categoria}</p>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; text-align: left; font-family: 'Playfair Display', serif;">${perguntaTraduzida}</h3>
             <div class="opcoes">
                 ${opcoesHTML}
             </div>
@@ -553,7 +541,7 @@ const PERGUNTAS_BASE = [
     }
 
     function proximaPergunta() {
-        if (perguntaAtual < 10) {
+        if (perguntaAtual < 9) { // Temos 9 etapas agora
             perguntaAtual++;
             renderizarPergunta();
         } else {
@@ -624,12 +612,19 @@ const PERGUNTAS_BASE = [
         const p3Indices = respostas[3] || [];
         const dificuldades = p3Indices.map(idx => PERGUNTAS_BASE[2].opcoes[idx].valor);
 
-        const p5Idx = respostas[5][0];
-        const estilo = PERGUNTAS_BASE[4].opcoes[p5Idx].valor;
+        const p5Idx = respostas[4][0]; // Ritmo de Aprendizagem é a pergunta 4 agora
+        const estilo = PERGUNTAS_BASE[3].opcoes[p5Idx].valor;
 
-        const p6Idx = respostas[6][0];
-        const tempoOpt = PERGUNTAS_BASE[5].opcoes[p6Idx];
+        const p6Idx = respostas[5][0]; // Agenda (Tempo) é a pergunta 5 agora
+        const tempoOpt = PERGUNTAS_BASE[4].opcoes[p6Idx];
         const tempoMinutos = tempoOpt.tempoMinutos;
+
+        const p7Idx = respostas[6][0]; // Compromisso Diário (Horário) é a pergunta 6 agora
+        const horarioEstudo = PERGUNTAS_BASE[5].opcoes[p7Idx].valor;
+
+        const p9Idx = respostas[9][0]; // Meta de Disciplina é a pergunta 9 agora
+        const metaDisciplinaOpt = PERGUNTAS_BASE[8].opcoes[p9Idx];
+        const metaDisciplinaDias = metaDisciplinaOpt.dias;
 
         let perfil = "Iniciante";
         let complexidade = "Baixa";
@@ -648,6 +643,8 @@ const PERGUNTAS_BASE = [
             dificuldades: dificuldades,
             estilo: estilo,
             tempoMinutos: tempoMinutos,
+            horarioEstudo: horarioEstudo,
+            metaDisciplinaDias: metaDisciplinaDias,
             nome: emailToName(localStorage.getItem("auth_email") || "Estudante")
         };
 
@@ -660,28 +657,29 @@ const PERGUNTAS_BASE = [
         return parts.charAt(0).toUpperCase() + parts.slice(1);
     }
 
-    // --- INICIALIZAÇÃO ---
-    document.addEventListener("DOMContentLoaded", () => {
-        // Aplica Dark Mode se estiver ativo
-        const isDark = localStorage.getItem("norvi_dark_mode") === "true";
-        if (isDark) {
-            document.body.classList.add("dark-mode");
-        }
-
-        // Verifica sessão ativa
-        const session = localStorage.getItem("norvi_session") || sessionStorage.getItem("norvi_session");
-        if (session) {
-            window.location.href = "index.html";
-        }
-
-        // Aplica idioma inicial
-        changeLanguage(currentLang);
-    });
     function toggleDarkMode() {
         const isDark = document.body.classList.toggle("dark-mode");
         localStorage.setItem("norvi_dark_mode", isDark);
+        
         const text = document.getElementById("darkModeText");
         if (text) {
             text.textContent = isDark ? "Claro" : "Escuro";
         }
     }
+
+    // --- INICIALIZAÇÃO ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const isDark = localStorage.getItem("norvi_dark_mode") === "true";
+        if (isDark) {
+            document.body.classList.add("dark-mode");
+            const text = document.getElementById("darkModeText");
+            if (text) text.textContent = "Claro";
+        }
+
+        const session = localStorage.getItem("norvi_session") || sessionStorage.getItem("norvi_session");
+        if (session) {
+            window.location.href = "index.html";
+        }
+
+        changeLanguage(currentLang);
+    });
