@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Estuda Aí - Personalize seu Estudo</title>
+    <link rel="stylesheet" href="css/onboarding.css">
+</head>
+<body>
+    <div class="container">
+        <div class="onboarding" id="onboarding">
+
+            <div class="logo">📚</div>
+            <div class="titulo">Estuda <span>Aí</span></div>
+            <div class="subtitulo">Vamos personalizar seu plano de estudos</div>
+
+            <div class="progresso" id="progresso">
+                <div class="ponto ativo" data-step="0"></div>
+                <div class="ponto" data-step="1"></div>
+                <div class="ponto" data-step="2"></div>
+                <div class="ponto" data-step="3"></div>
+                <div class="ponto" data-step="4"></div>
+            </div>
+
+            <!-- PERGUNTA 1 - NOME -->
+            <div class="pergunta ativa" data-step="0">
+                <h3>👋 Qual é o seu nome?</h3>
+                <p>Vamos te chamar assim durante os estudos!</p>
+                <input type="text" id="nome" placeholder="Digite seu nome..." maxlength="30">
+                <div class="botoes">
+                    <button class="btn-voltar" disabled>Voltar</button>
+                    <button class="btn-proximo" id="btn-proximo-0" onclick="proximo(0)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 2 - ENSINO -->
+            <div class="pergunta" data-step="1">
+                <h3>🎓 Qual é o seu nível de ensino?</h3>
+                <p>Escolha uma opção abaixo</p>
+                <div class="opcoes tres" id="opcoes-ensino">
+                    <div class="opcao" data-valor="fundamental" onclick="selecionar(this, 'ensino')">
+                        <span class="icone">📘</span>
+                        <span class="nome">Fundamental</span>
+                        <span class="desc">6º ao 9º ano</span>
+                    </div>
+                    <div class="opcao" data-valor="medio" onclick="selecionar(this, 'ensino')">
+                        <span class="icone">📗</span>
+                        <span class="nome">Médio</span>
+                        <span class="desc">1º ao 3º ano</span>
+                    </div>
+                    <div class="opcao" data-valor="superior" onclick="selecionar(this, 'ensino')">
+                        <span class="icone">📕</span>
+                        <span class="nome">Superior</span>
+                        <span class="desc">Faculdade</span>
+                    </div>
+                </div>
+                <div class="botoes">
+                    <button class="btn-voltar" onclick="voltar(1)">← Voltar</button>
+                    <button class="btn-proximo" id="btn-proximo-1" onclick="proximo(1)" disabled>Próximo →</button>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 3 - ESTILO -->
+            <div class="pergunta" data-step="2">
+                <h3>🧠 Como você prefere estudar?</h3>
+                <p>Escolha o jeito que funciona melhor pra você</p>
+                <div class="opcoes" id="opcoes-estilo">
+                    <div class="opcao" data-valor="leitura" onclick="selecionar(this, 'estilo')">
+                        <span class="icone">📖</span>
+                        <span class="nome">Leitura</span>
+                        <span class="desc">Ler e fazer resumos</span>
+                    </div>
+                    <div class="opcao" data-valor="videos" onclick="selecionar(this, 'estilo')">
+                        <span class="icone">🎬</span>
+                        <span class="nome">Vídeos</span>
+                        <span class="desc">Aulas e tutoriais</span>
+                    </div>
+                    <div class="opcao" data-valor="exercicios" onclick="selecionar(this, 'estilo')">
+                        <span class="icone">✏️</span>
+                        <span class="nome">Exercícios</span>
+                        <span class="desc">Praticar com questões</span>
+                    </div>
+                    <div class="opcao" data-valor="misto" onclick="selecionar(this, 'estilo')">
+                        <span class="icone">🔄</span>
+                        <span class="nome">Misto</span>
+                        <span class="desc">Um pouco de cada</span>
+                    </div>
+                </div>
+                <div class="botoes">
+                    <button class="btn-voltar" onclick="voltar(2)">← Voltar</button>
+                    <button class="btn-proximo" id="btn-proximo-2" onclick="proximo(2)" disabled>Próximo →</button>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 4 - TEMPO -->
+            <div class="pergunta" data-step="3">
+                <h3>⏰ Quantas horas por dia você pode estudar?</h3>
+                <p>Seja sincero, o importante é manter a constância</p>
+                <div class="opcoes" id="opcoes-tempo">
+                    <div class="opcao" data-valor="30min" onclick="selecionar(this, 'tempo')">
+                        <span class="icone">🌱</span>
+                        <span class="nome">30 min</span>
+                        <span class="desc">Começando aos poucos</span>
+                    </div>
+                    <div class="opcao" data-valor="1h" onclick="selecionar(this, 'tempo')">
+                        <span class="icone">🌿</span>
+                        <span class="nome">1 hora</span>
+                        <span class="desc">Ritmo constante</span>
+                    </div>
+                    <div class="opcao" data-valor="2h" onclick="selecionar(this, 'tempo')">
+                        <span class="icone">🌳</span>
+                        <span class="nome">2 horas</span>
+                        <span class="desc">Foco total</span>
+                    </div>
+                    <div class="opcao" data-valor="3h+" onclick="selecionar(this, 'tempo')">
+                        <span class="icone">🔥</span>
+                        <span class="nome">3h+</span>
+                        <span class="desc">Modo turbo</span>
+                    </div>
+                </div>
+                <div class="botoes">
+                    <button class="btn-voltar" onclick="voltar(3)">← Voltar</button>
+                    <button class="btn-proximo" id="btn-proximo-3" onclick="proximo(3)" disabled>Próximo →</button>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 5 - MATÉRIA -->
+            <div class="pergunta" data-step="4">
+                <h3>⭐ Qual matéria você mais gosta?</h3>
+                <p>Vamos incluir ela nos seus estudos com carinho</p>
+                <div class="opcoes tres" id="opcoes-materia">
+                    <div class="opcao" data-valor="matematica" onclick="selecionar(this, 'materia')">
+                        <span class="icone">📐</span>
+                        <span class="nome">Matemática</span>
+                    </div>
+                    <div class="opcao" data-valor="portugues" onclick="selecionar(this, 'materia')">
+                        <span class="icone">📝</span>
+                        <span class="nome">Português</span>
+                    </div>
+                    <div class="opcao" data-valor="historia" onclick="selecionar(this, 'materia')">
+                        <span class="icone">📖</span>
+                        <span class="nome">História</span>
+                    </div>
+                    <div class="opcao" data-valor="geografia" onclick="selecionar(this, 'materia')">
+                        <span class="icone">🌍</span>
+                        <span class="nome">Geografia</span>
+                    </div>
+                    <div class="opcao" data-valor="ciencias" onclick="selecionar(this, 'materia')">
+                        <span class="icone">🔬</span>
+                        <span class="nome">Ciências</span>
+                    </div>
+                    <div class="opcao" data-valor="ingles" onclick="selecionar(this, 'materia')">
+                        <span class="icone">🗣️</span>
+                        <span class="nome">Inglês</span>
+                    </div>
+                </div>
+                <div class="botoes">
+                    <button class="btn-voltar" onclick="voltar(4)">← Voltar</button>
+                    <button class="btn-proximo" id="btn-proximo-4" onclick="finalizar()" disabled>Ver meu plano →</button>
+                </div>
+            </div>
+
+            <!-- TELA FINAL -->
+            <div class="final" id="tela-final">
+                <div class="icone-grande">🎉</div>
+                <h2>Plano personalizado criado!</h2>
+                <p>Com base nas suas respostas, preparamos um plano de estudos perfeito pra você</p>
+                <div class="resumo" id="resumo-final">
+                    <div><span class="label">👤 Nome</span><span class="valor" id="res-nome">-</span></div>
+                    <div><span class="label">🎓 Ensino</span><span class="valor" id="res-ensino">-</span></div>
+                    <div><span class="label">🧠 Estilo</span><span class="valor" id="res-estilo">-</span></div>
+                    <div><span class="label">⏰ Tempo</span><span class="valor" id="res-tempo">-</span></div>
+                    <div><span class="label">⭐ Matéria favorita</span><span class="valor" id="res-materia">-</span></div>
+                </div>
+                <button class="btn-iniciar" onclick="iniciarApp()">🚀 COMEÇAR A ESTUDAR</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/onboarding.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Estuda Aí - Assinatura VIP</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="nivel-badge" id="nivel">1</div>
+            <div class="xp-bar-container">
+                <div class="xp-text">XP: <span id="xp-atual">0</span> / <span id="xp-total">100</span></div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="vip-badge nao-assinante" id="vipBadge" onclick="abrirModalVIP()">
+                    ⭐ VIP
+                </button>
+            </div>
+        </div>
+
+        <!-- STREAK -->
+        <div class="streak-card">
+            <span class="streak-emoji" id="streak-emoji">🔥</span>
+            <div class="streak-number" id="streak-dias">0</div>
+            <div class="streak-label">dias de ofensiva</div>
+        </div>
+
+        <!-- MISSÃO DO DIA -->
+        <div class="daily-mission" id="dailyMission">
+            <div class="semana-tag" id="semana-tag">Semana 2</div>
+            <div class="missao-titulo" id="missao-dia">Segunda-feira</div>
+            <div class="missao-materias" id="missao-badges">
+                <span class="badge-materia">📐 Matemática</span>
+                <span class="badge-materia">📖 História</span>
+            </div>
+            <div class="missao-descricao" id="missao-descricao">
+                📐 Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.<br>
+                📖 Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".
+            </div>
+            <div class="missao-tempo" id="missao-tempo">⏱️ 10 minutos</div>
+            <button class="btn-concluir" id="btn-concluir" onclick="concluirMissao()">
+                ✅ CONCLUIR MISSÃO
+            </button>
+        </div>
+
+        <!-- FEATURES VIP -->
+        <div class="vip-features" id="vipFeatures">
+            <h3>⭐ RECURSOS VIP ATIVOS</h3>
+            <div class="vip-feature-item">
+                <span class="icone">🚀</span>
+                <span class="texto"><strong>XP Dobrado</strong> em todas as missões</span>
+            </div>
+            <div class="vip-feature-item">
+                <span class="icone">📊</span>
+                <span class="texto"><strong>Estatísticas Avançadas</strong> com gráficos de progresso</span>
+            </div>
+            <div class="vip-feature-item">
+                <span class="icone">🏆</span>
+                <span class="texto"><strong>Conquistas Exclusivas</strong> e desafios especiais</span>
+            </div>
+            <div class="vip-feature-item">
+                <span class="icone">👑</span>
+                <span class="texto"><strong>Badge VIP</strong> e destaque na comunidade</span>
+            </div>
+        </div>
+
+        <!-- CALENDÁRIO -->
+        <div class="calendario">
+            <div class="calendario-titulo">📅 ESTA SEMANA</div>
+            <div class="dias-grid" id="dias-semana-atual"></div>
+            <div class="semana-anterior">
+                <div class="calendario-titulo">📅 SEMANA PASSADA</div>
+                <div class="dias-grid" id="dias-semana-passada"></div>
+            </div>
+        </div>
+
+        <!-- CONQUISTAS -->
+        <div class="conquistas">
+            <div class="conquista-item" id="conquista-3">
+                <div class="conquista-icone">⭐</div>
+                <div class="conquista-texto">3 dias</div>
+            </div>
+            <div class="conquista-item" id="conquista-7">
+                <div class="conquista-icone">🌟</div>
+                <div class="conquista-texto">7 dias</div>
+            </div>
+            <div class="conquista-item" id="conquista-30">
+                <div class="conquista-icone">👑</div>
+                <div class="conquista-texto">30 dias</div>
+            </div>
+            <div class="conquista-item vip-lock" id="conquista-vip">
+                <div class="conquista-icone">💎</div>
+                <div class="conquista-texto">VIP Exclusiva</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VIP -->
+    <div class="vip-overlay" id="vipModal">
+        <div class="vip-modal">
+            <button class="close-btn" onclick="fecharModalVIP()">✕</button>
+            <h2>⭐ ASSINATURA VIP</h2>
+            <p class="subtitle">Desbloqueie todo o potencial dos seus estudos</p>
+
+            <div class="vip-plan" onclick="selecionarPlano('mensal')">
+                <div class="plan-header">
+                    <span class="plan-name">📅 Plano Mensal</span>
+                    <span class="plan-price">R$ 19,90 <small>/mês</small></span>
+                </div>
+                <ul class="plan-features">
+                    <li>XP dobrado em todas as missões</li>
+                    <li>Estatísticas avançadas com gráficos</li>
+                    <li>Conquistas exclusivas VIP</li>
+                    <li>Badge dourado no perfil</li>
+                    <li>Desafios especiais toda semana</li>
+                    <li>Cancelamento a qualquer momento</li>
+                </ul>
+            </div>
+
+            <div class="vip-plan" onclick="selecionarPlano('anual')">
+                <div class="plan-header">
+                    <span class="plan-name">🎯 Plano Anual</span>
+                    <span class="plan-price">R$ 199,90 <small>/ano</small></span>
+                </div>
+                <ul class="plan-features">
+                    <li>Todos os benefícios do plano mensal</li>
+                    <li>2 meses grátis (economia de 30%)</li>
+                    <li>Brinde exclusivo de boas-vindas</li>
+                    <li>Status VIP Premium</li>
+                </ul>
+            </div>
+
+            <button class="btn-assinar" id="btnAssinar" onclick="processarAssinatura()">
+                🚀 ASSINAR AGORA
+            </button>
+
+            <div class="vip-benefits">
+                <h4>💳 Pagamento Seguro</h4>
+                <p>Cartão de crédito, boleto ou PIX. Cancele quando quiser.
+                Sua assinatura começa imediatamente após a confirmação.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="confete-container" id="confete-container"></div>
+
+    <script src="js/dados.js"></script>
+    <script src="js/vip.js"></script>
+    <script src="js/missao.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
