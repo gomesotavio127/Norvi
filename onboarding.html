@@ -1,45 +1,345 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 Estuda Aí - Personalize seu Estudo</title>
-    <link rel="stylesheet" href="css/onboarding.css">
+    <title>Norvi - Sua rotina de estudos simplificada</title>
+    <style>
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #f8f9fa;
+            --text-main: #1a1a1a;
+            --text-muted: #6b6b6b;
+            --accent: #4a6cf7;
+            --accent-hover: #3554d1;
+            --border: #eaeaea;
+            --shadow-soft: 0 4px 6px rgba(0,0,0,0.02);
+            --shadow-md: 0 10px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .card {
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .titulo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .titulo span {
+            background: linear-gradient(135deg, var(--accent), #6875f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitulo {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        /* Progresso */
+        .progresso {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .progresso .ponto {
+            width: 30px;
+            height: 4px;
+            border-radius: 10px;
+            background: #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .progresso .ponto.ativo {
+            background: var(--accent);
+            width: 45px;
+        }
+
+        .progresso .ponto.feito {
+            background: #10b981;
+        }
+
+        /* Opções de Pergunta */
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .opcao {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .opcao:hover {
+            background: rgba(74, 108, 247, 0.04);
+            border-color: var(--accent);
+        }
+
+        .opcao.selecionada {
+            border-color: var(--accent);
+            background: rgba(74, 108, 247, 0.08);
+            color: var(--accent);
+        }
+
+        .opcao-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background: white;
+        }
+
+        .opcao.selecionada .opcao-checkbox {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .opcao.selecionada .opcao-checkbox::after {
+            content: '✓';
+        }
+
+        /* Botões */
+        .botoes {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text-muted);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e2e8f0;
+        }
+
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Formulário de Login/Cadastro */
+        .form-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 90%;
+            max-width: 340px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s, toastOut 0.3s 2.7s forwards;
+        }
+
+        @keyframes toastIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes toastOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-20px); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="container">
-        <div class="onboarding" id="onboarding">
-
+        <!-- TELA INICIAL (LANDING PAGE) -->
+        <div class="card" id="tela-inicial">
             <div class="logo">🧠</div>
-            <div class="titulo">Estuda <span>AI</span></div>
-            <div class="subtitulo">Diagnóstico de Rotina de Estudos</div>
+            <h1 class="titulo"><span>Norvi</span></h1>
+            <p class="subtitulo">Foque nos estudos. Construa hábitos.<br>Sua rotina de estudos simplificada.</p>
+            <button class="btn-primary" onclick="iniciarDiagnostico()">Começar Diagnóstico</button>
+        </div>
 
-            <div class="progresso" id="progresso">
-                <!-- Pontos de progresso gerados via JS -->
+        <!-- TELA DIAGNÓSTICO -->
+        <div class="card" id="tela-diagnostico" style="display: none;">
+            <div class="progresso" id="progresso"></div>
+            <div id="pergunta-container"></div>
+            <div class="botoes">
+                <button class="btn-secondary" id="btn-voltar" onclick="voltarPergunta()" disabled>⬅ Voltar</button>
+                <button class="btn-primary" id="btn-proximo" onclick="proximaPergunta()" disabled>Próximo ➡</button>
+            </div>
+        </div>
+
+        <!-- TELA CADASTRO / LOGIN -->
+        <div class="card" id="tela-auth" style="display: none;">
+            <div class="logo">🔐</div>
+            <h2 class="titulo" style="font-size: 22px; margin-bottom: 8px;">Crie sua conta</h2>
+            <p class="subtitulo" style="margin-bottom: 24px;">Salve seu progresso e acesse seu plano personalizado.</p>
+            
+            <div class="form-group">
+                <label for="auth-email">E-mail</label>
+                <input type="email" class="form-input" id="auth-email" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label for="auth-senha">Senha</label>
+                <input type="password" class="form-input" id="auth-senha" placeholder="Digite sua senha">
+            </div>
+            <div class="form-group" id="group-confirmar">
+                <label for="auth-confirmar">Confirmar Senha</label>
+                <input type="password" class="form-input" id="auth-confirmar" placeholder="Confirme sua senha">
             </div>
 
-            <div id="diagnostico">
-                <div id="perguntas-container">
-                    <!-- Pergunta atual gerada via JS -->
-                </div>
-
-                <div class="botoes" id="controles" style="margin-top: 20px;">
-                    <button class="btn-voltar" id="btn-voltar" onclick="voltarPergunta()" disabled>⬅ Voltar</button>
-                    <button class="btn-proximo" id="btn-proximo" onclick="proximaPergunta()" disabled>Próximo ➡</button>
-                </div>
+            <div class="checkbox-group" onclick="toggleManterConectado()">
+                <input type="checkbox" id="auth-manter" style="cursor: pointer;" checked>
+                <span>Manter-me conectado neste dispositivo</span>
             </div>
 
-            <!-- TELA FINAL -->
-            <div class="final" id="tela-final">
-                <div class="icone-grande" id="final-emoji">🏆</div>
-                <h2 id="final-titulo">Seu Plano de Estudos está Pronto!</h2>
-                <p>Com base no seu perfil, estruturamos a rotina ideal para você:</p>
-                <div class="resumo" id="resumo-final">
-                    <!-- Resumo gerado via JS -->
-                </div>
-                <button class="btn-iniciar" onclick="iniciarApp()">🚀 COMEÇAR A ESTUDAR</button>
-            </div>
-
+            <button class="btn-primary" id="btn-auth-action" onclick="processarAuth()">Criar Conta</button>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">
+                <span id="auth-toggle-text">Já tem uma conta?</span> 
+                <a href="#" id="auth-toggle-link" onclick="toggleAuthMode()" style="color: var(--accent); font-weight: 700; text-decoration: none;">Entrar</a>
+            </p>
         </div>
     </div>
 
