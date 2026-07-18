@@ -17,11 +17,20 @@
             --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
         }
 
+        body.dark-mode {
+            --bg-page: #0a0e17;
+            --bg-sidebar: #111827;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #1f2937;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
         }
 
         body {
@@ -1407,6 +1416,23 @@
                     </button>
                 </li>
             </ul>
+
+            <!-- CONFIGURAÇÕES DA SIDEBAR (IDIOMA E TEMA) -->
+            <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px;">
+                <!-- Seletor de Idioma -->
+                <select id="langSelector" onchange="changeLanguage(this.value)" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-page); color: var(--text-main); font-size: 13px; font-weight: 600; cursor: pointer; outline: none; box-shadow: var(--shadow-soft);">
+                    <option value="pt-BR">🇧🇷 PT-BR</option>
+                    <option value="pt-PT">🇵🇹 PT-PT</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="fr">🇫🇷 FR</option>
+                </select>
+
+                <!-- Toggle Dark Mode -->
+                <button onclick="toggleDarkMode()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-page); color: var(--text-main); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-soft);">
+                    🌓 <span id="darkModeText">Escuro</span>
+                </button>
+            </div>
         </div>
 
         <!-- ÁREA PRINCIPAL -->
@@ -2584,6 +2610,263 @@
         }
 
         let dadosUsuario = null;
+        let currentLang = localStorage.getItem("norvi_lang") || "pt-BR";
+
+        const UI_TEXTS = {
+            "pt-BR": {
+                menuHoje: "📋 Hoje",
+                menuCalendario: "📅 Calendário",
+                menuRanking: "🏆 Ranking",
+                menuVip: "⭐ Assinar VIP",
+                menuPerfil: "⚙️ Perfil",
+                titleHoje: "Hoje",
+                btnAddTarefa: "+ Adicionar tarefa",
+                btnConcluirDia: "✅ CONCLUIR DIA DE ESTUDOS",
+                titleCalendario: "Calendário",
+                subtitleCalendario: "Acompanhe sua consistência de estudos",
+                incentivoCalendario: "Seu primeiro dia de estudos será marcado aqui!",
+                resumoTotal: "Total:",
+                resumoSemana: "Semana:",
+                resumoMes: "Mês:",
+                titleRanking: "Ranking",
+                subtitleRanking: "Dispute o topo com outros estudantes!",
+                titleVip: "Assinar VIP",
+                subtitleVip: "Desbloqueie todo o potencial dos seus estudos",
+                vipCardTitle: "⭐ Norvi VIP",
+                vipCardSubtitle: "Acelere seu aprendizado com recursos exclusivos",
+                vipCardPrice: "R$ 19,90 <small>/mês</small>",
+                vipCardBtn: "🚀 ASSINAR AGORA",
+                vipCardSeguro: "🔒 Pagamento Seguro • PIX, Cartão ou Boleto",
+                titlePerfil: "Perfil",
+                subtitlePerfil: "Gerencie suas conquistas e estatísticas",
+                statsTitle: "📊 Estatísticas Avançadas",
+                statsTempo: "Tempo de Foco",
+                statsAproveitamento: "Aproveitamento",
+                statsOverlay: "Disponível apenas para membros VIP",
+                achievementsTitle: "🏆 Conquistas",
+                darkModeClaro: "Claro",
+                darkModeEscuro: "Escuro"
+            },
+            "pt-PT": {
+                menuHoje: "📋 Hoje",
+                menuCalendario: "📅 Calendário",
+                menuRanking: "🏆 Ranking",
+                menuVip: "⭐ Assinar VIP",
+                menuPerfil: "⚙️ Perfil",
+                titleHoje: "Hoje",
+                btnAddTarefa: "+ Adicionar tarefa",
+                btnConcluirDia: "✅ CONCLUIR DIA DE ESTUDOS",
+                titleCalendario: "Calendário",
+                subtitleCalendario: "Acompanhe a sua consistência de estudos",
+                incentivoCalendario: "O seu primeiro dia de estudos será marcado aqui!",
+                resumoTotal: "Total:",
+                resumoSemana: "Semana:",
+                resumoMes: "Mês:",
+                titleRanking: "Ranking",
+                subtitleRanking: "Dispute o topo com outros estudantes!",
+                titleVip: "Assinar VIP",
+                subtitleVip: "Desbloqueie todo o potencial dos seus estudos",
+                vipCardTitle: "⭐ Norvi VIP",
+                vipCardSubtitle: "Acelere o seu aprendizado com recursos exclusivos",
+                vipCardPrice: "R$ 19,90 <small>/mês</small>",
+                vipCardBtn: "🚀 ASSINAR AGORA",
+                vipCardSeguro: "🔒 Pagamento Seguro • PIX, Cartão ou Boleto",
+                titlePerfil: "Perfil",
+                subtitlePerfil: "Gerencie as suas conquistas e estatísticas",
+                statsTitle: "📊 Estatísticas Avançadas",
+                statsTempo: "Tempo de Foco",
+                statsAproveitamento: "Aproveitamento",
+                statsOverlay: "Disponível apenas para membros VIP",
+                achievementsTitle: "🏆 Conquistas",
+                darkModeClaro: "Claro",
+                darkModeEscuro: "Escuro"
+            },
+            "en": {
+                menuHoje: "📋 Today",
+                menuCalendario: "📅 Calendar",
+                menuRanking: "🏆 Ranking",
+                menuVip: "⭐ Subscribe VIP",
+                menuPerfil: "⚙️ Profile",
+                titleHoje: "Today",
+                btnAddTarefa: "+ Add task",
+                btnConcluirDia: "✅ COMPLETE STUDY DAY",
+                titleCalendario: "Calendar",
+                subtitleCalendario: "Track your study consistency",
+                incentivoCalendario: "Your first study day will be marked here!",
+                resumoTotal: "Total:",
+                resumoSemana: "Week:",
+                resumoMes: "Month:",
+                titleRanking: "Ranking",
+                subtitleRanking: "Compete for the top with other students!",
+                titleVip: "Subscribe VIP",
+                subtitleVip: "Unlock the full potential of your studies",
+                vipCardTitle: "⭐ Norvi VIP",
+                vipCardSubtitle: "Accelerate your learning with exclusive features",
+                vipCardPrice: "$19.90 <small>/month</small>",
+                vipCardBtn: "🚀 SUBSCRIBE NOW",
+                vipCardSeguro: "🔒 Secure Payment • PIX, Card or Boleto",
+                titlePerfil: "Profile",
+                subtitlePerfil: "Manage your achievements and statistics",
+                statsTitle: "📊 Advanced Statistics",
+                statsTempo: "Focus Time",
+                statsAproveitamento: "Performance",
+                statsOverlay: "Available only for VIP members",
+                achievementsTitle: "🏆 Achievements",
+                darkModeClaro: "Light",
+                darkModeEscuro: "Dark"
+            },
+            "es": {
+                menuHoje: "📋 Hoy",
+                menuCalendario: "📅 Calendario",
+                menuRanking: "🏆 Ranking",
+                menuVip: "⭐ Suscribirse VIP",
+                menuPerfil: "⚙️ Perfil",
+                titleHoje: "Hoy",
+                btnAddTarefa: "+ Añadir tarea",
+                btnConcluirDia: "✅ COMPLETAR DÍA DE ESTUDIO",
+                titleCalendario: "Calendario",
+                subtitleCalendario: "Sigue tu consistencia de estudio",
+                incentivoCalendario: "¡Tu primer día de estudio se marcará aquí!",
+                resumoTotal: "Total:",
+                resumoSemana: "Semana:",
+                resumoMes: "Mes:",
+                titleRanking: "Ranking",
+                subtitleRanking: "¡Compite por el primer puesto con otros estudiantes!",
+                titleVip: "Suscribirse VIP",
+                subtitleVip: "Desbloquea todo el potencial de tus estudios",
+                vipCardTitle: "⭐ Norvi VIP",
+                vipCardSubtitle: "Acelera tu aprendizaje con funciones exclusivas",
+                vipCardPrice: "$19.90 <small>/mes</small>",
+                vipCardBtn: "🚀 SUSCRIBIRSE AHORA",
+                vipCardSeguro: "🔒 Pago Seguro • PIX, Tarjeta o Boleto",
+                titlePerfil: "Perfil",
+                subtitlePerfil: "Gestiona tus logros y estadísticas",
+                statsTitle: "📊 Estadísticas Avanzadas",
+                statsTempo: "Tiempo de Enfoque",
+                statsAproveitamento: "Rendimiento",
+                statsOverlay: "Disponible solo para miembros VIP",
+                achievementsTitle: "🏆 Logros",
+                darkModeClaro: "Claro",
+                darkModeEscuro: "Oscuro"
+            },
+            "fr": {
+                menuHoje: "📋 Aujourd'hui",
+                menuCalendario: "📅 Calendrier",
+                menuRanking: "🏆 Classement",
+                menuVip: "⭐ S'abonner VIP",
+                menuPerfil: "⚙️ Profil",
+                titleHoje: "Aujourd'hui",
+                btnAddTarefa: "+ Ajouter une tâche",
+                btnConcluirDia: "✅ COMPLÉTER LA JOURNÉE D'ÉTUDE",
+                titleCalendario: "Calendrier",
+                subtitleCalendario: "Suivez votre régularité d'étude",
+                incentivoCalendario: "Votre premier jour d'étude sera marqué ici !",
+                resumoTotal: "Total :",
+                resumoSemana: "Semaine :",
+                resumoMes: "Mois :",
+                titleRanking: "Classement",
+                subtitleRanking: "Affrontez d'autres étudiants pour le sommet !",
+                titleVip: "S'abonner VIP",
+                subtitleVip: "Débloquez tout le potentiel de vos études",
+                vipCardTitle: "⭐ Norvi VIP",
+                vipCardSubtitle: "Accélérez votre apprentissage avec des fonctionnalités exclusives",
+                vipCardPrice: "19,90 € <small>/mois</small>",
+                vipCardBtn: "🚀 S'ABONNER MAINTENANT",
+                vipCardSeguro: "🔒 Paiement Sécurisé • PIX, Carte ou Boleto",
+                titlePerfil: "Profil",
+                subtitlePerfil: "Gerez vos réussites et vos statistiques",
+                statsTitle: "📊 Statistiques Avancées",
+                statsTempo: "Temps de Concentration",
+                statsAproveitamento: "Performance",
+                statsOverlay: "Disponible uniquement pour les membres VIP",
+                achievementsTitle: "🏆 Réussites",
+                darkModeClaro: "Clair",
+                darkModeEscuro: "Sombre"
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem("norvi_lang", lang);
+            document.getElementById("langSelector").value = lang;
+
+            const texts = UI_TEXTS[lang];
+
+            // Traduz Menu Lateral
+            document.getElementById("menu-inicio").innerHTML = `<span class="menu-item-icon">📋</span> ${texts.menuHoje}`;
+            document.getElementById("menu-calendario").innerHTML = `<span class="menu-item-icon">📅</span> ${texts.menuCalendario}`;
+            document.getElementById("menu-ranking").innerHTML = `<span class="menu-item-icon">🏆</span> ${texts.menuRanking}`;
+            document.getElementById("menu-vip").innerHTML = `<span class="menu-item-icon">⭐</span> ${texts.menuVip}`;
+            document.getElementById("menu-perfil").innerHTML = `<span class="menu-item-icon">⚙️</span> ${texts.menuPerfil}`;
+
+            // Traduz Aba Hoje
+            document.querySelector("#tab-inicio .view-title").textContent = texts.titleHoje;
+            document.getElementById("addTaskTrigger").textContent = texts.btnAddTarefa;
+            
+            const btnConcluir = document.getElementById("btnConcluir");
+            if (btnConcluir && !btnConcluir.disabled) {
+                btnConcluir.textContent = texts.btnConcluirDia;
+            }
+
+            // Traduz Aba Calendário
+            document.querySelector("#tab-calendario .view-title").textContent = texts.titleCalendario;
+            document.querySelector("#tab-calendario .view-subtitle").textContent = texts.subtitleCalendario;
+            document.querySelector(".cal-incentivo").textContent = texts.incentivoCalendario;
+            
+            const resumoSpans = document.querySelectorAll(".cal-resumo span");
+            if (resumoSpans.length >= 3) {
+                resumoSpans[0].innerHTML = `${texts.resumoTotal} <strong id="diasTotal">${estado.diasCompletos.length} dias</strong>`;
+                // Os contadores semana/mês serão atualizados na função atualizarContadores()
+            }
+
+            // Traduz Aba Ranking
+            document.querySelector("#tab-ranking .view-title").textContent = texts.titleRanking;
+            document.querySelector("#tab-ranking .view-subtitle").textContent = texts.subtitleRanking;
+            document.querySelector("#tab-ranking h3").textContent = `🏆 ${texts.menuRanking} Semanal`;
+
+            // Traduz Aba VIP
+            document.querySelector("#tab-vip .view-title").textContent = texts.titleVip;
+            document.querySelector("#tab-vip .view-subtitle").textContent = texts.subtitleVip;
+            
+            const vipCard = document.getElementById("cardAssinatura");
+            if (vipCard) {
+                vipCard.querySelector("h3").textContent = texts.vipCardTitle;
+                vipCard.querySelector("p").textContent = texts.vipCardSubtitle;
+                vipCard.querySelector(".preco").innerHTML = texts.vipCardPrice;
+                vipCard.querySelector(".btn-assinar").textContent = texts.vipCardBtn;
+                vipCard.querySelector(".seguro").innerHTML = texts.vipCardSeguro;
+            }
+
+            // Traduz Aba Perfil
+            document.querySelector("#tab-perfil .view-title").textContent = texts.titlePerfil;
+            document.querySelector("#tab-perfil .view-subtitle").textContent = texts.subtitlePerfil;
+            document.querySelector("#statsCard h3").textContent = texts.statsTitle;
+            document.querySelector("#statsOverlay p").textContent = texts.statsTitle.replace("📊 ", "");
+            document.querySelector("#statsOverlay small").textContent = texts.statsOverlay;
+            document.querySelector("#tab-perfil h3:last-of-type").textContent = `🏆 ${texts.achievementsTitle}`;
+
+            const statCards = document.querySelectorAll(".stat-card");
+            if (statCards.length >= 2) {
+                statCards[0].querySelector(".stat-lbl").textContent = texts.statsTempo;
+                statCards[1].querySelector(".stat-lbl").textContent = texts.statsAproveitamento;
+            }
+
+            // Atualiza textos de Dark Mode
+            const isDark = document.body.classList.contains("dark-mode");
+            document.getElementById("darkModeText").textContent = isDark ? texts.darkModeClaro : texts.darkModeEscuro;
+
+            // Recarrega dados do usuário para atualizar as missões no novo idioma
+            carregarUsuario();
+            atualizarUI();
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle("dark-mode");
+            localStorage.setItem("norvi_dark_mode", isDark);
+            
+            const texts = UI_TEXTS[currentLang];
+            document.getElementById("darkModeText").textContent = isDark ? texts.darkModeClaro : texts.darkModeEscuro;
+        }
 
         function carregarUsuario() {
             const salvo = localStorage.getItem('usuario_estudos');
@@ -2600,14 +2883,32 @@
                         const m2 = document.getElementById('missao-2');
                         
                         if (m1 && m2) {
-                            m1.querySelector('.task-title').innerHTML = `📐 Matemática (${dadosUsuario.perfil})`;
-                            m1.querySelector('.task-desc').textContent = `Resolver ${dadosUsuario.plano.meta.split(' ')[0]} questões sobre conjuntos numéricos em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
-                            m1.querySelector('.task-meta').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            const matTitle = currentLang === "en" ? "Mathematics" : currentLang === "es" ? "Matemáticas" : currentLang === "fr" ? "Mathématiques" : "Matemática";
+                            const histTitle = currentLang === "en" ? "History" : currentLang === "es" ? "Historia" : currentLang === "fr" ? "Histoire" : "História";
+
+                            m1.querySelector('.task-title').innerHTML = `📐 ${matTitle} (${dadosUsuario.perfil})`;
+                            
+                            const metaNum = dadosUsuario.plano.meta.split(' ')[0];
+                            const tempoNum = dadosUsuario.plano.tempo.split(' ')[0];
+                            
+                            let m1Desc = `Resolver ${metaNum} questões sobre conjuntos numéricos em ${tempoNum} min.`;
+                            if (currentLang === "en") m1Desc = `Solve ${metaNum} questions about numerical sets in ${tempoNum} min.`;
+                            else if (currentLang === "es") m1Desc = `Resolver ${metaNum} preguntas sobre conjuntos numéricos en ${tempoNum} min.`;
+                            else if (currentLang === "fr") m1Desc = `Résoudre ${metaNum} questions sur les ensembles numériques en ${tempoNum} min.`;
+
+                            m1.querySelector('.task-desc').textContent = m1Desc;
+                            m1.querySelector('.task-meta').innerHTML = `⏱️ ${tempoNum} min`;
                             m1.querySelector('.timer-btn').setAttribute('onclick', `event.stopPropagation(); toggleTimer(1, ${dadosUsuario.plano.tempoMinutos})`);
 
-                            m2.querySelector('.task-title').innerHTML = `📖 História (${dadosUsuario.perfil})`;
-                            m2.querySelector('.task-desc').textContent = `Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis" em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
-                            m2.querySelector('.task-meta').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            m2.querySelector('.task-title').innerHTML = `📖 ${histTitle} (${dadosUsuario.perfil})`;
+                            
+                            let m2Desc = `Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis" em ${tempoNum} min.`;
+                            if (currentLang === "en") m2Desc = `Read 1 paragraph about Ancient Greece — focus on "polis" in ${tempoNum} min.`;
+                            else if (currentLang === "es") m2Desc = `Leer 1 párrafo sobre la Antigua Grecia — enfoque en "polis" en ${tempoNum} min.`;
+                            else if (currentLang === "fr") m2Desc = `Lire 1 paragraphe sur la Grèce Antique — focus sur "polis" en ${tempoNum} min.`;
+
+                            m2.querySelector('.task-desc').textContent = m2Desc;
+                            m2.querySelector('.task-meta').innerHTML = `⏱️ ${tempoNum} min`;
                             m2.querySelector('.timer-btn').setAttribute('onclick', `event.stopPropagation(); toggleTimer(2, ${dadosUsuario.plano.tempoMinutos})`);
                         }
                     }
@@ -2618,10 +2919,19 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Aplica Dark Mode se estiver ativo
+            const isDark = localStorage.getItem("norvi_dark_mode") === "true";
+            if (isDark) {
+                document.body.classList.add("dark-mode");
+            }
+
             carregarEstado();
             carregarUsuario();
             renderizarTarefasCustomizadas();
-            atualizarUI();
+            
+            // Aplica idioma inicial
+            changeLanguage(currentLang);
+            
             iniciarTutorial();
         });
     </script>
