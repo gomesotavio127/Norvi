@@ -1447,8 +1447,45 @@
             salvarEstado();
         }
 
+        let dadosUsuario = null;
+
+        function carregarUsuario() {
+            const salvo = localStorage.getItem('usuario_estudos');
+            if (salvo) {
+                try {
+                    dadosUsuario = JSON.parse(salvo);
+                    // Atualiza o nome no cabeçalho
+                    const logo = document.querySelector('.logo');
+                    if (logo && dadosUsuario.nome) {
+                        logo.innerHTML = `🧠 Estuda AI <span style="font-size: 12px; color: var(--purple-light); margin-left: 8px; font-weight: 500;">Olá, ${dadosUsuario.nome}!</span>`;
+                    }
+                    
+                    // Atualiza as missões diárias com base no plano do perfil!
+                    if (dadosUsuario.plano) {
+                        const m1 = document.getElementById('missao-1');
+                        const m2 = document.getElementById('missao-2');
+                        
+                        if (m1 && m2) {
+                            m1.querySelector('.titulo').innerHTML = `📐 Matemática (${dadosUsuario.perfil})`;
+                            m1.querySelector('.desc').textContent = `Resolver ${dadosUsuario.plano.meta.split(' ')[0]} questões sobre conjuntos numéricos em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
+                            m1.querySelector('.tempo').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            m1.querySelector('.timer-btn').setAttribute('onclick', `toggleTimer(1, ${dadosUsuario.plano.tempoMinutos})`);
+
+                            m2.querySelector('.titulo').innerHTML = `📖 História (${dadosUsuario.perfil})`;
+                            m2.querySelector('.desc').textContent = `Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis" em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
+                            m2.querySelector('.tempo').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            m2.querySelector('.timer-btn').setAttribute('onclick', `toggleTimer(2, ${dadosUsuario.plano.tempoMinutos})`);
+                        }
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             carregarEstado();
+            carregarUsuario();
             atualizarUI();
         });
     </script>
