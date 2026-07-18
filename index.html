@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estuda AI</title>
+    <title>Estuda AI - Site de Estudos</title>
     <style>
         * {
             margin: 0;
@@ -13,34 +13,46 @@
         }
 
         body {
-            background: #0b0e14;
+            background: #0a0e17;
             color: #e8edf5;
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
+            width: 100%;
             max-width: 480px;
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
+        /* Cards base */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Cabeçalho */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background: #141a24;
-            border-radius: 16px;
-            border: 1px solid #1f2a3a;
         }
 
         .logo {
             font-size: 20px;
             font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -48,31 +60,34 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .xp-badge {
-            background: #1f2a3a;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 13px;
             color: #fbbf24;
+            font-weight: 600;
         }
 
         .vip-badge {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0b0e14;
-            padding: 2px 10px;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: #0a0e17;
+            padding: 4px 10px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
         }
 
+        /* Ofensiva */
         .streak-card {
-            background: #141a24;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #1f2a3a;
             display: flex;
             align-items: center;
             gap: 16px;
@@ -80,83 +95,79 @@
 
         .streak-fire {
             font-size: 32px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .streak-info {
+            flex-grow: 1;
         }
 
         .streak-info h3 {
             font-size: 14px;
             color: #94a3b8;
+            font-weight: 500;
         }
 
         .streak-info .days {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: #fbbf24;
         }
 
-        .week-card {
-            background: #141a24;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #1f2a3a;
-        }
-
-        .week-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .week-header h2 {
-            font-size: 16px;
-        }
-
-        .week-day {
-            color: #94a3b8;
+        .week-display {
             font-size: 13px;
-        }
-
-        .week-day.active {
-            color: #fbbf24;
-            font-weight: 600;
-        }
-
-        .missao-card {
-            background: #141a24;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #1f2a3a;
-        }
-
-        .missao-card h3 {
-            font-size: 14px;
             color: #94a3b8;
-            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        /* Missão do Dia */
+        .missao-card h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .missao-item {
-            background: #1a2230;
+            background: rgba(255, 255, 255, 0.02);
             padding: 12px 14px;
             border-radius: 12px;
             margin-bottom: 8px;
             border-left: 3px solid #7c3aed;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .missao-item .titulo {
             font-weight: 600;
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .missao-item .desc {
             font-size: 13px;
             color: #94a3b8;
-            margin-top: 2px;
+            margin-top: 4px;
+            line-height: 1.4;
         }
 
         .missao-item .tempo {
             font-size: 12px;
             color: #64748b;
-            margin-top: 4px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .btn-concluir {
@@ -164,65 +175,90 @@
             padding: 12px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
             color: #fff;
             font-weight: 700;
             font-size: 15px;
             cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 4px;
+            transition: all 0.2s;
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
         }
 
-        .btn-concluir:hover {
-            opacity: 0.85;
+        .btn-concluir:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         .btn-concluir:disabled {
-            opacity: 0.4;
+            background: rgba(255, 255, 255, 0.1);
+            color: #64748b;
             cursor: not-allowed;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* VIP Features */
         .vip-features {
-            background: #141a24;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #1f2a3a;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.03);
         }
 
-        .vip-features .vip-title {
+        .vip-title {
             color: #fbbf24;
             font-weight: 700;
             font-size: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .vip-features ul {
             list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .vip-features li {
             font-size: 13px;
-            color: #94a3b8;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .vip-features ul li::before {
-            content: '⭐ ';
-        }
-
-        .calendario-card {
-            background: #141a24;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #1f2a3a;
-        }
-
+        /* Calendário */
         .calendario-card h3 {
-            font-size: 14px;
-            color: #94a3b8;
+            font-size: 16px;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cal-dias-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 6px;
         }
 
         .cal-dia {
@@ -232,149 +268,216 @@
             justify-content: center;
             font-size: 12px;
             border-radius: 8px;
-            background: #1a2230;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             color: #94a3b8;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .cal-dia.completo {
             background: #7c3aed;
             color: #fff;
-            font-weight: 600;
+            font-weight: 700;
+            border-color: #a78bfa;
+            box-shadow: 0 0 8px rgba(124, 58, 237, 0.4);
         }
 
         .cal-dia.vazio {
             background: transparent;
+            border: none;
         }
 
+        .cal-resumo {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .cal-resumo span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .cal-resumo strong {
+            color: #e2e8f0;
+        }
+
+        /* Assinatura VIP */
         .vip-assinatura {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid #fbbf2440;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(249, 115, 22, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.3);
             text-align: center;
         }
 
         .vip-assinatura h3 {
             font-size: 18px;
             color: #fbbf24;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .vip-assinatura p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 12px;
         }
 
         .vip-assinatura .preco {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 8px 0;
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
         }
 
         .vip-assinatura .preco small {
             font-size: 14px;
-            font-weight: 400;
             color: #94a3b8;
+            font-weight: 400;
         }
 
         .vip-assinatura ul {
             list-style: none;
-            font-size: 13px;
-            color: #94a3b8;
             text-align: left;
-            margin: 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
             padding: 0 8px;
         }
 
-        .vip-assinatura ul li::before {
-            content: '✅ ';
+        .vip-assinatura li {
+            font-size: 13px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vip-assinatura li span {
+            color: #10b981;
         }
 
         .btn-assinar {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0b0e14;
-            font-weight: 700;
-            font-size: 16px;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: #0a0e17;
+            font-weight: 800;
+            font-size: 15px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn-assinar:hover {
-            opacity: 0.85;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
         }
 
-        .vip-assinatura .seguro {
-            font-size: 12px;
+        .seguro {
+            font-size: 11px;
             color: #64748b;
-            margin-top: 8px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <!-- CABEÇALHO -->
+        <div class="card header">
             <span class="logo">🧠 Estuda AI</span>
             <div class="header-right">
-                <span class="xp-badge">⚡ <span id="xpDisplay">0</span> XP</span>
-                <span class="vip-badge" id="vipBadge" style="display:none;">⭐ VIP</span>
+                <span class="xp-badge">XP: <span id="xpDisplay">0</span></span>
+                <span class="vip-badge" id="vipBadge" style="display: none;">⭐ VIP</span>
             </div>
         </div>
 
-        <div class="streak-card">
+        <!-- OFENSIVA -->
+        <div class="card streak-card">
             <div class="streak-fire">🔥</div>
             <div class="streak-info">
-                <h3>🔥 Ofensiva</h3>
-                <span class="days" id="streakDisplay">0</span> <span style="color:#94a3b8;">dias</span>
+                <div class="days" id="streakDisplay">0 dias de ofensiva</div>
+                <h3>Ofensiva</h3>
             </div>
-            <div style="margin-left:auto;font-size:13px;color:#94a3b8;" id="weekDisplay">Semana 2</div>
+            <div class="week-display" id="weekDisplay">Semana 2</div>
         </div>
 
-        <div class="missao-card">
-            <h3>📚 Missão de Hoje</h3>
-            <div id="missaoContainer">
-                <div class="missao-item">
-                    <div class="titulo">📐 Matemática</div>
-                    <div class="desc">Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.</div>
-                    <div class="tempo">⏱️ 10 minutos</div>
-                </div>
-                <div class="missao-item">
-                    <div class="titulo">📖 História</div>
-                    <div class="desc">Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".</div>
-                    <div class="tempo">⏱️ 10 minutos</div>
-                </div>
+        <!-- MISSÃO DO DIA -->
+        <div class="card missao-card">
+            <h3>📋 Missão de Hoje</h3>
+            
+            <div class="missao-item">
+                <div class="titulo">📐 Matemática</div>
+                <div class="desc">Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.</div>
+                <div class="tempo">⏱️ 10 minutos</div>
             </div>
+
+            <div class="missao-item">
+                <div class="titulo">📖 História</div>
+                <div class="desc">Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".</div>
+                <div class="tempo">⏱️ 10 minutos</div>
+            </div>
+
             <button class="btn-concluir" id="btnConcluir">✅ CONCLUIR MISSÃO</button>
         </div>
 
-        <div class="vip-features" id="vipFeatures" style="display:none;">
-            <div class="vip-title">⭐ RECURSOS VIP ATIVOS</div>
+        <!-- VIP FEATURES (só aparece se for VIP) -->
+        <div class="card vip-features" id="vipFeatures" style="display: none;">
+            <div class="vip-title">⭐ Benefícios VIP:</div>
             <ul>
-                <li>XP Dobrado em todas as missões</li>
-                <li>Estatísticas Avançadas com gráficos de progresso</li>
-                <li>Conquistas Exclusivas e desafios especiais</li>
-                <li>Badge VIP e destaque na comunidade</li>
+                <li>🚀 XP em dobro</li>
+                <li>📊 Estatísticas avançadas</li>
+                <li>🏆 Conquistas exclusivas</li>
+                <li>👑 Badge dourado</li>
             </ul>
         </div>
 
-        <div class="calendario-card">
+        <!-- CALENDÁRIO -->
+        <div class="card calendario-card">
             <h3>📅 Calendário</h3>
+            <div class="cal-dias-semana">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
             <div class="cal-grid" id="calGrid"></div>
-            <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:#94a3b8;">
-                <span>⭐ <span id="diasCompletos">0</span> dias</span>
-                <span>🌟 <span id="diasSemana">0</span> esta semana</span>
-                <span>👑 <span id="diasMes">0</span> este mês</span>
+            
+            <div class="cal-resumo">
+                <span>Total: <strong id="diasTotal">0 dias</strong></span>
+                <span>Semana: <strong id="diasSemana">0 dias</strong></span>
+                <span>Mês: <strong id="diasMes">0 dias</strong></span>
             </div>
         </div>
 
-        <div class="vip-assinatura">
-            <h3>⭐ ASSINATURA VIP</h3>
-            <p style="color:#94a3b8;font-size:14px;">Desbloqueie todo o potencial dos seus estudos</p>
+        <!-- ASSINATURA VIP -->
+        <div class="card vip-assinatura">
+            <h3>⭐ Assine VIP</h3>
+            <p>Desbloqueie todo o potencial dos seus estudos</p>
             <div class="preco">R$ 19,90 <small>/mês</small></div>
             <ul>
-                <li>XP dobrado em todas as missões</li>
-                <li>Estatísticas avançadas com gráficos</li>
-                <li>Conquistas exclusivas VIP</li>
-                <li>Badge dourado no perfil</li>
-                <li>Desafios especiais toda semana</li>
-                <li>Cancelamento a qualquer momento</li>
+                <li><span>✅</span> XP em dobro</li>
+                <li><span>✅</span> Estatísticas avançadas</li>
+                <li><span>✅</span> Conquistas exclusivas</li>
+                <li><span>✅</span> Badge dourado</li>
+                <li><span>✅</span> Desafios especiais</li>
             </ul>
             <button class="btn-assinar" id="btnAssinar">🚀 ASSINAR AGORA</button>
             <div class="seguro">💳 Pagamento Seguro • Cartão, boleto ou PIX • Cancele quando quiser</div>
@@ -386,28 +489,25 @@
             xp: 0,
             isVip: false,
             streak: 0,
-            ultimoDiaCompleto: null,
             diasCompletos: [],
-            missaoConcluidaHoje: false
+            ultimoDiaCompleto: null
         };
 
-        let estado = carregarEstado();
+        let estado = { ...ESTADO_PADRAO };
 
         function carregarEstado() {
-            try {
-                const raw = localStorage.getItem('estuda_ai_estado');
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    return { ...ESTADO_PADRAO, ...parsed };
+            const salvo = localStorage.getItem('estuda_ai_estado');
+            if (salvo) {
+                try {
+                    estado = JSON.parse(salvo);
+                } catch (e) {
+                    estado = { ...ESTADO_PADRAO };
                 }
-            } catch (e) {}
-            return { ...ESTADO_PADRAO };
+            }
         }
 
         function salvarEstado() {
-            try {
-                localStorage.setItem('estuda_ai_estado', JSON.stringify(estado));
-            } catch (e) {}
+            localStorage.setItem('estuda_ai_estado', JSON.stringify(estado));
         }
 
         function gerarCalendario() {
@@ -420,12 +520,14 @@
             const primeiroDia = new Date(ano, mes, 1).getDay();
             const diasNoMes = new Date(ano, mes + 1, 0).getDate();
 
+            // Preenche dias vazios no início do mês
             for (let i = 0; i < primeiroDia; i++) {
                 const div = document.createElement('div');
                 div.className = 'cal-dia vazio';
                 grid.appendChild(div);
             }
 
+            // Preenche os dias do mês
             for (let d = 1; d <= diasNoMes; d++) {
                 const div = document.createElement('div');
                 div.className = 'cal-dia';
@@ -444,14 +546,18 @@
             const hoje = new Date();
             const ano = hoje.getFullYear();
             const mes = hoje.getMonth();
-            const dia = hoje.getDate();
 
-            document.getElementById('diasCompletos').textContent = estado.diasCompletos.length;
+            // Total
+            document.getElementById('diasTotal').textContent = `${estado.diasCompletos.length} dias`;
 
+            // Semana (domingo a sábado)
             const inicioSemana = new Date(hoje);
             inicioSemana.setDate(hoje.getDate() - hoje.getDay());
+            inicioSemana.setHours(0, 0, 0, 0);
+            
             const fimSemana = new Date(inicioSemana);
             fimSemana.setDate(inicioSemana.getDate() + 6);
+            fimSemana.setHours(23, 59, 59, 999);
 
             let diasSemana = 0;
             estado.diasCompletos.forEach(dataStr => {
@@ -461,8 +567,9 @@
                     diasSemana++;
                 }
             });
-            document.getElementById('diasSemana').textContent = diasSemana;
+            document.getElementById('diasSemana').textContent = `${diasSemana} dias`;
 
+            // Mês
             let diasMes = 0;
             estado.diasCompletos.forEach(dataStr => {
                 const [y, m, d] = dataStr.split('-').map(Number);
@@ -470,7 +577,7 @@
                     diasMes++;
                 }
             });
-            document.getElementById('diasMes').textContent = diasMes;
+            document.getElementById('diasMes').textContent = `${diasMes} dias`;
         }
 
         function atualizarUI() {
@@ -480,18 +587,26 @@
             const vipFeatures = document.getElementById('vipFeatures');
 
             if (estado.isVip) {
-                vipBadge.style.display = 'inline';
+                vipBadge.style.display = 'flex';
                 vipFeatures.style.display = 'block';
             } else {
                 vipBadge.style.display = 'none';
                 vipFeatures.style.display = 'none';
             }
 
-            document.getElementById('streakDisplay').textContent = estado.streak;
+            document.getElementById('streakDisplay').textContent = `${estado.streak} dias de ofensiva`;
 
-            const hoje = new Date().toISOString().split('T')[0];
-            const jaConcluiu = estado.diasCompletos.includes(hoje);
-            document.getElementById('btnConcluir').disabled = jaConcluiu;
+            const hojeStr = new Date().toISOString().split('T')[0];
+            const jaConcluiu = estado.diasCompletos.includes(hojeStr);
+            const btnConcluir = document.getElementById('btnConcluir');
+            
+            if (jaConcluiu) {
+                btnConcluir.disabled = true;
+                btnConcluir.textContent = '✅ MISSÃO CONCLUÍDA';
+            } else {
+                btnConcluir.disabled = false;
+                btnConcluir.textContent = '✅ CONCLUIR MISSÃO';
+            }
 
             gerarCalendario();
             atualizarContadores();
@@ -499,27 +614,28 @@
         }
 
         function concluirMissao() {
-            const hoje = new Date().toISOString().split('T')[0];
+            const hojeStr = new Date().toISOString().split('T')[0];
 
-            if (estado.diasCompletos.includes(hoje)) {
+            if (estado.diasCompletos.includes(hojeStr)) {
                 alert('🚀 Você já completou a missão de hoje!');
                 return;
             }
 
             const xpGanho = estado.isVip ? 20 : 10;
             estado.xp += xpGanho;
-            estado.diasCompletos.push(hoje);
+            estado.diasCompletos.push(hojeStr);
 
+            // Cálculo da ofensiva (streak)
             const ontem = new Date();
             ontem.setDate(ontem.getDate() - 1);
             const ontemStr = ontem.toISOString().split('T')[0];
 
             if (estado.ultimoDiaCompleto === ontemStr) {
                 estado.streak += 1;
-            } else if (estado.ultimoDiaCompleto !== hoje) {
+            } else if (estado.ultimoDiaCompleto !== hojeStr) {
                 estado.streak = 1;
             }
-            estado.ultimoDiaCompleto = hoje;
+            estado.ultimoDiaCompleto = hojeStr;
 
             alert(`✅ Missão concluída! +${xpGanho} XP`);
             atualizarUI();
@@ -538,6 +654,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            carregarEstado();
             document.getElementById('btnConcluir').addEventListener('click', concluirMissao);
             document.getElementById('btnAssinar').addEventListener('click', assinarVip);
             atualizarUI();
