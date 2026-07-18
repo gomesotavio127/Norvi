@@ -3,279 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estuda AI - Plataforma de Estudos Gamificada</title>
+    <title>Norvi - Sua rotina de estudos simplificada</title>
     <style>
         :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --purple: #7c3aed;
-            --purple-light: #a78bfa;
-            --purple-hover: #6d28d9;
-            --yellow-xp: #d97706; /* Tom de âmbar mais escuro para contraste no fundo claro */
-            --gold-vip-1: #d97706;
-            --gold-vip-2: #ea580c;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --bg-page: #ffffff;
+            --bg-sidebar: #f8f9fa;
+            --text-main: #1a1a1a;
+            --text-muted: #6b6b6b;
+            --accent: #4a6cf7;
+            --accent-hover: #3554d1;
+            --border: #eaeaea;
+            --shadow-soft: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background: var(--bg-color);
+            background: var(--bg-page);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 80px 16px 80px 16px; /* Espaço para o header fixo e menu inferior */
             display: flex;
-            justify-content: center;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* Layout Principal */
+        .app-container {
+            display: flex;
             width: 100%;
-            max-width: 600px; /* Largura otimizada para leitura e universalidade */
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Menu Lateral (Sidebar) - Estilo Todoist */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Mais espaço para respirar */
-        }
-
-        /* Header Fixo e Limpo */
-        .header-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 24px 16px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
             z-index: 1000;
-            padding: 0 16px;
         }
 
-        .header-content {
-            width: 100%;
-            max-width: 600px;
+        .sidebar-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+            padding-left: 8px;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
+        .sidebar-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--purple);
+            text-decoration: none;
         }
 
-        .logo span.brand {
-            background: linear-gradient(135deg, var(--purple), var(--purple-light));
+        .sidebar-logo span.brand {
+            background: linear-gradient(135deg, var(--accent), #6875f5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .vip-badge {
-            background: linear-gradient(135deg, var(--gold-vip-1), var(--gold-vip-2));
-            color: #ffffff;
-            padding: 4px 10px;
-            border-radius: 20px;
+        .sidebar-tagline {
             font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+            color: var(--text-muted);
+            margin-top: -24px;
+            margin-bottom: 24px;
+            padding-left: 8px;
+            line-height: 1.3;
         }
 
-        /* Cards base com sombras suaves e bordas arredondadas */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px; /* Mais padding para respirar */
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Barra de Nível e XP */
-        .xp-container {
+        .sidebar-menu {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
         }
 
-        .xp-header {
+        .menu-item {
             display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .menu-item.active {
+            background: rgba(74, 108, 247, 0.08);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .menu-item-icon {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+        }
+
+        /* Área Principal */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px 48px;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 680px; /* Largura otimizada para leitura */
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Top Bar (Mobile) */
+        .mobile-header {
+            display: none;
+            height: 56px;
+            background: var(--bg-page);
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
+            align-items: center;
             justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* Gamificação (XP e Ofensiva) - Integrada e Discreta */
+        .gamification-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 600;
         }
 
-        .level-text {
-            color: var(--purple);
-        }
-
-        .xp-text {
-            color: var(--text-muted);
-        }
-
-        .xp-bar-bg {
-            background: #f1f5f9;
-            height: 10px;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .xp-bar-fill {
-            background: linear-gradient(90deg, var(--purple), var(--purple-light));
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 6px;
-        }
-
-        /* Ofensiva */
-        .streak-card {
+        .gamification-stats {
             display: flex;
             align-items: center;
             gap: 16px;
         }
 
-        .streak-fire {
-            font-size: 36px;
-            animation: pulse 2s infinite;
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
-
-        .streak-info {
+        .xp-progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             flex-grow: 1;
+            max-width: 280px;
         }
 
-        .streak-info h3 {
+        .xp-bar-bg {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .xp-bar-fill {
+            background: var(--accent);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+        }
+
+        /* Área Principal - "Hoje" (Missão do Dia) */
+        .view-header {
+            margin-bottom: 8px;
+        }
+
+        .view-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .view-subtitle {
             font-size: 14px;
             color: var(--text-muted);
             font-weight: 500;
+        }
+
+        /* Lista de Tarefas (Checkboxes) */
+        .task-list {
             display: flex;
-            align-items: center;
-            gap: 4px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .streak-info .days {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .streak-motivational {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .week-display {
-            font-size: 13px;
-            color: var(--purple);
-            font-weight: 600;
-            background: #f5f3ff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid #ddd6fe;
-        }
-
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            color: var(--purple);
-            font-size: 13px;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 220px;
-            background-color: #1e293b;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 10px;
-            position: absolute;
-            z-index: 10;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 11px;
-            box-shadow: var(--shadow-md);
-            line-height: 1.4;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Missão do Dia */
-        .missao-card h3 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-        }
-
-        .missao-item {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--purple);
+        .task-item {
             display: flex;
             align-items: flex-start;
             gap: 14px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-page);
             transition: all 0.2s;
         }
 
-        .missao-item.concluida {
-            border-left-color: #10b981;
-            background: #f0fdf4;
-            border-color: #bbf7d0;
-            opacity: 0.9;
+        .task-item:hover {
+            border-color: #cbd5e1;
+            box-shadow: var(--shadow-soft);
         }
 
-        .missao-checkbox {
+        .task-item.completed {
+            background: #f8fafc;
+            border-color: var(--border);
+            opacity: 0.7;
+        }
+
+        .task-checkbox {
             margin-top: 2px;
             width: 20px;
             height: 20px;
             border-radius: 6px;
-            border: 2px solid var(--purple);
+            border: 2px solid #cbd5e1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -285,45 +282,60 @@
             background: #ffffff;
         }
 
-        .missao-checkbox.checked {
-            background: #10b981;
-            border-color: #10b981;
+        .task-checkbox:hover {
+            border-color: var(--accent);
+            background: rgba(74, 108, 247, 0.04);
+        }
+
+        .task-checkbox.checked {
+            background: var(--accent);
+            border-color: var(--accent);
             color: white;
         }
 
-        .missao-checkbox.checked::after {
+        .task-checkbox.checked::after {
             content: '✓';
             font-size: 13px;
             font-weight: bold;
         }
 
-        .missao-content {
+        .task-content {
             flex-grow: 1;
         }
 
-        .missao-item .titulo {
+        .task-title {
             font-weight: 700;
             font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--text-main);
+            transition: all 0.2s;
         }
 
-        .missao-item .desc {
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .task-desc {
             font-size: 13px;
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 4px;
             line-height: 1.5;
+            transition: all 0.2s;
         }
 
-        .missao-actions {
+        .task-item.completed .task-desc {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        .task-actions {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 12px;
+            margin-top: 10px;
         }
 
-        .missao-item .tempo {
+        .task-meta {
             font-size: 12px;
             color: var(--text-muted);
             display: flex;
@@ -335,24 +347,23 @@
         /* Timer */
         .timer-btn {
             background: #ffffff;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             transition: all 0.2s;
             box-shadow: var(--shadow-soft);
         }
 
         .timer-btn:hover {
-            background: #f5f3ff;
-            border-color: var(--purple-light);
-            color: var(--purple);
+            background: #f1f5f9;
+            border-color: #cbd5e1;
         }
 
         .timer-btn.running {
@@ -361,46 +372,146 @@
             color: #ef4444;
         }
 
-        .btn-concluir {
+        /* Campo "Adicionar Tarefa" */
+        .add-task-container {
+            margin-top: 8px;
+        }
+
+        .add-task-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            width: 100%;
+            text-align: left;
+        }
+
+        .add-task-trigger:hover {
+            background: rgba(74, 108, 247, 0.04);
+        }
+
+        .add-task-form {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: var(--shadow-soft);
+            animation: slideIn 0.2s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .add-task-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            color: var(--text-main);
+        }
+
+        .add-task-input:focus {
+            border-color: var(--accent);
+        }
+
+        .add-task-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .btn-add-save {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-add-save:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-add-cancel {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-add-cancel:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-concluir-dia {
             width: 100%;
             padding: 14px;
             border: none;
-            border-radius: 12px;
-            background: var(--purple);
+            border-radius: 10px;
+            background: var(--accent);
             color: #fff;
             font-weight: 700;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 8px;
+            margin-top: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15);
         }
 
-        .btn-concluir:hover:not(:disabled) {
-            background: var(--purple-hover);
+        .btn-concluir-dia:hover:not(:disabled) {
+            background: var(--accent-hover);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+            box-shadow: 0 6px 16px rgba(74, 108, 247, 0.25);
         }
 
-        .btn-concluir:disabled {
-            background: #e2e8f0;
+        .btn-concluir-dia:disabled {
+            background: #f1f5f9;
             color: #94a3b8;
             cursor: not-allowed;
             box-shadow: none;
         }
 
-        /* Calendário */
-        .calendario-card h3 {
+        /* Calendário (Visão "Calendário") */
+        .calendario-card {
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .cal-header {
             font-size: 18px;
+            font-weight: 700;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-weight: 700;
         }
 
         .cal-dias-semana {
@@ -426,27 +537,28 @@
             align-items: center;
             justify-content: center;
             font-size: 13px;
-            border-radius: 10px;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
             color: var(--text-muted);
             font-weight: 600;
             transition: all 0.2s;
+            position: relative;
         }
 
         .cal-dia.hoje {
-            border: 2px solid var(--purple);
-            color: var(--purple);
+            border: 2px solid var(--accent);
+            color: var(--accent);
             font-weight: 700;
-            background: #f5f3ff;
+            background: rgba(74, 108, 247, 0.04);
         }
 
         .cal-dia.completo {
-            background: var(--purple);
+            background: var(--accent);
             color: #fff;
             font-weight: 700;
-            border-color: var(--purple);
-            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(74, 108, 247, 0.3);
         }
 
         .cal-dia.vazio {
@@ -458,16 +570,16 @@
             font-size: 12px;
             color: var(--text-muted);
             text-align: center;
-            margin-top: 12px;
+            margin-top: 16px;
             font-style: italic;
         }
 
         .cal-resumo {
             display: flex;
             justify-content: space-between;
-            margin-top: 16px;
+            margin-top: 20px;
             padding-top: 16px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border);
             font-size: 13px;
             color: var(--text-muted);
         }
@@ -480,6 +592,190 @@
 
         .cal-resumo strong {
             color: var(--text-main);
+        }
+
+        /* Página VIP (Inspirada no Todoist Pro) */
+        .vip-card {
+            background: #fffbeb;
+            border: 1px solid #fef08a;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .vip-card h3 {
+            font-size: 20px;
+            color: var(--gold-vip-1);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-weight: 800;
+        }
+
+        .vip-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .vip-card .preco {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .vip-card .preco small {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .vip-card ul {
+            list-style: none;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 0 16px;
+        }
+
+        .vip-card li {
+            font-size: 14px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vip-card li span {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .btn-assinar {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--gold-vip-1), var(--gold-vip-2));
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+        }
+
+        .btn-assinar:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.3);
+        }
+
+        .seguro {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Abas */
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Ranking */
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--bg-sidebar);
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .ranking-item.user {
+            border-color: var(--accent);
+            background: rgba(74, 108, 247, 0.04);
+        }
+
+        .rank-pos {
+            font-size: 18px;
+            font-weight: 800;
+            width: 28px;
+            text-align: center;
+        }
+
+        .rank-pos.gold { color: var(--gold-vip-1); }
+        .rank-pos.silver { color: #64748b; }
+        .rank-pos.bronze { color: #b45309; }
+
+        .rank-name {
+            flex-grow: 1;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rank-xp {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Perfil e Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .stat-card {
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
 
         /* Teaser VIP Bloqueado */
@@ -513,205 +809,12 @@
         .locked-overlay p {
             font-size: 14px;
             font-weight: 700;
-            color: var(--purple);
+            color: var(--accent);
         }
 
         .locked-overlay small {
             font-size: 12px;
             color: var(--text-muted);
-        }
-
-        /* Assinatura VIP */
-        .vip-assinatura {
-            background: #fffbeb;
-            border: 1px solid #fef08a;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .vip-assinatura h3 {
-            font-size: 20px;
-            color: var(--gold-vip-1);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-weight: 800;
-        }
-
-        .vip-assinatura p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .vip-assinatura .preco {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 20px;
-        }
-
-        .vip-assinatura .preco small {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .vip-assinatura ul {
-            list-style: none;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 0 16px;
-        }
-
-        .vip-assinatura li {
-            font-size: 14px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .vip-assinatura li span {
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        .btn-assinar {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--gold-vip-1), var(--gold-vip-2));
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
-        }
-
-        .btn-assinar:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.3);
-        }
-
-        .seguro {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        /* Menu Inferior */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: none;
-            border: none;
-            width: 70px;
-        }
-
-        .nav-item.active {
-            color: var(--purple);
-        }
-
-        .nav-item span {
-            font-size: 22px;
-        }
-
-        /* Abas */
-        .tab-content {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .tab-content.active {
-            display: flex;
-        }
-
-        /* Ranking */
-        .ranking-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: #f8fafc;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .ranking-item.user {
-            border-color: var(--purple-light);
-            background: #f5f3ff;
-        }
-
-        .rank-pos {
-            font-size: 18px;
-            font-weight: 800;
-            width: 28px;
-            text-align: center;
-        }
-
-        .rank-pos.gold { color: var(--gold-vip-1); }
-        .rank-pos.silver { color: #64748b; }
-        .rank-pos.bronze { color: #b45309; }
-
-        .rank-name {
-            flex-grow: 1;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .rank-xp {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--purple);
         }
 
         /* Conquistas */
@@ -723,9 +826,9 @@
         }
 
         .achievement-card {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             padding: 16px;
             text-align: center;
             display: flex;
@@ -736,8 +839,8 @@
         }
 
         .achievement-card.unlocked {
-            border-color: var(--purple-light);
-            background: #f5f3ff;
+            border-color: var(--accent);
+            background: rgba(74, 108, 247, 0.04);
         }
 
         .achievement-icon {
@@ -768,34 +871,6 @@
             line-height: 1.4;
         }
 
-        /* Estatísticas */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .stat-card {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .stat-val {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--purple);
-        }
-
-        .stat-lbl {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
         /* Custom Modal / Toast */
         .modal-overlay {
             position: fixed;
@@ -813,9 +888,9 @@
         }
 
         .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 28px;
             width: 100%;
             max-width: 380px;
@@ -851,8 +926,8 @@
             width: 100%;
             padding: 12px;
             border: none;
-            border-radius: 10px;
-            background: var(--purple);
+            border-radius: 8px;
+            background: var(--accent);
             color: white;
             font-weight: 700;
             cursor: pointer;
@@ -860,13 +935,13 @@
         }
 
         .modal-btn:hover {
-            background: var(--purple-hover);
+            background: var(--accent-hover);
         }
 
         /* Toast */
         .toast-container {
             position: fixed;
-            top: 80px; /* Abaixo do header fixo */
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2100;
@@ -879,11 +954,11 @@
         }
 
         .toast {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--purple);
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
             padding: 14px 18px;
-            border-radius: 12px;
+            border-radius: 10px;
             color: var(--text-main);
             font-size: 13px;
             font-weight: 600;
@@ -903,15 +978,42 @@
             from { transform: translateY(0); opacity: 1; }
             to { transform: translateY(-20px); opacity: 0; }
         }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 56px;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                box-shadow: var(--shadow-md);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                padding: 20px 16px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- HEADER FIXO -->
-    <div class="header-fixed">
-        <div class="header-content">
-            <span class="logo">🧠 <span class="brand">Estuda AI</span></span>
-            <span class="vip-badge" id="vipBadge" style="display: none;">⭐ VIP</span>
-        </div>
+    <!-- TOP BAR (MOBILE) -->
+    <div class="mobile-header">
+        <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
+        <span class="logo" style="font-size: 18px; font-weight: 800;">🧠 <span class="brand">Norvi</span></span>
+        <span class="vip-badge" id="vipBadgeMobile" style="display: none;">⭐ VIP</span>
     </div>
 
     <!-- TOASTS -->
@@ -927,162 +1029,237 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- BARRA DE XP -->
-        <div class="card xp-container">
-            <div class="xp-header">
-                <span class="level-text" id="levelDisplay">Nível 1</span>
-                <span class="xp-text" id="xpDisplay">0 / 100 XP</span>
+    <div class="app-container">
+        <!-- MENU LATERAL (SIDEBAR) - ESTILO TODOIST -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-logo">
+                    <span>🧠</span>
+                    <span class="brand">Norvi</span>
+                </a>
             </div>
-            <div class="xp-bar-bg">
-                <div class="xp-bar-fill" id="xpBarFill"></div>
-            </div>
+            <div class="sidebar-tagline">Sua rotina de estudos simplificada.</div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <button class="menu-item active" onclick="switchTab('inicio')">
+                        <span class="menu-item-icon">📋</span>
+                        Hoje
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" onclick="switchTab('calendario')">
+                        <span class="menu-item-icon">📅</span>
+                        Calendário
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" onclick="switchTab('ranking')">
+                        <span class="menu-item-icon">🏆</span>
+                        Ranking
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" onclick="switchTab('vip')">
+                        <span class="menu-item-icon">⭐</span>
+                        Assinar VIP
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" onclick="switchTab('perfil')">
+                        <span class="menu-item-icon">⚙️</span>
+                        Perfil
+                    </button>
+                </li>
+            </ul>
         </div>
 
-        <!-- ================= ABA INÍCIO ================= -->
-        <div id="tab-inicio" class="tab-content active">
-            <!-- OFENSIVA -->
-            <div class="card streak-card">
-                <div class="streak-fire" onclick="mostrarExplicacaoOfensiva()">🔥</div>
-                <div class="streak-info">
-                    <div class="days" id="streakDisplay">0 dias de ofensiva</div>
-                    <div class="streak-motivational">Mantenha a chama acesa! Estude todos os dias para aumentar sua ofensiva.</div>
-                </div>
-                <div class="week-display" id="weekDisplay">Semana 2</div>
-            </div>
-
-            <!-- MISSÃO DO DIA -->
-            <div class="card missao-card">
-                <h3>📋 Missão de Hoje</h3>
+        <!-- ÁREA PRINCIPAL -->
+        <div class="main-content">
+            <div class="content-container">
                 
-                <!-- Missão 1 -->
-                <div class="missao-item" id="missao-1">
-                    <div class="missao-checkbox" onclick="toggleMissao(1)"></div>
-                    <div class="missao-content">
-                        <div class="titulo">📐 Matemática</div>
-                        <div class="desc">Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.</div>
-                        <div class="missao-actions">
-                            <div class="tempo">⏱️ 10 min</div>
-                            <button class="timer-btn" id="timer-btn-1" onclick="toggleTimer(1, 10)">▶ Iniciar</button>
+                <!-- GAMIFICAÇÃO INTEGRADA E DISCRETA -->
+                <div class="gamification-bar">
+                    <div class="gamification-stats">
+                        <div class="stat-item" onclick="mostrarExplicacaoOfensiva()">
+                            <span style="font-size: 16px;">🔥</span>
+                            <span id="streakDisplay">0 dias</span>
+                        </div>
+                        <div class="stat-item">
+                            <span style="font-size: 16px; color: var(--accent);">⭐</span>
+                            <span id="levelDisplay">Nível 1</span>
+                        </div>
+                    </div>
+                    <div class="xp-progress-container">
+                        <div class="xp-bar-bg">
+                            <div class="xp-bar-fill" id="xpBarFill"></div>
+                        </div>
+                        <span id="xpDisplay" style="color: var(--text-muted); font-size: 12px;">0/100 XP</span>
+                    </div>
+                </div>
+
+                <!-- ================= ABA INÍCIO (HOJE) ================= -->
+                <div id="tab-inicio" class="tab-content active">
+                    <div class="view-header">
+                        <h1 class="view-title">Hoje</h1>
+                        <div class="view-subtitle" id="currentDateDisplay">segunda-feira, 18 de julho</div>
+                    </div>
+
+                    <!-- LISTA DE TAREFAS -->
+                    <div class="task-list" id="taskList">
+                        <!-- Missão 1 -->
+                        <div class="task-item" id="missao-1">
+                            <div class="task-checkbox" onclick="toggleMissao(1)"></div>
+                            <div class="task-content">
+                                <div class="task-title">📐 Matemática</div>
+                                <div class="task-desc">Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.</div>
+                                <div class="task-actions">
+                                    <div class="task-meta">⏱️ 10 min</div>
+                                    <button class="timer-btn" id="timer-btn-1" onclick="toggleTimer(1, 10)">▶ Iniciar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Missão 2 -->
+                        <div class="task-item" id="missao-2">
+                            <div class="task-checkbox" onclick="toggleMissao(2)"></div>
+                            <div class="task-content">
+                                <div class="task-title">📖 História</div>
+                                <div class="task-desc">Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".</div>
+                                <div class="task-actions">
+                                    <div class="task-meta">⏱️ 10 min</div>
+                                    <button class="timer-btn" id="timer-btn-2" onclick="toggleTimer(2, 10)">▶ Iniciar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarefas customizadas serão inseridas aqui -->
+                    </div>
+
+                    <!-- CAMPO ADICIONAR TAREFA -->
+                    <div class="add-task-container">
+                        <button class="add-task-trigger" id="addTaskTrigger" onclick="showAddTaskForm()">+ Adicionar tarefa</button>
+                        <div class="add-task-form" id="addTaskForm">
+                            <input type="text" class="add-task-input" id="taskInputTitle" placeholder="Nome da tarefa (ex: Revisar Geografia)">
+                            <input type="text" class="add-task-input" id="taskInputDesc" placeholder="Descrição da tarefa (opcional)">
+                            <div class="add-task-buttons">
+                                <button class="btn-add-cancel" onclick="hideAddTaskForm()">Cancelar</button>
+                                <button class="btn-add-save" onclick="adicionarTarefaCustomizada()">Adicionar tarefa</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-concluir-dia" id="btnConcluir" onclick="concluirDia()">✅ CONCLUIR DIA DE ESTUDOS</button>
+                </div>
+
+                <!-- ================= ABA CALENDÁRIO ================= -->
+                <div id="tab-calendario" class="tab-content">
+                    <div class="view-header">
+                        <h1 class="view-title">Calendário</h1>
+                        <div class="view-subtitle">Acompanhe sua consistência de estudos</div>
+                    </div>
+
+                    <div class="calendario-card">
+                        <div class="cal-header" id="calMonthYear">📅 Julho 2026</div>
+                        <div class="cal-dias-semana">
+                            <div>Dom</div>
+                            <div>Seg</div>
+                            <div>Ter</div>
+                            <div>Qua</div>
+                            <div>Qui</div>
+                            <div>Sex</div>
+                            <div>Sáb</div>
+                        </div>
+                        <div class="cal-grid" id="calGrid"></div>
+                        <div class="cal-incentivo">Seu primeiro dia de estudos será marcado aqui!</div>
+                        
+                        <div class="cal-resumo">
+                            <span>Total: <strong id="diasTotal">0 dias</strong></span>
+                            <span>Semana: <strong id="diasSemana">0 dias</strong></span>
+                            <span>Mês: <strong id="diasMes">0 dias</strong></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Missão 2 -->
-                <div class="missao-item" id="missao-2">
-                    <div class="missao-checkbox" onclick="toggleMissao(2)"></div>
-                    <div class="missao-content">
-                        <div class="titulo">📖 História</div>
-                        <div class="desc">Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".</div>
-                        <div class="missao-actions">
-                            <div class="tempo">⏱️ 10 min</div>
-                            <button class="timer-btn" id="timer-btn-2" onclick="toggleTimer(2, 10)">▶ Iniciar</button>
+                <!-- ================= ABA RANKING ================= -->
+                <div id="tab-ranking" class="tab-content">
+                    <div class="view-header">
+                        <h1 class="view-title">Ranking</h1>
+                        <div class="view-subtitle">Dispute o topo com outros estudantes!</div>
+                    </div>
+
+                    <div class="card" style="border-radius: 12px; padding: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Ranking Semanal</h3>
+                        <div class="ranking-list" id="rankingList">
+                            <!-- Gerado dinamicamente -->
                         </div>
                     </div>
                 </div>
 
-                <button class="btn-concluir" id="btnConcluir" onclick="concluirDia()">✅ CONCLUIR DIA DE ESTUDOS</button>
-            </div>
-
-            <!-- CALENDÁRIO -->
-            <div class="card calendario-card">
-                <h3>📅 Calendário</h3>
-                <div class="cal-dias-semana">
-                    <div>Dom</div>
-                    <div>Seg</div>
-                    <div>Ter</div>
-                    <div>Qua</div>
-                    <div>Qui</div>
-                    <div>Sex</div>
-                    <div>Sáb</div>
-                </div>
-                <div class="cal-grid" id="calGrid"></div>
-                <div class="cal-incentivo">Seu primeiro dia de estudos será marcado aqui!</div>
-                
-                <div class="cal-resumo">
-                    <span>Total: <strong id="diasTotal">0 dias</strong></span>
-                    <span>Semana: <strong id="diasSemana">0 dias</strong></span>
-                    <span>Mês: <strong id="diasMes">0 dias</strong></span>
-                </div>
-            </div>
-
-            <!-- ASSINATURA VIP -->
-            <div class="card vip-assinatura" id="cardAssinatura">
-                <h3>⭐ Assine VIP</h3>
-                <p>Desbloqueie todo o potencial dos seus estudos</p>
-                <div class="preco">R$ 19,90 <small>/mês</small></div>
-                <ul>
-                    <li><span>✅</span> XP em dobro</li>
-                    <li><span>✅</span> Estatísticas avançadas 🔒</li>
-                    <li><span>✅</span> Conquistas exclusivas 🔒</li>
-                    <li><span>✅</span> Badge dourado 🔒</li>
-                    <li><span>✅</span> Desafios especiais 🔒</li>
-                </ul>
-                <button class="btn-assinar" id="btnAssinar" onclick="assinarVip()">🚀 ASSINAR AGORA</button>
-                <div class="seguro">
-                    🔒 Pagamento Seguro • PIX, Cartão ou Boleto
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= ABA RANKING ================= -->
-        <div id="tab-ranking" class="tab-content">
-            <div class="card">
-                <h3>🏆 Ranking Semanal</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Dispute o topo com outros estudantes!</p>
-                <div class="ranking-list" id="rankingList">
-                    <!-- Gerado dinamicamente -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= ABA PERFIL ================= -->
-        <div id="tab-perfil" class="tab-content">
-            <!-- Estatísticas -->
-            <div class="card locked-teaser" id="statsCard">
-                <h3>📊 Estatísticas Avançadas</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-val" id="statTempo">0 min</div>
-                        <div class="stat-lbl">Tempo de Foco</div>
+                <!-- ================= ABA VIP ================= -->
+                <div id="tab-vip" class="tab-content">
+                    <div class="view-header">
+                        <h1 class="view-title">Assinar VIP</h1>
+                        <div class="view-subtitle">Desbloqueie todo o potencial dos seus estudos</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-val" id="statPrecisao">100%</div>
-                        <div class="stat-lbl">Aproveitamento</div>
+
+                    <div class="vip-card">
+                        <h3>⭐ Norvi VIP</h3>
+                        <p>Acelere seu aprendizado com recursos exclusivos</p>
+                        <div class="preco">R$ 19,90 <small>/mês</small></div>
+                        <ul>
+                            <li><span>✅</span> XP em dobro</li>
+                            <li><span>✅</span> Estatísticas avançadas 🔒</li>
+                            <li><span>✅</span> Conquistas exclusivas 🔒</li>
+                            <li><span>✅</span> Badge dourado 🔒</li>
+                            <li><span>✅</span> Desafios especiais 🔒</li>
+                        </ul>
+                        <button class="btn-assinar" id="btnAssinar" onclick="assinarVip()">🚀 ASSINAR AGORA</button>
+                        <div class="seguro">
+                            🔒 Pagamento Seguro • PIX, Cartão ou Boleto
+                        </div>
                     </div>
                 </div>
-                <!-- Overlay se não for VIP -->
-                <div class="locked-overlay" id="statsOverlay">
-                    <span>🔒</span>
-                    <p>Estatísticas Avançadas</p>
-                    <small>Disponível apenas para membros VIP</small>
-                </div>
-            </div>
 
-            <!-- Conquistas -->
-            <div class="card">
-                <h3>🏆 Conquistas</h3>
-                <div class="achievements-grid" id="achievementsGrid">
-                    <!-- Gerado dinamicamente -->
+                <!-- ================= ABA PERFIL ================= -->
+                <div id="tab-perfil" class="tab-content">
+                    <div class="view-header">
+                        <h1 class="view-title">Perfil</h1>
+                        <div class="view-subtitle">Gerencie suas conquistas e estatísticas</div>
+                    </div>
+
+                    <!-- Estatísticas -->
+                    <div class="card locked-teaser" id="statsCard" style="border-radius: 12px; padding: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">📊 Estatísticas Avançadas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-val" id="statTempo">0 min</div>
+                                <div class="stat-lbl">Tempo de Foco</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-val" id="statPrecisao">100%</div>
+                                <div class="stat-lbl">Aproveitamento</div>
+                            </div>
+                        </div>
+                        <!-- Overlay se não for VIP -->
+                        <div class="locked-overlay" id="statsOverlay">
+                            <span>🔒</span>
+                            <p>Estatísticas Avançadas</p>
+                            <small>Disponível apenas para membros VIP</small>
+                        </div>
+                    </div>
+
+                    <!-- Conquistas -->
+                    <div class="card" style="border-radius: 12px; padding: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">🏆 Conquistas</h3>
+                        <div class="achievements-grid" id="achievementsGrid">
+                            <!-- Gerado dinamicamente -->
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
-
-    <!-- MENU INFERIOR -->
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('inicio')">
-            <span>🏠</span>
-            Início
-        </button>
-        <button class="nav-item" onclick="switchTab('ranking')">
-            <span>🏆</span>
-            Ranking
-        </button>
-        <button class="nav-item" onclick="switchTab('perfil')">
-            <span>👤</span>
-            Perfil
-        </button>
     </div>
     <script>
         const ESTADO_PADRAO = {
@@ -1092,7 +1269,8 @@
             diasCompletos: [],
             ultimoDiaCompleto: null,
             missoesConcluidasHoje: [],
-            tempoFoco: 0
+            tempoFoco: 0,
+            tarefasCustomizadas: []
         };
 
         let estado = { ...ESTADO_PADRAO };
@@ -1131,6 +1309,7 @@
                     estado = JSON.parse(salvo);
                     if (!estado.missoesConcluidasHoje) estado.missoesConcluidasHoje = [];
                     if (!estado.tempoFoco) estado.tempoFoco = 0;
+                    if (!estado.tarefasCustomizadas) estado.tarefasCustomizadas = [];
                 } catch (e) {
                     estado = { ...ESTADO_PADRAO };
                 }
@@ -1146,6 +1325,8 @@
                     }
                 }
                 estado.missoesConcluidasHoje = [];
+                // Limpa tarefas customizadas concluídas no dia anterior
+                estado.tarefasCustomizadas = estado.tarefasCustomizadas.filter(t => !t.concluida);
             }
         }
 
@@ -1156,11 +1337,11 @@
         // --- ABAS ---
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
 
             document.getElementById(`tab-${tabName}`).classList.add('active');
             
-            const btn = Array.from(document.querySelectorAll('.nav-item')).find(item => item.textContent.includes(tabName.charAt(0).toUpperCase() + tabName.slice(1)));
+            const btn = Array.from(document.querySelectorAll('.menu-item')).find(item => item.textContent.includes(tabName.charAt(0).toUpperCase() + tabName.slice(1)) || (tabName === 'inicio' && item.textContent.includes('Hoje')) || (tabName === 'vip' && item.textContent.includes('VIP')));
             if (btn) btn.classList.add('active');
 
             if (tabName === 'ranking') gerarRanking();
@@ -1168,6 +1349,15 @@
                 gerarConquistas();
                 atualizarStats();
             }
+
+            // Fecha sidebar no mobile ao clicar
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
         }
 
         // --- TIMERS ---
@@ -1220,14 +1410,14 @@
 
             const index = estado.missoesConcluidasHoje.indexOf(id);
             const item = document.getElementById(`missao-${id}`);
-            const checkbox = item.querySelector('.missao-checkbox');
+            const checkbox = item.querySelector('.task-checkbox');
 
             if (index === -1 || forceCheck) {
                 if (index === -1) {
                     estado.missoesConcluidasHoje.push(id);
                 }
                 checkbox.classList.add('checked');
-                item.classList.add('concluida');
+                item.classList.add('completed');
                 
                 const xpGanho = estado.isVip ? 10 : 5;
                 adicionarXP(xpGanho);
@@ -1235,7 +1425,7 @@
             } else {
                 estado.missoesConcluidasHoje.splice(index, 1);
                 checkbox.classList.remove('checked');
-                item.classList.remove('concluida');
+                item.classList.remove('completed');
                 
                 const xpPerdido = estado.isVip ? 10 : 5;
                 adicionarXP(-xpPerdido);
@@ -1243,6 +1433,85 @@
             }
 
             atualizarUI();
+        }
+
+        // --- TAREFAS CUSTOMIZADAS ---
+        function showAddTaskForm() {
+            document.getElementById('addTaskTrigger').style.display = 'none';
+            document.getElementById('addTaskForm').style.display = 'flex';
+            document.getElementById('taskInputTitle').focus();
+        }
+
+        function hideAddTaskForm() {
+            document.getElementById('addTaskTrigger').style.display = 'flex';
+            document.getElementById('addTaskForm').style.display = 'none';
+            document.getElementById('taskInputTitle').value = '';
+            document.getElementById('taskInputDesc').value = '';
+        }
+
+        function adicionarTarefaCustomizada() {
+            const title = document.getElementById('taskInputTitle').value.trim();
+            const desc = document.getElementById('taskInputDesc').value.trim();
+
+            if (!title) {
+                showToast('Por favor, digite o nome da tarefa!');
+                return;
+            }
+
+            const novaTarefa = {
+                titulo: title,
+                desc: desc,
+                concluida: false
+            };
+
+            estado.tarefasCustomizadas.push(novaTarefa);
+            salvarEstado();
+            renderizarTarefasCustomizadas();
+            hideAddTaskForm();
+            showToast('Tarefa adicionada com sucesso!');
+        }
+
+        function toggleTarefaCustomizada(idx) {
+            const hojeStr = new Date().toISOString().split('T')[0];
+            if (estado.diasCompletos.includes(hojeStr)) {
+                showToast('Você já concluiu o dia de estudos de hoje!');
+                return;
+            }
+
+            const tarefa = estado.tarefasCustomizadas[idx];
+            tarefa.concluida = !tarefa.concluida;
+
+            const xpGanho = estado.isVip ? 10 : 5;
+            if (tarefa.concluida) {
+                adicionarXP(xpGanho);
+                showToast(`Tarefa concluída! +${xpGanho} XP`);
+            } else {
+                adicionarXP(-xpGanho);
+                showToast(`Tarefa desmarcada. -${xpGanho} XP`);
+            }
+
+            salvarEstado();
+            renderizarTarefasCustomizadas();
+            atualizarUI();
+        }
+
+        function renderizarTarefasCustomizadas() {
+            // Remove as tarefas customizadas antigas do DOM
+            document.querySelectorAll('.task-item-custom').forEach(el => el.remove());
+
+            const list = document.getElementById('taskList');
+            estado.tarefasCustomizadas.forEach((tarefa, idx) => {
+                const item = document.createElement('div');
+                item.className = `task-item task-item-custom ${tarefa.concluida ? 'completed' : ''}`;
+                item.innerHTML = `
+                    <div class="task-checkbox ${tarefa.concluida ? 'checked' : ''}" onclick="toggleTarefaCustomizada(${idx})"></div>
+                    <div class="task-content">
+                        <div class="task-title">${tarefa.titulo}</div>
+                        ${tarefa.desc ? `<div class="task-desc">${tarefa.desc}</div>` : ''}
+                    </div>
+                `;
+                list.appendChild(item);
+            });
         }
 
         function concluirDia() {
@@ -1253,8 +1522,9 @@
                 return;
             }
 
+            // Precisa concluir pelo menos as duas missões principais
             if (estado.missoesConcluidasHoje.length < 2) {
-                showModal('⚠️', 'Quase lá!', 'Conclua e marque todas as missões do dia antes de finalizar o seu dia de estudos!');
+                showModal('⚠️', 'Quase lá!', 'Conclua e marque todas as missões principais do dia antes de finalizar o seu dia de estudos!');
                 return;
             }
 
@@ -1305,6 +1575,10 @@
             const diaAtual = hoje.getDate();
             const primeiroDia = new Date(ano, mes, 1).getDay();
             const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+
+            // Atualiza cabeçalho do calendário
+            const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            document.getElementById('calMonthYear').textContent = `📅 ${meses[mes]} ${ano}`;
 
             for (let i = 0; i < primeiroDia; i++) {
                 const div = document.createElement('div');
@@ -1457,21 +1731,35 @@
             const xpNoNivel = estado.xp % 100;
             
             document.getElementById('levelDisplay').textContent = `Nível ${nivel}`;
-            document.getElementById('xpDisplay').textContent = `${xpNoNivel} / 100 XP`;
+            document.getElementById('xpDisplay').textContent = `${xpNoNivel}/100 XP`;
             document.getElementById('xpBarFill').style.width = `${xpNoNivel}%`;
 
-            const vipBadge = document.getElementById('vipBadge');
+            const vipBadgeMobile = document.getElementById('vipBadgeMobile');
             const cardAssinatura = document.getElementById('cardAssinatura');
 
+            // Atualiza badge VIP na sidebar se existir
+            const sidebarHeader = document.querySelector('.sidebar-header');
+            let sidebarVipBadge = document.getElementById('sidebarVipBadge');
+            
             if (estado.isVip) {
-                vipBadge.style.display = 'flex';
-                cardAssinatura.style.display = 'none';
+                vipBadgeMobile.style.display = 'flex';
+                if (cardAssinatura) cardAssinatura.style.display = 'none';
+                
+                if (!sidebarVipBadge) {
+                    sidebarVipBadge = document.createElement('span');
+                    sidebarVipBadge.id = 'sidebarVipBadge';
+                    sidebarVipBadge.className = 'vip-badge';
+                    sidebarVipBadge.style.marginLeft = 'auto';
+                    sidebarVipBadge.innerHTML = '⭐ VIP';
+                    sidebarHeader.appendChild(sidebarVipBadge);
+                }
             } else {
-                vipBadge.style.display = 'none';
-                cardAssinatura.style.display = 'block';
+                vipBadgeMobile.style.display = 'none';
+                if (cardAssinatura) cardAssinatura.style.display = 'block';
+                if (sidebarVipBadge) sidebarVipBadge.remove();
             }
 
-            document.getElementById('streakDisplay').textContent = `${estado.streak} dias de ofensiva`;
+            document.getElementById('streakDisplay').textContent = `${estado.streak} dias`;
 
             const hojeStr = new Date().toISOString().split('T')[0];
             const jaConcluiuDia = estado.diasCompletos.includes(hojeStr);
@@ -1479,14 +1767,14 @@
 
             [1, 2].forEach(id => {
                 const item = document.getElementById(`missao-${id}`);
-                const checkbox = item.querySelector('.missao-checkbox');
+                const checkbox = item.querySelector('.task-checkbox');
                 
                 if (estado.missoesConcluidasHoje.includes(id) || jaConcluiuDia) {
                     checkbox.classList.add('checked');
-                    item.classList.add('concluida');
+                    item.classList.add('completed');
                 } else {
                     checkbox.classList.remove('checked');
-                    item.classList.remove('concluida');
+                    item.classList.remove('completed');
                 }
             });
 
@@ -1497,6 +1785,13 @@
                 btnConcluir.disabled = false;
                 btnConcluir.textContent = '✅ CONCLUIR DIA DE ESTUDOS';
             }
+
+            // Atualiza data atual
+            const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+            const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+            const hoje = new Date();
+            const dataFormatada = `${diasSemana[hoje.getDay()]}, ${hoje.getDate()} de ${meses[hoje.getMonth()]}`;
+            document.getElementById('currentDateDisplay').textContent = dataFormatada;
 
             gerarCalendario();
             atualizarContadores();
@@ -1510,9 +1805,9 @@
             if (salvo) {
                 try {
                     dadosUsuario = JSON.parse(salvo);
-                    const logo = document.querySelector('.logo');
+                    const logo = document.querySelector('.sidebar-logo');
                     if (logo && dadosUsuario.nome) {
-                        logo.innerHTML = `🧠 <span class="brand">Estuda AI</span> <span style="font-size: 13px; color: var(--text-muted); margin-left: 8px; font-weight: 500;">Olá, ${dadosUsuario.nome}!</span>`;
+                        logo.innerHTML = `<span>🧠</span> <span class="brand">Norvi</span> <span style="font-size: 11px; color: var(--text-muted); margin-left: 4px; font-weight: 500;">Olá, ${dadosUsuario.nome}!</span>`;
                     }
                     
                     if (dadosUsuario.plano) {
@@ -1520,14 +1815,14 @@
                         const m2 = document.getElementById('missao-2');
                         
                         if (m1 && m2) {
-                            m1.querySelector('.titulo').innerHTML = `📐 Matemática (${dadosUsuario.perfil})`;
-                            m1.querySelector('.desc').textContent = `Resolver ${dadosUsuario.plano.meta.split(' ')[0]} questões sobre conjuntos numéricos em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
-                            m1.querySelector('.tempo').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            m1.querySelector('.task-title').innerHTML = `📐 Matemática (${dadosUsuario.perfil})`;
+                            m1.querySelector('.task-desc').textContent = `Resolver ${dadosUsuario.plano.meta.split(' ')[0]} questões sobre conjuntos numéricos em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
+                            m1.querySelector('.task-meta').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
                             m1.querySelector('.timer-btn').setAttribute('onclick', `toggleTimer(1, ${dadosUsuario.plano.tempoMinutos})`);
 
-                            m2.querySelector('.titulo').innerHTML = `📖 História (${dadosUsuario.perfil})`;
-                            m2.querySelector('.desc').textContent = `Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis" em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
-                            m2.querySelector('.tempo').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
+                            m2.querySelector('.task-title').innerHTML = `📖 História (${dadosUsuario.perfil})`;
+                            m2.querySelector('.task-desc').textContent = `Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis" em ${dadosUsuario.plano.tempo.split(' ')[0]} min.`;
+                            m2.querySelector('.task-meta').innerHTML = `⏱️ ${dadosUsuario.plano.tempo}`;
                             m2.querySelector('.timer-btn').setAttribute('onclick', `toggleTimer(2, ${dadosUsuario.plano.tempoMinutos})`);
                         }
                     }
@@ -1540,6 +1835,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             carregarEstado();
             carregarUsuario();
+            renderizarTarefasCustomizadas();
             atualizarUI();
         });
     </script>
