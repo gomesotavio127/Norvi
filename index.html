@@ -1,161 +1,547 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 Estuda Aí - Assinatura VIP</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Estuda AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #0b0e14;
+            color: #e8edf5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #141a24;
+            border-radius: 16px;
+            border: 1px solid #1f2a3a;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .xp-badge {
+            background: #1f2a3a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #fbbf24;
+        }
+
+        .vip-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #0b0e14;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .streak-card {
+            background: #141a24;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3a;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .streak-fire {
+            font-size: 32px;
+        }
+
+        .streak-info h3 {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .streak-info .days {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .week-card {
+            background: #141a24;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3a;
+        }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .week-header h2 {
+            font-size: 16px;
+        }
+
+        .week-day {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .week-day.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .missao-card {
+            background: #141a24;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3a;
+        }
+
+        .missao-card h3 {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .missao-item {
+            background: #1a2230;
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid #7c3aed;
+        }
+
+        .missao-item .titulo {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .missao-item .desc {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .missao-item .tempo {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .btn-concluir {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 4px;
+        }
+
+        .btn-concluir:hover {
+            opacity: 0.85;
+        }
+
+        .btn-concluir:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .vip-features {
+            background: #141a24;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3a;
+        }
+
+        .vip-features .vip-title {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .vip-features ul {
+            list-style: none;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .vip-features ul li::before {
+            content: '⭐ ';
+        }
+
+        .calendario-card {
+            background: #141a24;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3a;
+        }
+
+        .calendario-card h3 {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-dia {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 8px;
+            background: #1a2230;
+            color: #94a3b8;
+        }
+
+        .cal-dia.completo {
+            background: #7c3aed;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .cal-dia.vazio {
+            background: transparent;
+        }
+
+        .vip-assinatura {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #fbbf2440;
+            text-align: center;
+        }
+
+        .vip-assinatura h3 {
+            font-size: 18px;
+            color: #fbbf24;
+        }
+
+        .vip-assinatura .preco {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+
+        .vip-assinatura .preco small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+
+        .vip-assinatura ul {
+            list-style: none;
+            font-size: 13px;
+            color: #94a3b8;
+            text-align: left;
+            margin: 12px 0;
+            padding: 0 8px;
+        }
+
+        .vip-assinatura ul li::before {
+            content: '✅ ';
+        }
+
+        .btn-assinar {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #0b0e14;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-assinar:hover {
+            opacity: 0.85;
+        }
+
+        .vip-assinatura .seguro {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+    </style>
 </head>
 <body>
-
     <div class="container">
-
-        <!-- HEADER -->
         <div class="header">
-            <div class="nivel-badge" id="nivel">1</div>
-            <div class="xp-bar-container">
-                <div class="xp-text">XP: <span id="xp-atual">0</span> / <span id="xp-total">100</span></div>
-                <div class="xp-bar">
-                    <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
-                </div>
-            </div>
+            <span class="logo">🧠 Estuda AI</span>
             <div class="header-right">
-                <button class="vip-badge nao-assinante" id="vipBadge" onclick="abrirModalVIP()">
-                    ⭐ VIP
-                </button>
+                <span class="xp-badge">⚡ <span id="xpDisplay">0</span> XP</span>
+                <span class="vip-badge" id="vipBadge" style="display:none;">⭐ VIP</span>
             </div>
         </div>
 
-        <!-- STREAK -->
         <div class="streak-card">
-            <span class="streak-emoji" id="streak-emoji">🔥</span>
-            <div class="streak-number" id="streak-dias">0</div>
-            <div class="streak-label">dias de ofensiva</div>
+            <div class="streak-fire">🔥</div>
+            <div class="streak-info">
+                <h3>🔥 Ofensiva</h3>
+                <span class="days" id="streakDisplay">0</span> <span style="color:#94a3b8;">dias</span>
+            </div>
+            <div style="margin-left:auto;font-size:13px;color:#94a3b8;" id="weekDisplay">Semana 2</div>
         </div>
 
-        <!-- MISSÃO DO DIA -->
-        <div class="daily-mission" id="dailyMission">
-            <div class="semana-tag" id="semana-tag">Semana 2</div>
-            <div class="missao-titulo" id="missao-dia">Segunda-feira</div>
-            <div class="missao-materias" id="missao-badges">
-                <span class="badge-materia">📐 Matemática</span>
-                <span class="badge-materia">📖 História</span>
+        <div class="missao-card">
+            <h3>📚 Missão de Hoje</h3>
+            <div id="missaoContainer">
+                <div class="missao-item">
+                    <div class="titulo">📐 Matemática</div>
+                    <div class="desc">Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.</div>
+                    <div class="tempo">⏱️ 10 minutos</div>
+                </div>
+                <div class="missao-item">
+                    <div class="titulo">📖 História</div>
+                    <div class="desc">Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".</div>
+                    <div class="tempo">⏱️ 10 minutos</div>
+                </div>
             </div>
-            <div class="missao-descricao" id="missao-descricao">
-                📐 Conjuntos numéricos: revisar ℕ, ℤ, ℚ, ℝ e dar 1 exemplo de cada.<br>
-                📖 Ler 1 parágrafo sobre a Grécia Antiga — foco em "pólis".
-            </div>
-            <div class="missao-tempo" id="missao-tempo">⏱️ 10 minutos</div>
-            <button class="btn-concluir" id="btn-concluir" onclick="concluirMissao()">
-                ✅ CONCLUIR MISSÃO
-            </button>
+            <button class="btn-concluir" id="btnConcluir">✅ CONCLUIR MISSÃO</button>
         </div>
 
-        <!-- FEATURES VIP -->
-        <div class="vip-features" id="vipFeatures">
-            <h3>⭐ RECURSOS VIP ATIVOS</h3>
-            <div class="vip-feature-item">
-                <span class="icone">🚀</span>
-                <span class="texto"><strong>XP Dobrado</strong> em todas as missões</span>
-            </div>
-            <div class="vip-feature-item">
-                <span class="icone">📊</span>
-                <span class="texto"><strong>Estatísticas Avançadas</strong> com gráficos de progresso</span>
-            </div>
-            <div class="vip-feature-item">
-                <span class="icone">🏆</span>
-                <span class="texto"><strong>Conquistas Exclusivas</strong> e desafios especiais</span>
-            </div>
-            <div class="vip-feature-item">
-                <span class="icone">👑</span>
-                <span class="texto"><strong>Badge VIP</strong> e destaque na comunidade</span>
-            </div>
+        <div class="vip-features" id="vipFeatures" style="display:none;">
+            <div class="vip-title">⭐ RECURSOS VIP ATIVOS</div>
+            <ul>
+                <li>XP Dobrado em todas as missões</li>
+                <li>Estatísticas Avançadas com gráficos de progresso</li>
+                <li>Conquistas Exclusivas e desafios especiais</li>
+                <li>Badge VIP e destaque na comunidade</li>
+            </ul>
         </div>
 
-        <!-- CALENDÁRIO -->
-        <div class="calendario">
-            <div class="calendario-titulo">📅 ESTA SEMANA</div>
-            <div class="dias-grid" id="dias-semana-atual"></div>
-            <div class="semana-anterior">
-                <div class="calendario-titulo">📅 SEMANA PASSADA</div>
-                <div class="dias-grid" id="dias-semana-passada"></div>
+        <div class="calendario-card">
+            <h3>📅 Calendário</h3>
+            <div class="cal-grid" id="calGrid"></div>
+            <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:#94a3b8;">
+                <span>⭐ <span id="diasCompletos">0</span> dias</span>
+                <span>🌟 <span id="diasSemana">0</span> esta semana</span>
+                <span>👑 <span id="diasMes">0</span> este mês</span>
             </div>
         </div>
 
-        <!-- CONQUISTAS -->
-        <div class="conquistas">
-            <div class="conquista-item" id="conquista-3">
-                <div class="conquista-icone">⭐</div>
-                <div class="conquista-texto">3 dias</div>
-            </div>
-            <div class="conquista-item" id="conquista-7">
-                <div class="conquista-icone">🌟</div>
-                <div class="conquista-texto">7 dias</div>
-            </div>
-            <div class="conquista-item" id="conquista-30">
-                <div class="conquista-icone">👑</div>
-                <div class="conquista-texto">30 dias</div>
-            </div>
-            <div class="conquista-item vip-lock" id="conquista-vip">
-                <div class="conquista-icone">💎</div>
-                <div class="conquista-texto">VIP Exclusiva</div>
-            </div>
+        <div class="vip-assinatura">
+            <h3>⭐ ASSINATURA VIP</h3>
+            <p style="color:#94a3b8;font-size:14px;">Desbloqueie todo o potencial dos seus estudos</p>
+            <div class="preco">R$ 19,90 <small>/mês</small></div>
+            <ul>
+                <li>XP dobrado em todas as missões</li>
+                <li>Estatísticas avançadas com gráficos</li>
+                <li>Conquistas exclusivas VIP</li>
+                <li>Badge dourado no perfil</li>
+                <li>Desafios especiais toda semana</li>
+                <li>Cancelamento a qualquer momento</li>
+            </ul>
+            <button class="btn-assinar" id="btnAssinar">🚀 ASSINAR AGORA</button>
+            <div class="seguro">💳 Pagamento Seguro • Cartão, boleto ou PIX • Cancele quando quiser</div>
         </div>
     </div>
 
-    <!-- MODAL VIP -->
-    <div class="vip-overlay" id="vipModal">
-        <div class="vip-modal">
-            <button class="close-btn" onclick="fecharModalVIP()">✕</button>
-            <h2>⭐ ASSINATURA VIP</h2>
-            <p class="subtitle">Desbloqueie todo o potencial dos seus estudos</p>
+    <script>
+        const ESTADO_PADRAO = {
+            xp: 0,
+            isVip: false,
+            streak: 0,
+            ultimoDiaCompleto: null,
+            diasCompletos: [],
+            missaoConcluidaHoje: false
+        };
 
-            <div class="vip-plan" onclick="selecionarPlano('mensal')">
-                <div class="plan-header">
-                    <span class="plan-name">📅 Plano Mensal</span>
-                    <span class="plan-price">R$ 19,90 <small>/mês</small></span>
-                </div>
-                <ul class="plan-features">
-                    <li>XP dobrado em todas as missões</li>
-                    <li>Estatísticas avançadas com gráficos</li>
-                    <li>Conquistas exclusivas VIP</li>
-                    <li>Badge dourado no perfil</li>
-                    <li>Desafios especiais toda semana</li>
-                    <li>Cancelamento a qualquer momento</li>
-                </ul>
-            </div>
+        let estado = carregarEstado();
 
-            <div class="vip-plan" onclick="selecionarPlano('anual')">
-                <div class="plan-header">
-                    <span class="plan-name">🎯 Plano Anual</span>
-                    <span class="plan-price">R$ 199,90 <small>/ano</small></span>
-                </div>
-                <ul class="plan-features">
-                    <li>Todos os benefícios do plano mensal</li>
-                    <li>2 meses grátis (economia de 30%)</li>
-                    <li>Brinde exclusivo de boas-vindas</li>
-                    <li>Status VIP Premium</li>
-                </ul>
-            </div>
+        function carregarEstado() {
+            try {
+                const raw = localStorage.getItem('estuda_ai_estado');
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    return { ...ESTADO_PADRAO, ...parsed };
+                }
+            } catch (e) {}
+            return { ...ESTADO_PADRAO };
+        }
 
-            <button class="btn-assinar" id="btnAssinar" onclick="processarAssinatura()">
-                🚀 ASSINAR AGORA
-            </button>
+        function salvarEstado() {
+            try {
+                localStorage.setItem('estuda_ai_estado', JSON.stringify(estado));
+            } catch (e) {}
+        }
 
-            <div class="vip-benefits">
-                <h4>💳 Pagamento Seguro</h4>
-                <p>Cartão de crédito, boleto ou PIX. Cancele quando quiser.
-                Sua assinatura começa imediatamente após a confirmação.</p>
-            </div>
-        </div>
-    </div>
+        function gerarCalendario() {
+            const grid = document.getElementById('calGrid');
+            grid.innerHTML = '';
 
-    <div class="confete-container" id="confete-container"></div>
+            const hoje = new Date();
+            const ano = hoje.getFullYear();
+            const mes = hoje.getMonth();
+            const primeiroDia = new Date(ano, mes, 1).getDay();
+            const diasNoMes = new Date(ano, mes + 1, 0).getDate();
 
-    <script src="js/dados.js"></script>
-    <script src="js/vip.js"></script>
-    <script src="js/missao.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
+            for (let i = 0; i < primeiroDia; i++) {
+                const div = document.createElement('div');
+                div.className = 'cal-dia vazio';
+                grid.appendChild(div);
+            }
+
+            for (let d = 1; d <= diasNoMes; d++) {
+                const div = document.createElement('div');
+                div.className = 'cal-dia';
+                div.textContent = d;
+
+                const dataStr = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                if (estado.diasCompletos.includes(dataStr)) {
+                    div.classList.add('completo');
+                }
+
+                grid.appendChild(div);
+            }
+        }
+
+        function atualizarContadores() {
+            const hoje = new Date();
+            const ano = hoje.getFullYear();
+            const mes = hoje.getMonth();
+            const dia = hoje.getDate();
+
+            document.getElementById('diasCompletos').textContent = estado.diasCompletos.length;
+
+            const inicioSemana = new Date(hoje);
+            inicioSemana.setDate(hoje.getDate() - hoje.getDay());
+            const fimSemana = new Date(inicioSemana);
+            fimSemana.setDate(inicioSemana.getDate() + 6);
+
+            let diasSemana = 0;
+            estado.diasCompletos.forEach(dataStr => {
+                const [y, m, d] = dataStr.split('-').map(Number);
+                const data = new Date(y, m - 1, d);
+                if (data >= inicioSemana && data <= fimSemana) {
+                    diasSemana++;
+                }
+            });
+            document.getElementById('diasSemana').textContent = diasSemana;
+
+            let diasMes = 0;
+            estado.diasCompletos.forEach(dataStr => {
+                const [y, m, d] = dataStr.split('-').map(Number);
+                if (y === ano && m === mes + 1) {
+                    diasMes++;
+                }
+            });
+            document.getElementById('diasMes').textContent = diasMes;
+        }
+
+        function atualizarUI() {
+            document.getElementById('xpDisplay').textContent = estado.xp;
+
+            const vipBadge = document.getElementById('vipBadge');
+            const vipFeatures = document.getElementById('vipFeatures');
+
+            if (estado.isVip) {
+                vipBadge.style.display = 'inline';
+                vipFeatures.style.display = 'block';
+            } else {
+                vipBadge.style.display = 'none';
+                vipFeatures.style.display = 'none';
+            }
+
+            document.getElementById('streakDisplay').textContent = estado.streak;
+
+            const hoje = new Date().toISOString().split('T')[0];
+            const jaConcluiu = estado.diasCompletos.includes(hoje);
+            document.getElementById('btnConcluir').disabled = jaConcluiu;
+
+            gerarCalendario();
+            atualizarContadores();
+            salvarEstado();
+        }
+
+        function concluirMissao() {
+            const hoje = new Date().toISOString().split('T')[0];
+
+            if (estado.diasCompletos.includes(hoje)) {
+                alert('🚀 Você já completou a missão de hoje!');
+                return;
+            }
+
+            const xpGanho = estado.isVip ? 20 : 10;
+            estado.xp += xpGanho;
+            estado.diasCompletos.push(hoje);
+
+            const ontem = new Date();
+            ontem.setDate(ontem.getDate() - 1);
+            const ontemStr = ontem.toISOString().split('T')[0];
+
+            if (estado.ultimoDiaCompleto === ontemStr) {
+                estado.streak += 1;
+            } else if (estado.ultimoDiaCompleto !== hoje) {
+                estado.streak = 1;
+            }
+            estado.ultimoDiaCompleto = hoje;
+
+            alert(`✅ Missão concluída! +${xpGanho} XP`);
+            atualizarUI();
+        }
+
+        function assinarVip() {
+            if (estado.isVip) {
+                alert('⭐ Você já é VIP!');
+                return;
+            }
+            if (confirm('Deseja assinar o plano VIP por R$ 19,90/mês?')) {
+                estado.isVip = true;
+                alert('🎉 Parabéns! Agora você é VIP! XP dobrado em todas as missões.');
+                atualizarUI();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btnConcluir').addEventListener('click', concluirMissao);
+            document.getElementById('btnAssinar').addEventListener('click', assinarVip);
+            atualizarUI();
+        });
+    </script>
 </body>
 </html>
