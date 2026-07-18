@@ -354,7 +354,9 @@ function emailToName(email) {
     return parts.charAt(0).toUpperCase() + parts.slice(1);
 }
 
-const session = localStorage.getItem("norvi_session") || sessionStorage.getItem("norvi_session");
-if (session) {
-    window.location.href = "index.html";
-}
+        document.addEventListener("DOMContentLoaded", () => {
+            const session = localStorage.getItem("norvi_session") || sessionStorage.getItem("norvi_session");
+            if (session) {
+                window.location.href = "index.html";
+            }
+        });
