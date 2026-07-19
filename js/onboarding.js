@@ -203,7 +203,7 @@ const PERGUNTAS_BASE = [
         "pt-BR": {
             logo: "🧠",
             tagline: "Foque nos estudos. Construa hábitos.<br>Sua rotina de estudos simplificada.",
-            btnComecar: "Começar Diagnóstico",
+            btnComecar: "Começar Jornada",
             btnVoltar: "⬅ Voltar",
             btnProximo: "Próximo ➡",
             btnCriarConta: "Criar Conta",
@@ -235,12 +235,33 @@ const PERGUNTAS_BASE = [
             finalMaterias: "📚 Matérias",
             finalMeta: "📝 Meta Diária",
             finalMissao: "🎯 Sua Missão de Hoje:",
-            btnComecarEstudar: "🚀 COMEÇAR A ESTUDAR"
+            btnComecarEstudar: "🚀 COMEÇAR A ESTUDAR",
+            problemaTitulo: "Por que é tão difícil manter a disciplina?",
+            solucaoTitulo: "A disciplina não é um dom, é um hábito",
+            solucaoTexto1: "A disciplina não é um dom com o qual você nasce.",
+            solucaoTexto2: "É um hábito que você constrói, um dia de cada vez.",
+            solucaoTexto3: "Norvi é o seu companheiro nessa jornada.",
+            vantagensTitulo: "Vantagens Únicas",
+            vantagem1Titulo: "Rotina Personalizada",
+            vantagem1Desc: "O Norvi cria um plano de estudos que se ajusta ao seu dia a dia, não o contrário.",
+            vantagem2Titulo: "A Chama da Consistência",
+            vantagem2Desc: "Cada dia de estudo alimenta uma chama que cresce com você. Não quebre a corrente.",
+            vantagem3Titulo: "Acompanhamento Silencioso",
+            vantagem3Desc: "O Norvi não te cobra. Ele te lembra que você é capaz.",
+            vantagem4Titulo: "Conteúdo Adaptativo",
+            vantagem4Desc: "Do fundamental à pós-graduação, o conteúdo é adaptado ao seu nível.",
+            depoimentosTitulo: "O que dizem nossos estudantes",
+            depoimento1: "O Norvi mudou completamente minha relação com os estudos. A chama me mantém focado todos os dias!",
+            depoimento1Autor: "Mariana, Ensino Médio",
+            depoimento2: "A personalização por nível escolar é fantástica. Como estudante de graduação, sinto que os conteúdos são exatamente o que preciso.",
+            depoimento2Autor: "Lucas, Engenharia",
+            depoimento3: "Finalmente consegui criar um hábito consistente de estudos. O design limpo e sem distrações é maravilhoso.",
+            depoimento3Autor: "Beatriz, Concurseira"
         },
         "pt-PT": {
             logo: "🧠",
             tagline: "Foque nos estudos. Construa hábitos.<br>A sua rotina de estudos simplificada.",
-            btnComecar: "Começar Diagnóstico",
+            btnComecar: "Começar Jornada",
             btnVoltar: "⬅ Voltar",
             btnProximo: "Seguinte ➡",
             btnCriarConta: "Criar Conta",
@@ -267,17 +288,38 @@ const PERGUNTAS_BASE = [
             finalSubtitulo: "Com base no seu perfil, estruturámos a rotina ideal para si:",
             finalNome: "👤 Nome",
             finalPontos: "📊 Pontuação",
-            finalFrequencia: "📅 Frecuencia",
+            finalFrequencia: "📅 Frequência",
             finalTempo: "⏱️ Tempo",
             finalMaterias: "📚 Disciplinas",
             finalMeta: "📝 Meta Diária",
             finalMissao: "🎯 A sua Missão de Hoje:",
-            btnComecarEstudar: "🚀 COMEÇAR A ESTUDAR"
+            btnComecarEstudar: "🚀 COMEÇAR A ESTUDAR",
+            problemaTitulo: "Porque é que é tão difícil manter a disciplina?",
+            solucaoTitulo: "A disciplina não é um dom, é um hábito",
+            solucaoTexto1: "A disciplina não é um dom com o qual nasce.",
+            solucaoTexto2: "É um hábito que constrói, um dia de cada vez.",
+            solucaoTexto3: "O Norvi é o seu companheiro nesta jornada.",
+            vantagensTitulo: "Vantagens Únicas",
+            vantagem1Titulo: "Rotina Personalizada",
+            vantagem1Desc: "O Norvi cria um plano de estudos que se ajusta ao seu dia a dia, não o contrário.",
+            vantagem2Titulo: "A Chama da Consistência",
+            vantagem2Desc: "Cada dia de estudo alimenta uma chama que cresce consigo. Não quebre a corrente.",
+            vantagem3Titulo: "Acompanhamento Silencioso",
+            vantagem3Desc: "O Norvi não lhe cobra. Ele lembra-lhe que é capaz.",
+            vantagem4Titulo: "Conteúdo Adaptativo",
+            vantagem4Desc: "Do básico ao pós-doutoramento, o conteúdo é adaptado ao seu nível.",
+            depoimentosTitulo: "O que dizem os nossos estudantes",
+            depoimento1: "O Norvi mudou completamente a minha relação com os estudos. A chama mantém-me focado todos os dias!",
+            depoimento1Autor: "Mariana, Ensino Secundário",
+            depoimento2: "A personalização por nível escolar é fantástica. Como estudante do ensino superior, sinto que os conteúdos são exatamente o que preciso.",
+            depoimento2Autor: "Lucas, Engenharia",
+            depoimento3: "Finalmente consegui criar um hábito consistente de estudos. O design limpo e sem distrações é maravilhoso.",
+            depoimento3Autor: "Beatriz, Concurseira"
         },
         "en": {
             logo: "🧠",
             tagline: "Focus on your studies. Build habits.<br>Your simplified study routine.",
-            btnComecar: "Start Diagnostic",
+            btnComecar: "Start Journey",
             btnVoltar: "⬅ Back",
             btnProximo: "Next ➡",
             btnCriarConta: "Create Account",
@@ -309,12 +351,33 @@ const PERGUNTAS_BASE = [
             finalMaterias: "📚 Subjects",
             finalMeta: "📝 Daily Goal",
             finalMissao: "🎯 Your Mission Today:",
-            btnComecarEstudar: "🚀 START STUDYING"
+            btnComecarEstudar: "🚀 START STUDYING",
+            problemaTitulo: "Why is it so hard to maintain discipline?",
+            solucaoTitulo: "Discipline is not a gift, it's a habit",
+            solucaoTexto1: "Discipline is not a gift you are born with.",
+            solucaoTexto2: "It's a habit you build, one day at a time.",
+            solucaoTexto3: "Norvi is your companion on this journey.",
+            vantagensTitulo: "Unique Advantages",
+            vantagem1Titulo: "Personalized Routine",
+            vantagem1Desc: "Norvi creates a study plan that adjusts to your daily life, not the other way around.",
+            vantagem2Titulo: "The Flame of Consistency",
+            vantagem2Desc: "Each day of study feeds a flame that grows with you. Don't break the chain.",
+            vantagem3Titulo: "Silent Support",
+            vantagem3Desc: "Norvi doesn't pressure you. It reminds you that you are capable.",
+            vantagem4Titulo: "Adaptive Content",
+            vantagem4Desc: "From elementary school to PhD, the content is adapted to your level.",
+            depoimentosTitulo: "What our students say",
+            depoimento1: "Norvi completely changed my relationship with studies. The flame keeps me focused every day!",
+            depoimento1Autor: "Mariana, High School",
+            depoimento2: "The personalization by school level is fantastic. As a college student, I feel the content is exactly what I need.",
+            depoimento2Autor: "Lucas, Engineering",
+            depoimento3: "I finally managed to build a consistent study habit. The clean, distraction-free design is wonderful.",
+            depoimento3Autor: "Beatriz, Candidate"
         },
         "es": {
             logo: "🧠",
             tagline: "Enfócate en tus estudios. Construye hábitos.<br>Tu rutina de estudios simplificada.",
-            btnComecar: "Comenzar Diagnóstico",
+            btnComecar: "Comenzar Jornada",
             btnVoltar: "⬅ Volver",
             btnProximo: "Siguiente ➡",
             btnCriarConta: "Crear Cuenta",
@@ -346,12 +409,33 @@ const PERGUNTAS_BASE = [
             finalMaterias: "📚 Materias",
             finalMeta: "📝 Meta Diaria",
             finalMissao: "🎯 Tu Misión de Hoy:",
-            btnComecarEstudar: "🚀 EMPEZAR A ESTUDIAR"
+            btnComecarEstudar: "🚀 EMPEZAR A ESTUDIAR",
+            problemaTitulo: "¿Por qué es tan difícil mantener la disciplina?",
+            solucaoTitulo: "La disciplina no es un don, es un hábito",
+            solucaoTexto1: "La disciplina no es un don con el que naces.",
+            solucaoTexto2: "Es un hábito que construyes, un día a la vez.",
+            solucaoTexto3: "Norvi es tu compañero en este viaje.",
+            vantagensTitulo: "Ventajas Únicas",
+            vantagem1Titulo: "Rutina Personalizada",
+            vantagem1Desc: "Norvi crea un plan de estudios que se ajusta a tu día a día, no al revés.",
+            vantagem2Titulo: "La Llama de la Consistencia",
+            vantagem2Desc: "Cada día de estudio alimenta una llama que crece contigo. No rompas la cadena.",
+            vantagem3Titulo: "Acompañamiento Silencioso",
+            vantagem3Desc: "Norvi no te presiona. Te recuerda que eres capaz.",
+            vantagem4Titulo: "Contenido Adaptativo",
+            vantagem4Desc: "Desde la primaria hasta el posgrado, el contenido se adapta a tu nivel.",
+            depoimentosTitulo: "Lo que dicen nuestros estudiantes",
+            depoimento1: "¡Norvi cambió por completo mi relación con los estudios. La llama me mantiene enfocado todos los días!",
+            depoimento1Autor: "Mariana, Bachillerato",
+            depoimento2: "La personalización por nivel escolar es fantástica. Como estudiante universitario, siento que los contenidos son exactamente lo que necesito.",
+            depoimento2Autor: "Lucas, Ingeniería",
+            depoimento3: "Finalmente logré crear un hábito de estudio constante. El diseño limpio y sin distracciones es maravilloso.",
+            depoimento3Autor: "Beatriz, Opositora"
         },
         "fr": {
             logo: "🧠",
             tagline: "Concentrez-vous sur vos études. Créez des habitudes.<br>Votre routine d'étude simplifiée.",
-            btnComecar: "Commencer le Diagnostic",
+            btnComecar: "Commencer la Journée",
             btnVoltar: "⬅ Retour",
             btnProximo: "Suivant ➡",
             btnCriarConta: "Créer un Compte",
@@ -383,7 +467,28 @@ const PERGUNTAS_BASE = [
             finalMaterias: "📚 Matières",
             finalMeta: "📝 Objectif Quotidien",
             finalMissao: "🎯 Votre Mission d'Aujourd'hui:",
-            btnComecarEstudar: "🚀 COMMENCER À ÉTUDIER"
+            btnComecarEstudar: "🚀 COMMENCER À ÉTUDIER",
+            problemaTitulo: "Pourquoi est-il si difficile de rester discipliné ?",
+            solucaoTitulo: "La discipline n'est pas un don, c'est une habitude",
+            solucaoTexto1: "La discipline n'est pas un don avec lequel on naît.",
+            solucaoTexto2: "C'est une habitude que l'on construit, un jour à la fois.",
+            solucaoTexto3: "Norvi est votre compagnon dans ce voyage.",
+            vantagensTitulo: "Avantages Uniques",
+            vantagem1Titulo: "Routine Personnalisée",
+            vantagem1Desc: "Norvi crée un plan d'études qui s'adapte à votre quotidien, et non l'inverse.",
+            vantagem2Titulo: "La Flamme de la Constance",
+            vantagem2Desc: "Chaque jour d'étude alimente une flamme qui grandit avec vous. Ne rompez pas la chaîne.",
+            vantagem3Titulo: "Accompagnement Silencieux",
+            vantagem3Desc: "Norvi ne vous met pas la pression. Il vous rappelle que vous êtes capable.",
+            vantagem4Titulo: "Contenu Adaptatif",
+            vantagem4Desc: "De l'école primaire au doctorat, le contenu est adapté à votre niveau.",
+            depoimentosTitulo: "Ce que disent nos étudiants",
+            depoimento1: "Norvi a complètement changé ma relation avec les études. La flamme me permet de rester concentrée chaque jour !",
+            depoimento1Autor: "Mariana, Lycée",
+            depoimento2: "La personnalisation par niveau scolaire est fantastique. En tant qu'étudiant universitaire, j'ai l'impression que le contenu correspond exactement à mes besoins.",
+            depoimento2Autor: "Lucas, Ingénierie",
+            depoimento3: "J'ai enfin réussi à créer une habitude d'étude régulière. Le design épuré et sans distraction est merveilleux.",
+            depoimento3Autor: "Beatriz, Candidate"
         }
     };
     function changeLanguage(lang) {
@@ -391,20 +496,171 @@ const PERGUNTAS_BASE = [
         localStorage.setItem("norvi_lang", lang);
         document.getElementById("langSelector").value = lang;
         
-        const texts = UI_TEXTS[lang];
-        document.querySelector("#tela-inicial .subtitulo").innerHTML = texts.tagline;
-        document.querySelector("#tela-inicial button").textContent = texts.btnComecar;
-
-        document.getElementById("btn-voltar").textContent = texts.btnVoltar;
-        document.getElementById("btn-proximo").textContent = texts.btnProximo;
-
+        atualizarTextosLandingPage();
         atualizarTextosAuth();
-
-        if (document.getElementById("tela-diagnostico").style.display === "block") {
-            renderizarPergunta();
-        }
+        renderizarPergunta();
     }
+    function atualizarTextosLandingPage() {
+        const texts = UI_TEXTS[currentLang];
+        if (!texts) return;
 
+        // Hero
+        const heroSub = document.querySelector("#tela-inicial .subtitulo");
+        if (heroSub) heroSub.innerHTML = texts.tagline;
+        const heroBtn = document.querySelector("#tela-inicial .btn-primary");
+        if (heroBtn) heroBtn.textContent = texts.btnComecar;
+
+        // Problema
+        const probTitle = document.querySelector("#problema .titulo-secao");
+        if (probTitle) probTitle.textContent = texts.problemaTitulo;
+        
+        // Solução
+        const solTitle = document.querySelector("#solucao .titulo-secao");
+        if (solTitle) solTitle.textContent = texts.solucaoTitulo;
+        const solT1 = document.querySelector("#solucao .solucao-t1");
+        if (solT1) solT1.textContent = texts.solucaoTexto1;
+        const solT2 = document.querySelector("#solucao .solucao-t2");
+        if (solT2) solT2.textContent = texts.solucaoTexto2;
+        const solT3 = document.querySelector("#solucao .solucao-t3");
+        if (solT3) solT3.textContent = texts.solucaoTexto3;
+
+        // Vantagens
+        const vantTitle = document.querySelector("#vantagens .titulo-secao");
+        if (vantTitle) vantTitle.textContent = texts.vantagensTitulo;
+        const v1T = document.querySelector("#vantagem-1 .vantagem-titulo");
+        if (v1T) v1T.textContent = texts.vantagem1Titulo;
+        const v1D = document.querySelector("#vantagem-1 .vantagem-desc");
+        if (v1D) v1D.textContent = texts.vantagem1Desc;
+        const v2T = document.querySelector("#vantagem-2 .vantagem-titulo");
+        if (v2T) v2T.textContent = texts.vantagem2Titulo;
+        const v2D = document.querySelector("#vantagem-2 .vantagem-desc");
+        if (v2D) v2D.textContent = texts.vantagem2Desc;
+        const v3T = document.querySelector("#vantagem-3 .vantagem-titulo");
+        if (v3T) v3T.textContent = texts.vantagem3Titulo;
+        const v3D = document.querySelector("#vantagem-3 .vantagem-desc");
+        if (v3D) v3D.textContent = texts.vantagem3Desc;
+        const v4T = document.querySelector("#vantagem-4 .vantagem-titulo");
+        if (v4T) v4T.textContent = texts.vantagem4Titulo;
+        const v4D = document.querySelector("#vantagem-4 .vantagem-desc");
+        if (v4D) v4D.textContent = texts.vantagem4Desc;
+
+        // Depoimentos
+        const depTitle = document.querySelector("#depoimentos .titulo-secao");
+        if (depTitle) depTitle.textContent = texts.depoimentosTitulo;
+        const d1 = document.querySelector("#depoimento-1 .depoimento-texto");
+        if (d1) d1.textContent = texts.depoimento1;
+        const d1A = document.querySelector("#depoimento-1 .depoimento-autor");
+        if (d1A) d1A.textContent = texts.depoimento1Autor;
+        const d2 = document.querySelector("#depoimento-2 .depoimento-texto");
+        if (d2) d2.textContent = texts.depoimento2;
+        const d2A = document.querySelector("#depoimento-2 .depoimento-autor");
+        if (d2A) d2A.textContent = texts.depoimento2Autor;
+        const d3 = document.querySelector("#depoimento-3 .depoimento-texto");
+        if (d3) d3.textContent = texts.depoimento3;
+        const d3A = document.querySelector("#depoimento-3 .depoimento-autor");
+        if (d3A) d3A.textContent = texts.depoimento3Autor;
+    }
+    function getPerguntaAdaptada(q, nivelEscolar, lang) {
+        let texto = q.pergunta[lang] || q.pergunta["pt-BR"];
+        let opcoes = [...q.opcoes];
+
+        if (!nivelEscolar) {
+            return { texto, opcoes };
+        }
+
+        if (q.id === 4) {
+            // Seu Ritmo (Estilo de aprendizagem) - adapt icons/text
+            if (nivelEscolar === "fundamental_1" || nivelEscolar === "fundamental_2") {
+                opcoes = [
+                    { texto: { "pt-BR": "Lendo livrinhos e fazendo resumos 📖", "pt-PT": "Lendo livrinhos e fazendo resumos 📖", "en": "Reading books and making summaries 📖", "es": "Leyendo libritos y haciendo resúmenes 📖", "fr": "Lire des petits livres et faire des résumés 📖" }, valor: "leitura" },
+                    { texto: { "pt-BR": "Fazendo joguinhos e exercícios 📝", "pt-PT": "Fazendo joguinhos e exercícios 📝", "en": "Playing games and exercises 📝", "es": "Jugando juegos y ejercicios 📝", "fr": "Jouer à des jeux et faire des exercices 📝" }, valor: "exercicios" },
+                    { texto: { "pt-BR": "Vendo figuras e desenhos coloridos 🗺️", "pt-PT": "Vendo figuras e desenhos coloridos 🗺️", "en": "Seeing pictures and colorful drawings 🗺️", "es": "Viendo dibujos y esquemas de colores 🗺️", "fr": "Voir des images et des dessins colorés 🗺️" }, valor: "slides" },
+                    { texto: { "pt-BR": "Com ajuda passo a passo de um guia 🧭", "pt-PT": "Com ajuda passo a passo de um guia 🧭", "en": "With step-by-step help from a guide 🧭", "es": "Con ayuda paso a paso de un guía 🧭", "fr": "Avec l'aide étape par étape d'un guide 🧭" }, valor: "guiado" }
+                ];
+            }
+        } else if (q.id === 7) {
+            // Seu Objetivo Final
+            if (nivelEscolar === "fundamental_1" || nivelEscolar === "fundamental_2") {
+                texto = {
+                    "pt-BR": "O que você mais quer com os estudos?",
+                    "pt-PT": "O que mais queres com os estudos?",
+                    "en": "What do you want most from your studies?",
+                    "es": "¿Qué es lo que más quieres con tus estudios?",
+                    "fr": "Que veux-tu le plus de tes études?"
+                }[lang] || "O que você mais quer com os estudos?";
+                opcoes = [
+                    { texto: { "pt-BR": "Passar de ano na escola 🎒", "pt-PT": "Passar de ano na escola 🎒", "en": "Pass my school grade 🎒", "es": "Pasar de año en la escuela 🎒", "fr": "Passer en classe supérieure 🎒" }, valor: "prova" },
+                    { texto: { "pt-BR": "Aprender coisas novas e curiosas 🧠", "pt-PT": "Aprender coisas novas e curiosas 🧠", "en": "Learn new and curious things 🧠", "es": "Aprender cosas nuevas y curiosas 🧠", "fr": "Apprendre des choses nouvelles et curieuses 🧠" }, valor: "assunto" },
+                    { texto: { "pt-BR": "Criar o hábito de estudar todo dia 📅", "pt-PT": "Criar o hábito de estudar todo dia 📅", "en": "Build a habit of studying every day 📅", "es": "Crear el hábito de estudiar todos los días 📅", "fr": "Créer l'habitude d'étudier tous les jours 📅" }, valor: "habito" },
+                    { texto: { "pt-BR": "Ficar muito inteligente em uma matéria 🌟", "pt-PT": "Ficar muito inteligente numa matéria 🌟", "en": "Get really smart in a subject 🌟", "es": "Volverme muy inteligente en una materia 🌟", "fr": "Devenir très intelligent dans une matière 🌟" }, valor: "aprofundar" }
+                ];
+            } else if (nivelEscolar === "medio") {
+                texto = {
+                    "pt-BR": "Qual é o seu grande objetivo com os estudos?",
+                    "pt-PT": "Qual é o teu grande objetivo com os estudos?",
+                    "en": "What is your main goal with your studies?",
+                    "es": "¿Cuál es tu gran objetivo con los estudios?",
+                    "fr": "Quel est ton grand objectif avec tes études?"
+                }[lang] || "Qual é o seu grande objetivo com os estudos?";
+                opcoes = [
+                    { texto: { "pt-BR": "Passar no Vestibular / ENEM / Provas 🎓", "pt-PT": "Passar nos Exames / Provas 🎓", "en": "Pass college entrance exams 🎓", "es": "Pasar el examen de ingreso / Selectividad 🎓", "fr": "Réussir le Bac / Concours d'entrée 🎓" }, valor: "prova" },
+                    { texto: { "pt-BR": "Aprender matérias difíceis e complexas 📚", "pt-PT": "Aprender matérias difíceis e complexas 📚", "en": "Learn difficult and complex subjects 📚", "es": "Aprender materias difíciles y complejas 📚", "fr": "Apprendre des matières difficiles et complexes 📚" }, valor: "assunto" },
+                    { texto: { "pt-BR": "Criar uma rotina sólida de estudos ⏰", "pt-PT": "Criar uma rotina sólida de estudos ⏰", "en": "Build a solid study routine ⏰", "es": "Crear una rutina sólida de estudios ⏰", "fr": "Créer une routine d'études solide ⏰" }, valor: "habito" },
+                    { texto: { "pt-BR": "Aprofundar conhecimento em uma área específica 🔍", "pt-PT": "Aprofundar conhecimento numa área específica 🔍", "en": "Deepen knowledge in a specific area 🔍", "es": "Profundizar conocimiento en un área específica 🔍", "fr": "Approfondir ses connaissances dans un domaine spécifique 🔍" }, valor: "aprofundar" }
+                ];
+            } else {
+                texto = {
+                    "pt-BR": "Qual é o seu principal objetivo acadêmico ou profissional?",
+                    "pt-PT": "Qual é o seu principal objetivo académico ou profissional?",
+                    "en": "What is your main academic or professional goal?",
+                    "es": "¿Cuál es tu principal objetivo académico o profesional?",
+                    "fr": "Quel est votre principal objectif académique ou professionnel?"
+                }[lang] || "Qual é o seu principal objetivo acadêmico ou profissional?";
+                opcoes = [
+                    { texto: { "pt-BR": "Crescimento profissional / Concursos públicos 💼", "pt-PT": "Crescimento profissional / Concursos públicos 💼", "en": "Professional growth / Public exams 💼", "es": "Crecimiento profesional / Oposiciones 💼", "fr": "Évolution professionnelle / Concours publics 💼" }, valor: "prova" },
+                    { texto: { "pt-BR": "Aprofundar conhecimento na minha área de atuação 🔬", "pt-PT": "Aprofundar conhecimento na minha área de atuação 🔬", "en": "Deepen knowledge in my field of work 🔬", "es": "Profundizar conocimiento en mi área de trabajo 🔬", "fr": "Approfondir mes connaissances dans mon domaine d'activité 🔬" }, valor: "assunto" },
+                    { texto: { "pt-BR": "Criar o hábito de estudar regularmente 🕯️", "pt-PT": "Criar o hábito de estudar regularmente 🕯️", "en": "Build a habit of studying regularly 🕯️", "es": "Crear el hábito de estudiar regularmente 🕯️", "fr": "Créer l'habitude d'étudier régulièrement 🕯️" }, valor: "habito" },
+                    { texto: { "pt-BR": "Publicar artigos / Preparar tese ou dissertação 📝", "pt-PT": "Publicar artigos / Preparar tese ou dissertação 📝", "en": "Publish papers / Prepare thesis or dissertation 📝", "es": "Publicar artículos / Preparar tesis o tesina 📝", "fr": "Publier des articles / Préparer une thèse ou un mémoire 📝" }, valor: "aprofundar" }
+                ];
+            }
+        } else if (q.id === 8) {
+            // O Que Te Atrapalha (Maior obstáculo)
+            if (nivelEscolar === "fundamental_1" || nivelEscolar === "fundamental_2") {
+                texto = {
+                    "pt-BR": "O que mais te atrapalha na hora de estudar?",
+                    "pt-PT": "O que mais te atrapalha na hora de estudar?",
+                    "en": "What gets in your way the most when studying?",
+                    "es": "¿Qué es lo que más te distrae al estudiar?",
+                    "fr": "Qu'est-ce qui te dérange le plus quand tu étudies?"
+                }[lang] || "O que mais te atrapalha na hora de estudar?";
+                opcoes = [
+                    { texto: { "pt-BR": "Fico com preguiça ou me distraio fácil 🧸", "pt-PT": "Fico com preguiça ou me distraio fácil 🧸", "en": "I get lazy or easily distracted 🧸", "es": "Me da pereza o me distraigo fácil 🧸", "fr": "Je suis paresseux ou je me distrais facilement 🧸" }, valor: "foco" },
+                    { texto: { "pt-BR": "Não consigo começar a estudar sozinho 💤", "pt-PT": "Não consigo começar a estudar sozinho 💤", "en": "I can't start studying by myself 💤", "es": "No puedo empezar a estudiar solo 💤", "fr": "Je n'arrive pas à commencer à étudier tout seul 💤" }, valor: "procrastinacao" },
+                    { texto: { "pt-BR": "Não sei por onde começar ou o que fazer 🤷", "pt-PT": "Não sei por onde começar ou o que fazer 🤷", "en": "I don't know where to start or what to do 🤷", "es": "No sé por dónde empezar o qué hacer 🤷", "fr": "Je ne sais pas par où commencer ni quoi faire 🤷" }, valor: "direcao" },
+                    { texto: { "pt-BR": "Fico muito cansado depois da escola 🥱", "pt-PT": "Fico muito cansado depois da escola 🥱", "en": "I get very tired after school 🥱", "es": "Me canso mucho después de la escuela 🥱", "fr": "Je suis très fatigué après l'école 🥱" }, valor: "cansaco" }
+                ];
+            }
+        } else if (q.id === 9) {
+            // Sua Primeira Meta
+            if (nivelEscolar === "fundamental_1" || nivelEscolar === "fundamental_2") {
+                texto = {
+                    "pt-BR": "Qual sua meta para o próximo mês?",
+                    "pt-PT": "Qual a tua meta para o próximo mês?",
+                    "en": "What is your goal for the next month?",
+                    "es": "¿Cuál es tu meta para el próximo mes?",
+                    "fr": "Quel est ton objectif pour le mois prochain?"
+                }[lang] || "Qual sua meta para o próximo mês?";
+                opcoes = [
+                    { texto: { "pt-BR": "Estudar 3 dias seguidos 🎯", "pt-PT": "Estudar 3 dias seguidos 🎯", "en": "Study 3 days in a row 🎯", "es": "Estudiar 3 días seguidos 🎯", "fr": "Étudier 3 jours de suite 🎯" }, valor: "3d", dias: 3 },
+                    { texto: { "pt-BR": "Estudar 7 dias seguidos (1 semana) 🔥", "pt-PT": "Estudar 7 dias seguidos (1 semana) 🔥", "en": "Study 7 days in a row (1 week) 🔥", "es": "Estudiar 7 días seguidos (1 semana) 🔥", "fr": "Étudier 7 jours de suite (1 semaine) 🔥" }, valor: "7d", dias: 7 },
+                    { texto: { "pt-BR": "Estudar 15 dias seguidos (2 semanas) ⚡", "pt-PT": "Estudar 15 dias seguidos (2 semanas) ⚡", "en": "Study 15 days in a row (2 weeks) ⚡", "es": "Estudiar 15 días seguidos (2 semanas) ⚡", "fr": "Étudier 15 jours de suite (2 semaines) ⚡" }, valor: "15d", dias: 15 },
+                    { texto: { "pt-BR": "Estudar todos os dias sem faltar 👑", "pt-PT": "Estudar todos os dias sem faltar 👑", "en": "Study every single day 👑", "es": "Estudiar todos los días sin falta 👑", "fr": "Étudier tous les jours sans faute 👑" }, valor: "30d", dias: 30 }
+                ];
+            }
+        }
+
+        return { texto, opcoes };
+    }
     function atualizarTextosAuth() {
         const texts = UI_TEXTS[currentLang];
         const emailLabel = document.querySelector("label[for='auth-email']");
@@ -450,9 +706,10 @@ const PERGUNTAS_BASE = [
     }
 
     function iniciarDiagnostico() {
-        document.getElementById("tela-inicial").style.display = "none";
-        document.getElementById("tela-diagnostico").style.display = "block";
-        renderizarPergunta();
+        const target = document.getElementById("diagnostico");
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
     function renderizarProgresso() {
@@ -468,19 +725,21 @@ const PERGUNTAS_BASE = [
     }
     function renderizarPergunta() {
         const container = document.getElementById("pergunta-container");
+        if (!container) return;
         container.innerHTML = "";
-
         const q = PERGUNTAS_BASE[perguntaAtual - 1];
         const selecionadas = respostas[perguntaAtual] || [];
 
+        const p1Idx = respostas[1] ? respostas[1][0] : null;
+        const nivelEscolar = p1Idx !== null ? PERGUNTAS_BASE[0].opcoes[p1Idx].valor : null;
+
+        const adaptada = getPerguntaAdaptada(q, nivelEscolar, currentLang);
+        const perguntaTraduzida = adaptada.texto;
+        let opcoesFiltradas = adaptada.opcoes;
+
         // --- FILTRAGEM DINÂMICA DE MATÉRIAS (P3) ---
-        let opcoesFiltradas = q.opcoes;
-        if (q.id === 3) {
-            const p1Idx = respostas[1] ? respostas[1][0] : null;
-            if (p1Idx !== null) {
-                const nivelEscolar = PERGUNTAS_BASE[0].opcoes[p1Idx].valor;
-                opcoesFiltradas = q.opcoes.filter(opt => opt.niveis.includes(nivelEscolar));
-            }
+        if (q.id === 3 && nivelEscolar) {
+            opcoesFiltradas = q.opcoes.filter(opt => opt.niveis.includes(nivelEscolar));
         }
 
         let opcoesHTML = "";
@@ -492,18 +751,14 @@ const PERGUNTAS_BASE = [
             opcoesHTML += `
                 <div class="opcao ${isSel ? 'selecionada' : ''}" onclick="selecionarOpcao(${realIdx})">
                     <span>${textoTraduzido}</span>
-                    <span class="opcao-star">✧</span>
+                    <span class="opcao-star">✦</span>
                 </div>
             `;
         });
-
-        const perguntaTraduzida = q.pergunta[currentLang] || q.pergunta["pt-BR"];
-
         let etapaNome = `Etapa ${perguntaAtual}`;
         if (currentLang === "en") etapaNome = `Step ${perguntaAtual}`;
         else if (currentLang === "es") etapaNome = `Etapa ${perguntaAtual}`;
         else if (currentLang === "fr") etapaNome = `Étape ${perguntaAtual}`;
-
         container.innerHTML = `
             <p style="color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px;">${etapaNome} - ${q.categoria}</p>
             <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; text-align: left; font-family: 'Playfair Display', serif;">${perguntaTraduzida}</h3>
@@ -511,6 +766,10 @@ const PERGUNTAS_BASE = [
                 ${opcoesHTML}
             </div>
         `;
+        document.getElementById("btn-voltar").disabled = perguntaAtual === 1;
+        document.getElementById("btn-proximo").disabled = selecionadas.length === 0;
+        renderizarProgresso();
+    }
 
         document.getElementById("btn-voltar").disabled = perguntaAtual === 1;
         document.getElementById("btn-proximo").disabled = selecionadas.length === 0;
