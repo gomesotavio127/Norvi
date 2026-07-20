@@ -171,13 +171,13 @@
         }
 
         .btn-entrar {
-            background: transparent;
-            border: 1px solid var(--siena-queimado);
+            background: var(--siena-queimado);
+            border: none;
             border-radius: 0.3rem;
-            padding: 0.25rem 1rem;
+            padding: 0.3rem 1.2rem;
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--siena-queimado);
+            color: #fff;
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: var(--fonte-corpo);
@@ -186,8 +186,8 @@
         }
 
         .btn-entrar:hover {
-            background: var(--siena-queimado);
-            color: #fff;
+            background: #B56A3E;
+            transform: scale(1.02);
         }
 
         /* ============================================================
@@ -805,7 +805,7 @@
 
             .btn-entrar {
                 font-size: 0.65rem;
-                padding: 0.2rem 0.7rem;
+                padding: 0.2rem 0.8rem;
             }
 
             .perguntas-container {
@@ -905,7 +905,7 @@
             <!-- Tema Claro/Escuro -->
             <button class="tema-btn" id="temaBtn" aria-label="Alternar tema claro/escuro">🌙</button>
 
-            <!-- Botão Entrar -->
+            <!-- Botão Entrar (agora com link funcional) -->
             <a href="onboarding.html" class="btn-entrar" id="entrarBtn">Entrar</a>
         </div>
     </header>
@@ -926,7 +926,7 @@
             <p class="hero-descricao" data-chave="descricao">
                 Sua rotina de estudos simplificada, um dia de cada vez.
             </p>
-            <a href="#diagnostico" class="btn-primario" data-chave="btnComecar" id="btnComecar">Começar Jornada</a>
+            <a href="#" class="btn-primario" data-chave="btnComecar" id="btnComecar">Começar Jornada</a>
         </div>
     </section>
 
@@ -1074,14 +1074,14 @@
 
 
     <!-- ============================================================
-    JAVASCRIPT COMPLETO CORRIGIDO (TUDO FUNCIONANDO)
+    JAVASCRIPT COMPLETO CORRIGIDO (SCROLL + BOTÕES)
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
             // ============================================================
-            // 1. TRADUÇÕES (5 IDIOMAS)
+            // 1. TRADUÇÕES (5 IDIOMAS) - VERSÃO RESUMIDA PARA ECONOMIZAR
             // ============================================================
 
             const traducoes = {
@@ -1542,7 +1542,7 @@
             let temaAtual = 'light';
 
             // ============================================================
-            // 4. FUNÇÕES DE IDIOMA E TEMA (CORRIGIDAS)
+            // 4. FUNÇÕES DE IDIOMA E TEMA
             // ============================================================
 
             function aplicarIdioma(idioma) {
@@ -2088,7 +2088,7 @@
             }
 
             // ============================================================
-            // 8. INICIALIZAÇÃO (TOTALMENTE FUNCIONAL)
+            // 8. INICIALIZAÇÃO (TOTALMENTE FUNCIONAL - SEM SCROLL AUTOMÁTICO)
             // ============================================================
 
             function init() {
@@ -2112,11 +2112,12 @@
                 }, 3000);
 
                 // ============================================================
-                // BOTÃO DE IDIOMA (FUNCIONANDO)
+                // BOTÃO DE IDIOMA (FUNCIONANDO - SEM ROLAR)
                 // ============================================================
                 document.querySelectorAll('.idioma-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
+                        e.stopPropagation();
                         const idioma = this.dataset.idioma;
                         aplicarIdioma(idioma);
                         perguntas = getPerguntas(respostas);
@@ -2126,10 +2127,11 @@
                 });
 
                 // ============================================================
-                // BOTÃO DE TEMA (FUNCIONANDO)
+                // BOTÃO DE TEMA (FUNCIONANDO - SEM ROLAR)
                 // ============================================================
                 document.getElementById('temaBtn').addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     alternarTema();
                 });
 
@@ -2138,14 +2140,17 @@
                 // ============================================================
                 document.getElementById('logoLink').addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
 
                 // ============================================================
-                // BOTÃO "COMEÇAR JORNADA" (ROLA PARA O DIAGNÓSTICO)
+                // BOTÃO "COMEÇAR JORNADA" - SÓ ROLA QUANDO CLICAR
                 // ============================================================
-                document.getElementById('btnComecar').addEventListener('click', function(e) {
+                const btnComecar = document.getElementById('btnComecar');
+                btnComecar.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     const target = document.getElementById('diagnostico');
                     if (target) {
                         const topBarHeight = document.querySelector('.top-bar').offsetHeight || 60;
@@ -2154,6 +2159,11 @@
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 });
+
+                // ============================================================
+                // BOTÃO "ENTRAR" - REDIRECIONA PARA ONBOARDING
+                // ============================================================
+                // (já é um link HTML, não precisa de JS)
 
                 // ============================================================
                 // ATUALIZAR PERGUNTAS QUANDO P1 MUDAR
@@ -2171,6 +2181,9 @@
                 });
             }
 
+            // ============================================================
+            // INICIAR QUANDO O DOM ESTIVER PRONTO
+            // ============================================================
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {
