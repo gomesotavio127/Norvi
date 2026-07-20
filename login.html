@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8" />
@@ -207,6 +207,24 @@
             margin-top: 0.2rem;
             text-align: right;
         }
+        .form-group-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+        .form-group-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--siena-queimado);
+            cursor: pointer;
+        }
+        .form-group-checkbox label {
+            font-size: 0.9rem;
+            color: var(--texto-principal);
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -225,23 +243,30 @@
         <form id="formLogin">
             <div class="form-group">
                 <label for="email">E-mail ou Nome de Usuário</label>
-                <input type="text" id="email" placeholder="seu@email.com ou seu_nome" required />
+                <input type="text" id="email" placeholder="seu@email.com ou seu_nome" required autocomplete="username" />
                 <div class="campo-hint">Digite seu e-mail ou nome de usuário cadastrado</div>
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Digite sua senha" required />
+                <input type="password" id="senha" placeholder="Digite sua senha" required autocomplete="current-password" />
             </div>
             <div class="recuperar-senha">
                 <a href="#" id="linkRecuperar">Esqueceu a senha?</a>
             </div>
+
+            <!-- Checkbox: Manter conectado -->
+            <div class="form-group-checkbox">
+                <input type="checkbox" id="manter-conectado" name="manter-conectado" checked />
+                <label for="manter-conectado">Manter-me conectado neste dispositivo</label>
+            </div>
+
             <div class="erro-login" id="erroLogin">❌ Usuário ou senha incorretos.</div>
             <div class="sucesso-login" id="sucessoLogin">✅ Redirecionando...</div>
             <button type="submit" class="btn-primary" id="btnLogin">Entrar</button>
         </form>
 
         <div class="register-link">
-            Não tem uma conta? <a href="onboarding.html">Criar conta</a>
+            Não tem uma conta? <a href="index.html#diagnostico" id="linkCriarConta">Começar Diagnóstico</a>
         </div>
     </div>
 
@@ -263,6 +288,15 @@
         document.getElementById('temaBtn').addEventListener('click', alternarTema);
 
         // ============================================================
+        // CARREGAR PREFERÊNCIA "MANTER CONECTADO"
+        // ============================================================
+        const preferencia = localStorage.getItem('norvi_manterConectado');
+        const checkbox = document.getElementById('manter-conectado');
+        if (preferencia === 'true') checkbox.checked = true;
+        else if (preferencia === 'false') checkbox.checked = false;
+        // Se não tiver preferência, mantém marcado (padrão)
+
+        // ============================================================
         // LOGIN - ACEITA E-MAIL OU NOME DE USUÁRIO
         // ============================================================
         document.getElementById('formLogin').addEventListener('submit', function(e) {
@@ -270,6 +304,7 @@
 
             const login = document.getElementById('email').value.trim();
             const senha = document.getElementById('senha').value.trim();
+            const manterConectado = checkbox.checked;
             const erro = document.getElementById('erroLogin');
             const sucesso = document.getElementById('sucessoLogin');
             const btn = document.getElementById('btnLogin');
@@ -288,6 +323,7 @@
                     tipo: 'admin'
                 };
                 localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
+                localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
                 sucesso.textContent = '✅ Bem-vindo, Admin!';
                 sucesso.classList.add('visivel');
                 btn.disabled = true;
@@ -305,7 +341,7 @@
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
 
             if (usuarios.length === 0) {
-                erro.textContent = '❌ Nenhum usuário cadastrado. Crie uma conta primeiro.';
+                erro.textContent = '❌ Nenhum usuário cadastrado. Faça o diagnóstico primeiro.';
                 erro.classList.add('visivel');
                 return;
             }
@@ -321,6 +357,13 @@
 
             if (!usuarioEncontrado) {
                 erro.textContent = '❌ Usuário não encontrado. Verifique o e-mail ou nome digitado.';
+                erro.classList.add('visivel');
+                return;
+            }
+
+            // Verifica se o usuário está banido
+            if (usuarioEncontrado.status === 'banido') {
+                erro.textContent = '⛔ Esta conta foi banida. Entre em contato com o suporte.';
                 erro.classList.add('visivel');
                 return;
             }
@@ -341,6 +384,7 @@
                 tipo: usuarioEncontrado.tipo || 'normal'
             };
             localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
+            localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
 
             sucesso.textContent = '✅ Login realizado com sucesso!';
             sucesso.classList.add('visivel');
@@ -378,7 +422,7 @@
             if (user) {
                 alert(`🔑 Sua senha é: ${user.senha}\n\nRecomendamos alterá-la após o login.`);
             } else {
-                alert('❌ Usuário não encontrado. Crie uma conta primeiro.');
+                alert('❌ Usuário não encontrado. Faça o diagnóstico primeiro.');
             }
         });
 
