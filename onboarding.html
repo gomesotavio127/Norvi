@@ -11,8 +11,8 @@
 
     <style>
         /* ============================================================
-                   RESET E VARIÁVEIS (PALETA NORVI + TEMA)
-                   ============================================================ */
+           RESET E VARIÁVEIS (PALETA NORVI + TEMA)
+           ============================================================ */
         *,
         *::before,
         *::after {
@@ -85,8 +85,8 @@
         }
 
         /* ============================================================
-                   TOP BAR (TEMA + VOLTAR)
-                   ============================================================ */
+           TOP BAR (TEMA + VOLTAR)
+           ============================================================ */
         .top-bar {
             position: fixed;
             top: 0;
@@ -115,11 +115,6 @@
             text-decoration: none;
             letter-spacing: -0.5px;
             cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-
-        .top-bar .logo-mini:hover {
-            opacity: 0.8;
         }
 
         .top-bar .logo-mini span {
@@ -174,8 +169,8 @@
         }
 
         /* ============================================================
-                   CONTAINER DO FORMULÁRIO (COM ANIMAÇÃO)
-                   ============================================================ */
+           CONTAINER DO FORMULÁRIO (COM ANIMAÇÃO)
+           ============================================================ */
         .onboarding-container {
             background: var(--bg-card);
             border: 1px solid var(--borda);
@@ -205,8 +200,8 @@
         }
 
         /* ============================================================
-                   LOGO E CABEÇALHO
-                   ============================================================ */
+           LOGO E CABEÇALHO
+           ============================================================ */
         .logo {
             display: flex;
             align-items: center;
@@ -259,8 +254,8 @@
         }
 
         /* ============================================================
-                   FORMULÁRIO
-                   ============================================================ */
+           FORMULÁRIO
+           ============================================================ */
         .form-group {
             margin-bottom: 1.25rem;
             position: relative;
@@ -309,8 +304,8 @@
         }
 
         /* ============================================================
-                   MENSAGENS DE CAMPO
-                   ============================================================ */
+           MENSAGENS DE CAMPO
+           ============================================================ */
         .mensagem-campo {
             font-size: 0.75rem;
             margin-top: 0.3rem;
@@ -334,8 +329,8 @@
         }
 
         /* ============================================================
-                   INDICADOR DE FORÇA DA SENHA
-                   ============================================================ */
+           INDICADOR DE FORÇA DA SENHA
+           ============================================================ */
         .senha-forca {
             margin-top: 0.5rem;
             display: flex;
@@ -437,8 +432,8 @@
         }
 
         /* ============================================================
-                   CHECKBOX "MANTER CONECTADO"
-                   ============================================================ */
+           CHECKBOX "MANTER CONECTADO"
+           ============================================================ */
         .form-group-checkbox {
             display: flex;
             align-items: center;
@@ -467,8 +462,8 @@
         }
 
         /* ============================================================
-                   BOTÃO PRIMARY
-                   ============================================================ */
+           BOTÃO PRIMARY
+           ============================================================ */
         .btn-primary {
             width: 100%;
             padding: 0.85rem;
@@ -520,8 +515,8 @@
         }
 
         /* ============================================================
-                   MENSAGEM DE FEEDBACK GLOBAL
-                   ============================================================ */
+           MENSAGEM DE FEEDBACK GLOBAL
+           ============================================================ */
         .feedback-global {
             position: fixed;
             top: 5rem;
@@ -564,8 +559,8 @@
         }
 
         /* ============================================================
-                   LINK "JÁ TENHO CONTA"
-                   ============================================================ */
+           LINK "JÁ TENHO CONTA"
+           ============================================================ */
         .login-link {
             text-align: center;
             margin-top: 1.25rem;
@@ -601,8 +596,8 @@
         }
 
         /* ============================================================
-                   RODAPÉ
-                   ============================================================ */
+           RODAPÉ
+           ============================================================ */
         .form-footer {
             margin-top: 1.5rem;
             padding-top: 1.25rem;
@@ -625,8 +620,8 @@
         }
 
         /* ============================================================
-                   RESPONSIVO
-                   ============================================================ */
+           RESPONSIVO
+           ============================================================ */
         @media (max-width: 480px) {
             .onboarding-container {
                 padding: 1.8rem 1.25rem;
@@ -692,8 +687,8 @@
         }
 
         /* ============================================================
-                   REDUÇÃO DE MOVIMENTO (ACESSIBILIDADE)
-                   ============================================================ */
+           REDUÇÃO DE MOVIMENTO (ACESSIBILIDADE)
+           ============================================================ */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -804,7 +799,7 @@
         </form>
 
         <div class="login-link">
-            Já tem uma conta? <a href="#" id="linkEntrar">Entrar</a>
+            Já tem uma conta? <a href="login.html" id="linkEntrar">Entrar</a>
         </div>
 
         <div class="form-footer">
@@ -815,7 +810,7 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT (VALIDAÇÃO AVANÇADA DE SENHA)
+    JAVASCRIPT COMPLETO (COM SALVAMENTO NO LOCALSTORAGE)
     ============================================================ -->
     <script>
         (function() {
@@ -850,8 +845,12 @@
             const requisitosContainer = document.getElementById('requisitosSenha');
 
             // ============================================================
-            // 2. FUNÇÕES DE VALIDAÇÃO DE SENHA
+            // 2. FUNÇÕES DE VALIDAÇÃO
             // ============================================================
+
+            function validarEmail(valor) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+            }
 
             function validarSenha(senha) {
                 const tem8 = senha.length >= 8;
@@ -890,16 +889,13 @@
             function atualizarForca(validacao) {
                 const forca = validacao.forca;
 
-                // Mostra o indicador
                 senhaForca.classList.add('visivel');
 
-                // Reseta barras
                 [barra1, barra2, barra3].forEach(b => {
                     b.className = 'barra';
                 });
 
                 if (forca === 0) {
-                    // Nenhum requisito atendido
                     rotuloForca.textContent = '—';
                     rotuloForca.className = 'rotulo-forca';
                 } else if (forca <= 2) {
@@ -920,14 +916,6 @@
                 }
             }
 
-            // ============================================================
-            // 3. VALIDAÇÃO EM TEMPO REAL
-            // ============================================================
-
-            function validarEmail(valor) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
-            }
-
             function atualizarCampo(input, msgEl, isValid, msgErro, msgSucesso) {
                 input.classList.remove('erro', 'sucesso');
                 msgEl.classList.remove('visivel', 'erro', 'sucesso');
@@ -945,6 +933,10 @@
                 }
             }
 
+            // ============================================================
+            // 3. VALIDAÇÃO EM TEMPO REAL
+            // ============================================================
+
             // Email
             emailInput.addEventListener('blur', function() {
                 const val = this.value.trim();
@@ -955,11 +947,10 @@
                 );
             });
 
-            // Senha - principal
+            // Senha
             senhaInput.addEventListener('input', function() {
                 const senha = this.value;
 
-                // Mostra requisitos
                 if (senha.length > 0) {
                     requisitosContainer.classList.add('visivel');
                 } else {
@@ -973,7 +964,6 @@
                 const validacao = atualizarRequisitos(senha);
                 atualizarForca(validacao);
 
-                // Mensagem do campo
                 if (validacao.valida) {
                     this.classList.add('sucesso');
                     this.classList.remove('erro');
@@ -986,7 +976,6 @@
                     senhaMsg.className = 'mensagem-campo visivel erro';
                 }
 
-                // Revalida confirmar se estiver preenchido
                 if (confirmarInput.value) {
                     validarConfirmacao();
                 }
@@ -1023,52 +1012,7 @@
             confirmarInput.addEventListener('input', validarConfirmacao);
 
             // ============================================================
-            // 4. SUBMISSÃO DO FORMULÁRIO
-            // ============================================================
-
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const email = emailInput.value.trim();
-                const senha = senhaInput.value;
-                const confirmar = confirmarInput.value;
-                const validacao = validarSenha(senha);
-
-                if (!validarEmail(email)) {
-                    mostrarFeedback('Por favor, insira um e-mail válido.', 'erro');
-                    emailInput.focus();
-                    return;
-                }
-
-                if (!validacao.valida) {
-                    mostrarFeedback('A senha deve ter: 8+ caracteres, maiúscula, minúscula e número.', 'erro');
-                    senhaInput.focus();
-                    return;
-                }
-
-                if (senha !== confirmar) {
-                    mostrarFeedback('As senhas não coincidem. Verifique e tente novamente.', 'erro');
-                    confirmarInput.focus();
-                    return;
-                }
-
-                btnCriar.disabled = true;
-                btnCriar.textContent = 'Criando conta...';
-
-                localStorage.setItem('norvi_manterConectado', manterCheck.checked ? 'true' : 'false');
-
-                setTimeout(function() {
-                    mostrarFeedback('✅ Conta criada com sucesso! Bem-vindo(a) ao Norvi!', 'sucesso', 4000);
-                    setTimeout(function() {
-                        window.location.href = 'dashboard.html';
-                    }, 1200);
-                    btnCriar.disabled = false;
-                    btnCriar.textContent = 'Criar conta';
-                }, 800);
-            });
-
-            // ============================================================
-            // 5. FEEDBACK GLOBAL
+            // 4. FEEDBACK GLOBAL
             // ============================================================
 
             let feedbackTimeout = null;
@@ -1089,7 +1033,97 @@
             }
 
             // ============================================================
-            // 6. RIPPLE EFFECT
+            // 5. SUBMISSÃO DO FORMULÁRIO (SALVA NO LOCALSTORAGE)
+            // ============================================================
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const email = emailInput.value.trim();
+                const senha = senhaInput.value;
+                const confirmar = confirmarInput.value;
+                const manterConectado = manterCheck.checked;
+
+                // ============================================================
+                // VALIDAÇÕES
+                // ============================================================
+
+                if (!validarEmail(email)) {
+                    mostrarFeedback('Por favor, insira um e-mail válido.', 'erro');
+                    emailInput.focus();
+                    return;
+                }
+
+                const validacao = validarSenha(senha);
+                if (!validacao.valida) {
+                    mostrarFeedback('A senha deve ter: 8+ caracteres, maiúscula, minúscula e número.', 'erro');
+                    senhaInput.focus();
+                    return;
+                }
+
+                if (senha !== confirmar) {
+                    mostrarFeedback('As senhas não coincidem. Verifique e tente novamente.', 'erro');
+                    confirmarInput.focus();
+                    return;
+                }
+
+                // ============================================================
+                // SALVA USUÁRIO NO LOCALSTORAGE
+                // ============================================================
+
+                const usuariosStr = localStorage.getItem('norvi_usuarios');
+                const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+
+                // Verifica se o e-mail já está cadastrado
+                if (usuarios.find(u => u.email === email)) {
+                    mostrarFeedback('❌ Este e-mail já está cadastrado. Faça login.', 'erro');
+                    return;
+                }
+
+                // Cria novo usuário
+                const novoUsuario = {
+                    email: email,
+                    senha: senha,
+                    nome: email.split('@')[0] || 'Usuário',
+                    tipo: 'normal',
+                    dataCriacao: new Date().toISOString()
+                };
+
+                usuarios.push(novoUsuario);
+                localStorage.setItem('norvi_usuarios', JSON.stringify(usuarios));
+
+                // ============================================================
+                // CRIA SESSÃO
+                // ============================================================
+
+                const sessao = {
+                    email: email,
+                    nome: novoUsuario.nome,
+                    tipo: 'normal'
+                };
+                localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
+
+                // Salva preferência "Manter conectado"
+                localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
+
+                // ============================================================
+                // SUCESSO E REDIRECIONAMENTO
+                // ============================================================
+
+                btnCriar.disabled = true;
+                btnCriar.textContent = 'Criando conta...';
+
+                mostrarFeedback('✅ Conta criada com sucesso! Bem-vindo(a) ao Norvi!', 'sucesso', 3000);
+
+                setTimeout(function() {
+                    btnCriar.disabled = false;
+                    btnCriar.textContent = 'Criar conta';
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            });
+
+            // ============================================================
+            // 6. RIPPLE EFFECT NO BOTÃO
             // ============================================================
 
             btnCriar.addEventListener('click', function(e) {
@@ -1105,7 +1139,16 @@
             });
 
             // ============================================================
-            // 7. TEMA
+            // 7. LINK "ENTRAR"
+            // ============================================================
+
+            document.getElementById('linkEntrar').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'login.html';
+            });
+
+            // ============================================================
+            // 8. TEMA
             // ============================================================
 
             function alternarTema() {
@@ -1130,21 +1173,12 @@
             });
 
             // ============================================================
-            // 8. PREFERÊNCIA "MANTER CONECTADO"
+            // 9. PREFERÊNCIA "MANTER CONECTADO"
             // ============================================================
 
             const pref = localStorage.getItem('norvi_manterConectado');
             if (pref === 'true') manterCheck.checked = true;
             else if (pref === 'false') manterCheck.checked = false;
-
-            // ============================================================
-            // 9. LINK "ENTRAR"
-            // ============================================================
-
-            document.getElementById('linkEntrar').addEventListener('click', function(e) {
-                e.preventDefault();
-                mostrarFeedback('🚧 Área de login em desenvolvimento. Em breve!', 'info', 3000);
-            });
 
             // ============================================================
             // 10. INICIAR

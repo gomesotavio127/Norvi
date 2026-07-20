@@ -28,6 +28,7 @@
             --borda: var(--marrom-claro);
             --radius: 0.75rem;
             --erro: #D45A5A;
+            --sucesso: #5A9A7A;
         }
         [data-theme="dark"] {
             --off-white: #1A1A1A;
@@ -41,6 +42,7 @@
             --texto-secundario: #9A9A9A;
             --borda: #3A3A3A;
             --erro: #D45A5A;
+            --sucesso: #5A9A7A;
         }
         body {
             background-color: var(--bg-body);
@@ -142,6 +144,16 @@
         .erro-login.visivel {
             display: block;
         }
+        .sucesso-login {
+            color: var(--sucesso);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .sucesso-login.visivel {
+            display: block;
+        }
         .register-link {
             text-align: center;
             margin-top: 1rem;
@@ -175,6 +187,20 @@
             border-color: var(--siena-queimado);
             color: var(--siena-queimado);
         }
+        .recuperar-senha {
+            text-align: right;
+            font-size: 0.75rem;
+            margin-top: -0.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .recuperar-senha a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+        }
+        .recuperar-senha a:hover {
+            color: var(--siena-queimado);
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -199,8 +225,12 @@
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" placeholder="Digite sua senha" required />
             </div>
+            <div class="recuperar-senha">
+                <a href="#" id="linkRecuperar">Esqueceu a senha?</a>
+            </div>
             <div class="erro-login" id="erroLogin">❌ E-mail ou senha incorretos.</div>
-            <button type="submit" class="btn-primary">Entrar</button>
+            <div class="sucesso-login" id="sucessoLogin">✅ Redirecionando...</div>
+            <button type="submit" class="btn-primary" id="btnLogin">Entrar</button>
         </form>
 
         <div class="register-link">
@@ -226,16 +256,7 @@
         document.getElementById('temaBtn').addEventListener('click', alternarTema);
 
         // ============================================================
-        // USUÁRIOS CADASTRADOS (SIMULAÇÃO)
-        // ============================================================
-        const usuarios = {
-            'usuario@email.com': { senha: '123456', tipo: 'normal', nome: 'Usuário Comum' },
-            'vip@email.com': { senha: '123456', tipo: 'vip', nome: 'Usuário VIP' },
-            'admin@norvi.com': { senha: 'Reipao20114377!', tipo: 'admin', nome: 'SrPão' }
-        };
-
-        // ============================================================
-        // LOGIN
+        // LOGIN - BUSCA NO LOCALSTORAGE
         // ============================================================
         document.getElementById('formLogin').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -243,31 +264,99 @@
             const email = document.getElementById('email').value.trim();
             const senha = document.getElementById('senha').value.trim();
             const erro = document.getElementById('erroLogin');
+            const sucesso = document.getElementById('sucessoLogin');
+            const btn = document.getElementById('btnLogin');
 
-            const usuario = usuarios[email];
+            // Limpa mensagens anteriores
+            erro.classList.remove('visivel');
+            sucesso.classList.remove('visivel');
 
-            if (!usuario || usuario.senha !== senha) {
+            // ============================================================
+            // 1. VERIFICA ADMIN (FIXO)
+            // ============================================================
+            if (email === 'admin@norvi.com' && senha === 'Reipao20114377!') {
+                const sessao = {
+                    email: email,
+                    nome: 'SrPão',
+                    tipo: 'admin'
+                };
+                localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
+                sucesso.textContent = '✅ Bem-vindo, Admin!';
+                sucesso.classList.add('visivel');
+                btn.disabled = true;
+                btn.textContent = 'Redirecionando...';
+                setTimeout(() => {
+                    window.location.href = 'dashboard-admin.html';
+                }, 800);
+                return;
+            }
+
+            // ============================================================
+            // 2. BUSCA USUÁRIO NO LOCALSTORAGE
+            // ============================================================
+            const usuariosStr = localStorage.getItem('norvi_usuarios');
+            const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+
+            // Busca usuário pelo email
+            const usuarioEncontrado = usuarios.find(u => u.email === email);
+
+            if (!usuarioEncontrado) {
+                erro.textContent = '❌ E-mail não encontrado. Crie uma conta primeiro.';
                 erro.classList.add('visivel');
                 return;
             }
 
-            erro.classList.remove('visivel');
+            // Verifica se a senha está correta
+            if (usuarioEncontrado.senha !== senha) {
+                erro.textContent = '❌ Senha incorreta. Tente novamente.';
+                erro.classList.add('visivel');
+                return;
+            }
 
-            // Salva sessão
+            // ============================================================
+            // 3. LOGIN BEM-SUCEDIDO
+            // ============================================================
             const sessao = {
-                email: email,
-                nome: usuario.nome,
-                tipo: usuario.tipo
+                email: usuarioEncontrado.email,
+                nome: usuarioEncontrado.nome || 'Usuário',
+                tipo: usuarioEncontrado.tipo || 'normal'
             };
             localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
 
+            sucesso.textContent = '✅ Login realizado com sucesso!';
+            sucesso.classList.add('visivel');
+            btn.disabled = true;
+            btn.textContent = 'Redirecionando...';
+
             // Redireciona para o dashboard correto
-            if (usuario.tipo === 'admin') {
-                window.location.href = 'dashboard-admin.html';
-            } else if (usuario.tipo === 'vip') {
-                window.location.href = 'dashboard-vip.html';
+            setTimeout(() => {
+                if (sessao.tipo === 'admin') {
+                    window.location.href = 'dashboard-admin.html';
+                } else if (sessao.tipo === 'vip') {
+                    window.location.href = 'dashboard-vip.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }, 800);
+        });
+
+        // ============================================================
+        // RECUPERAR SENHA (SIMPLES)
+        // ============================================================
+        document.getElementById('linkRecuperar').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            if (!email) {
+                alert('Digite seu e-mail para recuperar a senha.');
+                return;
+            }
+            const usuariosStr = localStorage.getItem('norvi_usuarios');
+            const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+            const user = usuarios.find(u => u.email === email);
+            if (user) {
+                alert(`🔑 Sua senha é: ${user.senha}\n\nRecomendamos alterá-la após o login.`);
             } else {
-                window.location.href = 'dashboard.html';
+                alert('❌ E-mail não encontrado. Crie uma conta primeiro.');
             }
         });
     </script>
