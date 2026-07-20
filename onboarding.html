@@ -1,1 +1,609 @@
-<!-- Insira o conteúdo HTML modificado aqui, implementando todas as melhorias acima no formato fomarco -->
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Norvi - Criar conta</title>
+    <meta name="description" content="Crie sua conta no Norvi e comece sua jornada de estudos com disciplina." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+                   RESET E VARIÁVEIS (PALETA NORVI + TEMA)
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --off-white: #FDFBF7;
+            --cinza-pedra: #3A3A3A;
+            --siena-queimado: #C87A4E;
+            --verde-salvia: #8DA89B;
+            --azul-cinza: #6B7F8A;
+            --marrom-claro: #E6DED5;
+            --fonte-titulo: 'Playfair Display', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+            --bg-body: var(--off-white);
+            --bg-card: #FFFFFF;
+            --texto-principal: var(--cinza-pedra);
+            --texto-secundario: var(--azul-cinza);
+            --borda: var(--marrom-claro);
+            --sombra: rgba(0, 0, 0, 0.04);
+            --transicao: 0.3s ease;
+            --radius: 0.75rem;
+        }
+
+        [data-theme="dark"] {
+            --off-white: #1A1A1A;
+            --cinza-pedra: #E8E0D8;
+            --siena-queimado: #D48A5A;
+            --verde-salvia: #7A9A8A;
+            --azul-cinza: #9A9A9A;
+            --marrom-claro: #3A3A3A;
+            --bg-body: #121212;
+            --bg-card: #1E1E1E;
+            --texto-principal: #E8E0D8;
+            --texto-secundario: #9A9A9A;
+            --borda: #3A3A3A;
+            --sombra: rgba(0, 0, 0, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--texto-principal);
+            font-family: var(--fonte-corpo);
+            line-height: 1.6;
+            transition: background-color var(--transicao), color var(--transicao);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================================
+                   TOP BAR (TEMA + VOLTAR)
+                   ============================================================ */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--borda);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            transition: background var(--transicao), border var(--transicao);
+            min-height: 56px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .top-bar .logo-mini {
+            font-family: var(--fonte-titulo);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--texto-principal);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+
+        .top-bar .logo-mini span {
+            color: var(--siena-queimado);
+        }
+
+        .top-bar-acoes {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .tema-btn {
+            background: transparent;
+            border: 1px solid var(--borda);
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+        }
+
+        .tema-btn:hover {
+            border-color: var(--siena-queimado);
+            color: var(--siena-queimado);
+        }
+
+        .btn-voltar {
+            background: transparent;
+            border: 1px solid var(--borda);
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-voltar:hover {
+            border-color: var(--siena-queimado);
+            color: var(--siena-queimado);
+        }
+
+        /* ============================================================
+                   CONTAINER DO FORMULÁRIO
+                   ============================================================ */
+        .onboarding-container {
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: var(--radius);
+            max-width: 480px;
+            width: 100%;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 24px var(--sombra);
+            transition: background var(--transicao), border var(--transicao), box-shadow var(--transicao);
+            margin-top: 3.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--siena-queimado);
+            fill: none;
+        }
+
+        .logo h1 {
+            font-family: var(--fonte-titulo);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--texto-principal);
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-family: var(--fonte-titulo);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--borda);
+            padding-bottom: 0.75rem;
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--texto-principal);
+        }
+
+        .form-subtitle {
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: var(--texto-principal);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            font-family: var(--fonte-corpo);
+            font-size: 0.95rem;
+            border: 1px solid var(--borda);
+            border-radius: 0.5rem;
+            background: var(--bg-body);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            color: var(--texto-principal);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--siena-queimado);
+            box-shadow: 0 0 0 3px rgba(200, 122, 78, 0.12);
+        }
+
+        .form-group input::placeholder {
+            color: #B0A89D;
+            font-size: 0.9rem;
+        }
+
+        .form-group-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        .form-group-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--siena-queimado);
+            cursor: pointer;
+        }
+
+        .form-group-checkbox label {
+            font-size: 0.9rem;
+            color: var(--texto-principal);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 0.8rem;
+            font-family: var(--fonte-corpo);
+            font-size: 1rem;
+            font-weight: 600;
+            background-color: var(--siena-queimado);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.25s ease, transform 0.1s ease, box-shadow 0.25s ease;
+            box-shadow: 0 2px 8px rgba(200, 122, 78, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #B56A3E;
+            box-shadow: 0 4px 12px rgba(200, 122, 78, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+        }
+
+        .login-link a {
+            color: var(--siena-queimado);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .login-link a:hover {
+            color: #B56A3E;
+            text-decoration: underline;
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--borda);
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            text-align: center;
+        }
+
+        .form-footer a {
+            color: var(--siena-queimado);
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+                   RESPONSIVO
+                   ============================================================ */
+        @media (max-width: 480px) {
+            .onboarding-container {
+                padding: 1.5rem 1.25rem;
+                margin-top: 3rem;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.85rem;
+            }
+
+            .top-bar {
+                padding: 0.4rem 0.8rem;
+            }
+
+            .top-bar .logo-mini {
+                font-size: 1rem;
+            }
+
+            .btn-voltar {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.6rem;
+            }
+
+            .tema-btn {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .onboarding-container {
+                padding: 1rem 0.8rem;
+            }
+
+            .form-group input {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.7rem;
+            }
+
+            .btn-primary {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+        }
+
+        /* ============================================================
+                   ANIMAÇÕES
+                   ============================================================ */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .onboarding-container {
+            animation: fadeUp 0.6s ease both;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    TOP BAR (TEMA + VOLTAR)
+    ============================================================ -->
+    <header class="top-bar" id="topBar">
+        <a href="index.html" class="logo-mini" id="logoLink">Norvi <span>✦</span></a>
+
+        <div class="top-bar-acoes">
+            <!-- Tema Claro/Escuro -->
+            <button class="tema-btn" id="temaBtn" aria-label="Alternar tema claro/escuro">🌙</button>
+            <!-- Voltar -->
+            <a href="index.html" class="btn-voltar" id="voltarBtn">← Voltar</a>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    FORMULÁRIO DE CADASTRO
+    ============================================================ -->
+    <div class="onboarding-container" id="onboardingContainer">
+
+        <!-- Logo -->
+        <div class="logo">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="var(--siena-queimado)" stroke="var(--siena-queimado)" />
+            </svg>
+            <h1>Norvi</h1>
+        </div>
+
+        <div class="tagline">
+            Foque nos estudos. Construa hábitos.
+        </div>
+
+        <!-- Título do Formulário -->
+        <h2 class="form-title">✧ Crie sua conta</h2>
+        <p class="form-subtitle">Salve seu progresso e acesse seu plano personalizado.</p>
+
+        <!-- Formulário -->
+        <form id="form-cadastro" action="/submit_onboarding" method="post">
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email"
+                placeholder="seu@email.com"
+                required autocomplete="email" />
+            </div>
+
+            <!-- Senha -->
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha"
+                placeholder="Crie uma senha segura"
+                required autocomplete="new-password" />
+            </div>
+
+            <!-- Confirmar Senha -->
+            <div class="form-group">
+                <label for="confirmar-senha">Confirmar senha</label>
+                <input type="password" id="confirmar-senha" name="confirmar-senha"
+                placeholder="Digite a senha novamente"
+                required autocomplete="new-password" />
+            </div>
+
+            <!-- Checkbox: Manter conectado -->
+            <div class="form-group-checkbox">
+                <input type="checkbox" id="manter-conectado" name="manter-conectado" checked />
+                <label for="manter-conectado">Manter-me conectado neste dispositivo</label>
+            </div>
+
+            <!-- Botão Criar Conta -->
+            <button type="submit" class="btn-primary" id="btnCriarConta">
+                Criar conta
+            </button>
+
+        </form>
+
+        <!-- Link para login -->
+        <div class="login-link">
+            Já tem uma conta? <a href="#" id="link-entrar">Entrar</a>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="form-footer">
+            🔒 Seus dados estão seguros. <br />
+            Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT (VALIDAÇÃO + TEMA + MANTER CONECTADO)
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. TEMA (CLARO/ESCURO)
+            // ============================================================
+
+            function alternarTema() {
+                const html = document.documentElement;
+                const atual = html.getAttribute('data-theme');
+                const novo = atual === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', novo);
+                document.getElementById('temaBtn').textContent = novo === 'dark' ? '☀️' : '🌙';
+                localStorage.setItem('norvi_tema', novo);
+            }
+
+            function carregarTema() {
+                const temaSalvo = localStorage.getItem('norvi_tema') || 'light';
+                document.documentElement.setAttribute('data-theme', temaSalvo);
+                document.getElementById('temaBtn').textContent = temaSalvo === 'dark' ? '☀️' : '🌙';
+            }
+
+            // ============================================================
+            // 2. VALIDAÇÃO DO FORMULÁRIO
+            // ============================================================
+
+            const form = document.getElementById('form-cadastro');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const senha = document.getElementById('senha').value;
+                const confirmar = document.getElementById('confirmar-senha').value;
+
+                // Validação de email
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    alert('❌ Por favor, insira um e-mail válido.');
+                    document.getElementById('email').focus();
+                    return;
+                }
+
+                // Validação de senha
+                if (senha.length < 6) {
+                    alert('❌ A senha deve ter pelo menos 6 caracteres.');
+                    document.getElementById('senha').focus();
+                    return;
+                }
+
+                // Validação de confirmação
+                if (senha !== confirmar) {
+                    alert('❌ As senhas não coincidem. Verifique e tente novamente.');
+                    document.getElementById('confirmar-senha').focus();
+                    return;
+                }
+
+                // Salvar preferência "Manter conectado"
+                const manterConectado = document.getElementById('manter-conectado').checked;
+                localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
+
+                // Simular envio - redirecionar para o dashboard
+                alert('✅ Conta criada com sucesso! Bem-vindo(a) ao Norvi!');
+                window.location.href = 'dashboard.html';
+            });
+
+            // ============================================================
+            // 3. LINK "ENTRAR" - REDIRECIONA PARA LOGIN
+            // ============================================================
+
+            document.getElementById('link-entrar').addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('🚧 Página de login em breve!');
+                // window.location.href = 'login.html';
+            });
+
+            // ============================================================
+            // 4. CARREGAR PREFERÊNCIA DO CHECKBOX
+            // ============================================================
+
+            const preferencia = localStorage.getItem('norvi_manterConectado');
+            if (preferencia === 'true') {
+                document.getElementById('manter-conectado').checked = true;
+            } else if (preferencia === 'false') {
+                document.getElementById('manter-conectado').checked = false;
+            }
+
+            // ============================================================
+            // 5. EVENTO DO TEMA
+            // ============================================================
+
+            document.getElementById('temaBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alternarTema();
+            });
+
+            // ============================================================
+            // 6. INICIAR
+            // ============================================================
+
+            carregarTema();
+
+        })();
+    </script>
+
+</body>
+</html><!-- Insira o conteúdo HTML modificado aqui, implementando todas as melhorias acima no formato fomarco -->
