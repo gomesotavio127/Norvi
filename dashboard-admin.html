@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ===== MESMO ESTILO DO DASHBOARD VIP ===== */
-        /* (copiar o mesmo CSS do dashboard-vip.html + estilos extras para admin) */
         * {
             margin: 0;
             padding: 0;
@@ -255,7 +254,6 @@
             color: var(--texto-secundario);
         }
 
-        /* ===== ADMIN - PAINEL DE CONTROLE ===== */
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -553,7 +551,8 @@
                             <h4 style="margin-bottom:0.5rem;font-size:0.9rem;">📋 Últimas Atividades</h4>
                             <div id="ultimasAtividades" style="font-size:0.85rem;color:var(--texto-secundario);">
                                 <p>✅ Bem-vindo ao painel administrativo, SrPão!</p>
-                                <p>👑 Você tem controle total sobre os usuários.</p>
+                                <p>👑 Você tem controle total sobre os usuários reais.</p>
+                                <p id="ultimoUpdate" style="font-size:0.75rem;color:var(--texto-secundario);margin-top:0.3rem;"></p>
                             </div>
                         </div>
                     </div>
@@ -562,15 +561,16 @@
                     <div id="paginaUsuarios" style="display:none;">
                         <div class="page-header">
                             <h2>👥 Gerenciar Usuários</h2>
-                            <span class="data">Sincronizado</span>
+                            <span class="data" id="sincronizacaoStatus">✅ Sincronizado</span>
                         </div>
                         <p style="font-size:0.8rem;color:var(--texto-secundario);margin-bottom:1rem;">
-                            Gerencie todos os usuários da plataforma. Você pode promover, banir ou remover contas.
+                            Lista de usuários reais cadastrados na plataforma. Gerencie contas, promoções e banimentos.
                         </p>
                         <div style="overflow-x:auto;">
                             <table class="tabela-usuarios" id="tabelaUsuarios">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Usuário</th>
                                         <th>E-mail</th>
                                         <th>Cargo</th>
@@ -582,6 +582,14 @@
                                     <!-- Injetado via JS -->
                                 </tbody>
                             </table>
+                        </div>
+                        <div style="margin-top:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;">
+                            <button onclick="sincronizarUsuarios()" style="padding:0.4rem 1.2rem;background:var(--sucesso);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
+                                🔄 Sincronizar Agora
+                            </button>
+                            <span style="font-size:0.75rem;color:var(--texto-secundario);display:flex;align-items:center;">
+                                Última sincronização: <span id="ultimaSincronizacao" style="margin-left:0.3rem;">agora</span>
+                            </span>
                         </div>
                     </div>
 
@@ -597,7 +605,7 @@
                                 <button onclick="if(confirm('Resetar todos os dados?')){localStorage.clear();location.reload();}" style="padding:0.4rem 1rem;background:var(--erro);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
                                     Resetar Dados
                                 </button>
-                                <button onclick="mostrarFeedback('🔄 Dados sincronizados com sucesso!','sucesso');" style="padding:0.4rem 1rem;background:var(--sucesso);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
+                                <button onclick="sincronizarUsuarios();mostrarFeedback('🔄 Dados sincronizados com sucesso!','sucesso');" style="padding:0.4rem 1rem;background:var(--sucesso);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
                                     Sincronizar Agora
                                 </button>
                                 <button onclick="exportarDados();" style="padding:0.4rem 1rem;background:var(--azul-cinza);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
@@ -626,19 +634,40 @@
             }
 
             // ============================================================
-            // BASE DE DADOS DE USUÁRIOS (SIMULADA)
+            // FUNÇÃO PARA BUSCAR USUÁRIOS DO LOCALSTORAGE (APENAS REAIS)
             // ============================================================
-            let usuariosDB = [
-                { id: 1, nome: 'Ana C.', email: 'ana@email.com', tipo: 'normal', status: 'ativo' },
-                { id: 2, nome: 'João M.', email: 'joao@email.com', tipo: 'normal', status: 'ativo' },
-                { id: 3, nome: 'Carla S.', email: 'carla@email.com', tipo: 'vip', status: 'ativo' },
-                { id: 4, nome: 'Pedro R.', email: 'pedro@email.com', tipo: 'normal', status: 'banido' },
-                { id: 5, nome: 'SrPão', email: 'admin@norvi.com', tipo: 'admin', status: 'ativo' },
-                { id: 6, nome: 'VIP User', email: 'vip@email.com', tipo: 'vip', status: 'ativo' },
-            ];
+            function getUsuariosReais() {
+                const usuariosStr = localStorage.getItem('norvi_usuarios');
+                const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+
+                // Adiciona o admin manualmente se não existir na lista
+                const adminExists = usuarios.find(u => u.email === 'admin@norvi.com');
+                if (!adminExists) {
+                    usuarios.push({
+                        id: 'admin_' + Date.now(),
+                        nome: 'SrPão',
+                        email: 'admin@norvi.com',
+                        senha: 'Reipao20114377!',
+                        tipo: 'admin',
+                        status: 'ativo',
+                        dataCriacao: new Date().toISOString()
+                    });
+                    localStorage.setItem('norvi_usuarios', JSON.stringify(usuarios));
+                }
+
+                // Garantir que todos os usuários tenham os campos necessários
+                return usuarios.map(u => ({
+                    ...u,
+                    id: u.id || 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                    nome: u.nome || u.email.split('@')[0] || 'Usuário',
+                    tipo: u.tipo || 'normal',
+                    status: u.status || 'ativo',
+                    dataCriacao: u.dataCriacao || new Date().toISOString()
+                }));
+            }
 
             // ============================================================
-            // FUNÇÕES DE RENDERIZAÇÃO
+            // FUNÇÕES DE RENDERIZAÇÃO (APENAS USUÁRIOS REAIS)
             // ============================================================
             function renderizarUsuario() {
                 const ini = sessao.nome.charAt(0).toUpperCase();
@@ -649,26 +678,52 @@
             }
 
             function renderizarStats() {
-                const total = usuariosDB.length;
-                const vips = usuariosDB.filter(u => u.tipo === 'vip' && u.status === 'ativo').length;
-                const banidos = usuariosDB.filter(u => u.status === 'banido').length;
-                const admins = usuariosDB.filter(u => u.tipo === 'admin').length;
+                const usuarios = getUsuariosReais();
+                const total = usuarios.length;
+                const vips = usuarios.filter(u => u.tipo === 'vip' && u.status !== 'banido').length;
+                const banidos = usuarios.filter(u => u.status === 'banido').length;
+                const admins = usuarios.filter(u => u.tipo === 'admin').length;
+
                 document.getElementById('totalUsuarios').textContent = total;
                 document.getElementById('totalVIP').textContent = vips;
                 document.getElementById('totalBanidos').textContent = banidos;
                 document.getElementById('totalAdmins').textContent = admins;
+
+                // Atualiza último update
+                const agora = new Date();
+                document.getElementById('ultimoUpdate').textContent =
+                    `Última atualização: ${agora.toLocaleString('pt-BR')}`;
             }
 
             function renderizarTabelaUsuarios() {
                 const tbody = document.getElementById('listaUsuarios');
+                const usuarios = getUsuariosReais();
+
+                if (usuarios.length === 0) {
+                    tbody.innerHTML = `
+                            <tr>
+                                <td colspan="6" style="text-align:center;padding:2rem;color:var(--texto-secundario);">
+                                    📭 Nenhum usuário cadastrado ainda.
+                                </td>
+                            </tr>
+                        `;
+                    return;
+                }
+
                 tbody.innerHTML = '';
 
-                usuariosDB.forEach(u => {
+                usuarios.forEach((u, index) => {
                     const tr = document.createElement('tr');
+
+                    // Número
+                    const tdNum = document.createElement('td');
+                    tdNum.textContent = index + 1;
+                    tdNum.style.fontSize = '0.7rem';
+                    tdNum.style.color = 'var(--texto-secundario)';
 
                     // Nome
                     const tdNome = document.createElement('td');
-                    tdNome.textContent = u.nome;
+                    tdNome.textContent = u.nome || 'Sem nome';
 
                     // Email
                     const tdEmail = document.createElement('td');
@@ -709,95 +764,108 @@
                     tdAcoes.style.gap = '0.2rem';
                     tdAcoes.style.flexWrap = 'wrap';
 
-                    // Não pode remover/banir o próprio admin
                     const isSelf = u.email === sessao.email;
 
-                    if (u.tipo !== 'admin' || isSelf) {
-                        // Promover a VIP
-                        if (u.tipo !== 'vip' && u.status !== 'banido' && !isSelf) {
-                            const btnPromover = document.createElement('button');
-                            btnPromover.className = 'btn-acao promover';
-                            btnPromover.textContent = '⬆ VIP';
-                            btnPromover.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                u.tipo = 'vip';
-                                u.status = 'ativo';
-                                renderizarTudo();
-                                mostrarFeedback(`✅ ${u.nome} promovido a VIP!`, 'sucesso');
-                            });
-                            tdAcoes.appendChild(btnPromover);
-                        }
-
-                        // Rebaixar de VIP
-                        if (u.tipo === 'vip' && !isSelf) {
-                            const btnRebaixar = document.createElement('button');
-                            btnRebaixar.className = 'btn-acao rebaixar';
-                            btnRebaixar.textContent = '⬇ Normal';
-                            btnRebaixar.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                u.tipo = 'normal';
-                                renderizarTudo();
-                                mostrarFeedback(`↕️ ${u.nome} rebaixado para Normal.`, 'info');
-                            });
-                            tdAcoes.appendChild(btnRebaixar);
-                        }
-
-                        // Banir
-                        if (u.status !== 'banido' && !isSelf) {
-                            const btnBanir = document.createElement('button');
-                            btnBanir.className = 'btn-acao banir';
-                            btnBanir.textContent = '🚫 Banir';
-                            btnBanir.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                if (confirm(`Banir ${u.nome}?`)) {
-                                    u.status = 'banido';
-                                    renderizarTudo();
-                                    mostrarFeedback(`⛔ ${u.nome} foi banido.`, 'erro');
-                                }
-                            });
-                            tdAcoes.appendChild(btnBanir);
-                        }
-
-                        // Desbanir
-                        if (u.status === 'banido' && !isSelf) {
-                            const btnDesbanir = document.createElement('button');
-                            btnDesbanir.className = 'btn-acao desbanir';
-                            btnDesbanir.textContent = '✅ Desbanir';
-                            btnDesbanir.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                u.status = 'ativo';
-                                renderizarTudo();
-                                mostrarFeedback(`✅ ${u.nome} foi desbanido.`, 'sucesso');
-                            });
-                            tdAcoes.appendChild(btnDesbanir);
-                        }
-
-                        // Remover (apenas para não-admin)
-                        if (u.tipo !== 'admin' && !isSelf) {
-                            const btnRemover = document.createElement('button');
-                            btnRemover.className = 'btn-acao remover';
-                            btnRemover.textContent = '🗑️';
-                            btnRemover.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                if (confirm(`Remover permanentemente ${u.nome}?`)) {
-                                    const idx = usuariosDB.indexOf(u);
-                                    if (idx > -1) {
-                                        usuariosDB.splice(idx, 1);
-                                        renderizarTudo();
-                                        mostrarFeedback(`🗑️ ${u.nome} removido do sistema.`, 'info');
-                                    }
-                                }
-                            });
-                            tdAcoes.appendChild(btnRemover);
-                        }
-                    } else {
+                    // Não pode modificar o próprio admin
+                    if (u.tipo === 'admin' && isSelf) {
                         const span = document.createElement('span');
                         span.style.fontSize = '0.6rem';
                         span.style.color = 'var(--texto-secundario)';
                         span.textContent = '👑 Você';
                         tdAcoes.appendChild(span);
+                    } else if (u.tipo === 'admin' && !isSelf) {
+                        // Mostra outros admins (não pode modificar)
+                        const span = document.createElement('span');
+                        span.style.fontSize = '0.6rem';
+                        span.style.color = 'var(--texto-secundario)';
+                        span.textContent = '🔒 Admin';
+                        tdAcoes.appendChild(span);
+                    } else {
+                        // Promover a VIP
+                        if (u.tipo !== 'vip' && u.status !== 'banido') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-acao promover';
+                            btn.textContent = '⬆ VIP';
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.tipo = 'vip';
+                                u.status = 'ativo';
+                                salvarUsuarios(usuarios);
+                                renderizarTudo();
+                                mostrarFeedback(`✅ ${u.nome} promovido a VIP!`, 'sucesso');
+                            });
+                            tdAcoes.appendChild(btn);
+                        }
+
+                        // Rebaixar de VIP
+                        if (u.tipo === 'vip' && u.status !== 'banido') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-acao rebaixar';
+                            btn.textContent = '⬇ Normal';
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.tipo = 'normal';
+                                salvarUsuarios(usuarios);
+                                renderizarTudo();
+                                mostrarFeedback(`↕️ ${u.nome} rebaixado para Normal.`, 'info');
+                            });
+                            tdAcoes.appendChild(btn);
+                        }
+
+                        // Banir
+                        if (u.status !== 'banido') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-acao banir';
+                            btn.textContent = '🚫 Banir';
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (confirm(`Banir ${u.nome}?`)) {
+                                    u.status = 'banido';
+                                    salvarUsuarios(usuarios);
+                                    renderizarTudo();
+                                    mostrarFeedback(`⛔ ${u.nome} foi banido.`, 'erro');
+                                }
+                            });
+                            tdAcoes.appendChild(btn);
+                        }
+
+                        // Desbanir
+                        if (u.status === 'banido') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-acao desbanir';
+                            btn.textContent = '✅ Desbanir';
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.status = 'ativo';
+                                salvarUsuarios(usuarios);
+                                renderizarTudo();
+                                mostrarFeedback(`✅ ${u.nome} foi desbanido.`, 'sucesso');
+                            });
+                            tdAcoes.appendChild(btn);
+                        }
+
+                        // Remover (exceto admin)
+                        if (u.tipo !== 'admin') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-acao remover';
+                            btn.textContent = '🗑️';
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (confirm(`Remover permanentemente ${u.nome}?`)) {
+                                    const idx = usuarios.indexOf(u);
+                                    if (idx > -1) {
+                                        usuarios.splice(idx, 1);
+                                        salvarUsuarios(usuarios);
+                                        renderizarTudo();
+                                        mostrarFeedback(`🗑️ ${u.nome} removido do sistema.`, 'info');
+                                    }
+                                }
+                            });
+                            tdAcoes.appendChild(btn);
+                        }
                     }
 
+                    tr.appendChild(tdNum);
                     tr.appendChild(tdNome);
                     tr.appendChild(tdEmail);
                     tr.appendChild(tdCargo);
@@ -805,11 +873,44 @@
                     tr.appendChild(tdAcoes);
                     tbody.appendChild(tr);
                 });
+
+                // Atualiza timestamp da sincronização
+                const agora = new Date();
+                document.getElementById('ultimaSincronizacao').textContent =
+                    agora.toLocaleString('pt-BR');
+                document.getElementById('sincronizacaoStatus').textContent = '✅ Sincronizado';
             }
 
+            // ============================================================
+            // FUNÇÃO PARA SALVAR USUÁRIOS NO LOCALSTORAGE
+            // ============================================================
+            function salvarUsuarios(usuarios) {
+                // Remove o campo 'id' que é apenas para exibição
+                const usuariosParaSalvar = usuarios.map(u => {
+                    const { id, ...resto } = u;
+                    return resto;
+                });
+                localStorage.setItem('norvi_usuarios', JSON.stringify(usuariosParaSalvar));
+            }
+
+            // ============================================================
+            // FUNÇÃO DE SINCRONIZAÇÃO
+            // ============================================================
+            function sincronizarUsuarios() {
+                renderizarTudo();
+                mostrarFeedback('🔄 Dados sincronizados com sucesso!', 'sucesso', 2000);
+            }
+
+            // ============================================================
+            // RENDERIZAR TUDO
+            // ============================================================
             function renderizarTudo() {
                 renderizarStats();
                 renderizarTabelaUsuarios();
+                // Atualiza o status da sincronização
+                const agora = new Date();
+                document.getElementById('ultimaSincronizacao').textContent =
+                    agora.toLocaleString('pt-BR');
             }
 
             // ============================================================
@@ -840,15 +941,17 @@
             // EXPORTAR DADOS
             // ============================================================
             window.exportarDados = function() {
+                const usuarios = getUsuariosReais();
                 const data = {
-                    usuarios: usuariosDB,
-                    exportado: new Date().toISOString()
+                    usuarios: usuarios,
+                    exportado: new Date().toISOString(),
+                    total: usuarios.length
                 };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'norvi_usuarios_' + Date.now() + '.json';
+                a.download = 'norvi_usuarios_reais_' + Date.now() + '.json';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -878,8 +981,8 @@
             function atualizarData() {
                 const agora = new Date();
                 const dias = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
-                const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro',
-                    'outubro', 'novembro', 'dezembro'
+                const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+                    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
                 ];
                 document.getElementById('dataAtual').textContent =
                     `${dias[agora.getDay()]}, ${agora.getDate()} ${meses[agora.getMonth()]} ${agora.getFullYear()}`;
@@ -904,8 +1007,10 @@
                 el.textContent = msg;
                 void el.offsetWidth;
                 el.classList.add('visivel', tipo);
-                feedbackTimeout = setTimeout(() => { el.classList.remove('visivel');
-                    feedbackTimeout = null; }, duracao);
+                feedbackTimeout = setTimeout(() => {
+                    el.classList.remove('visivel');
+                    feedbackTimeout = null;
+                }, duracao);
             }
             window.mostrarFeedback = mostrarFeedback;
 
@@ -919,6 +1024,12 @@
                     window.location.href = 'login.html';
                 }
             });
+
+            // ============================================================
+            // EXPOR FUNÇÕES PARA ONCLICK
+            // ============================================================
+            window.sincronizarUsuarios = sincronizarUsuarios;
+            window.exportarDados = exportarDados;
 
             // ============================================================
             // INICIAR
@@ -935,7 +1046,11 @@
                 if (h) navegarPara(h[1]);
             });
 
+            // Sincroniza automaticamente a cada 30 segundos
+            setInterval(sincronizarUsuarios, 30000);
+
         })();
     </script>
+
 </body>
 </html>
