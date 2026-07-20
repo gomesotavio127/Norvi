@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Norvi - Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== MESMO ESTILO DO DASHBOARD VIP ===== */
+        /* (copiar o mesmo CSS do dashboard-vip.html + estilos extras para admin) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --off-white: #FDFBF7;
+            --cinza-pedra: #3A3A3A;
+            --siena-queimado: #C87A4E;
+            --verde-salvia: #8DA89B;
+            --azul-cinza: #6B7F8A;
+            --marrom-claro: #E6DED5;
+            --fonte-titulo: 'Playfair Display', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+            --bg-body: var(--off-white);
+            --bg-card: #FFFFFF;
+            --texto-principal: var(--cinza-pedra);
+            --texto-secundario: var(--azul-cinza);
+            --borda: var(--marrom-claro);
+            --sombra: rgba(0, 0, 0, 0.04);
+            --transicao: 0.3s ease;
+            --radius: 0.75rem;
+            --ouro: #D4AF37;
+            --sucesso: #5A9A7A;
+            --erro: #D45A5A;
+            --admin-cor: #7A4A9A;
+        }
+        [data-theme="dark"] {
+            --off-white: #1A1A1A;
+            --cinza-pedra: #E8E0D8;
+            --siena-queimado: #D48A5A;
+            --verde-salvia: #7A9A8A;
+            --azul-cinza: #9A9A9A;
+            --marrom-claro: #3A3A3A;
+            --bg-body: #121212;
+            --bg-card: #1E1E1E;
+            --texto-principal: #E8E0D8;
+            --texto-secundario: #9A9A9A;
+            --borda: #3A3A3A;
+            --sombra: rgba(0, 0, 0, 0.3);
+            --ouro: #D4AF37;
+            --sucesso: #5A9A7A;
+            --erro: #D45A5A;
+            --admin-cor: #9A6ABA;
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--texto-principal);
+            font-family: var(--fonte-corpo);
+            min-height: 100vh;
+            transition: background var(--transicao), color var(--transicao);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--admin-cor);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            min-height: 56px;
+            backdrop-filter: blur(8px);
+            transition: background var(--transicao), border var(--transicao);
+        }
+        .top-bar .logo-mini {
+            font-family: var(--fonte-titulo);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--texto-principal);
+            text-decoration: none;
+        }
+        .top-bar .logo-mini span {
+            color: var(--admin-cor);
+        }
+        .top-bar-acoes {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .top-bar .usuario-info {
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .top-bar .usuario-info .badge {
+            padding: 0.15rem 0.6rem;
+            border-radius: 2rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-admin {
+            background: var(--admin-cor);
+            color: #fff;
+        }
+        .btn-sair {
+            background: transparent;
+            border: 1px solid var(--borda);
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+            text-decoration: none;
+        }
+        .btn-sair:hover {
+            border-color: var(--erro);
+            color: var(--erro);
+        }
+        .tema-btn {
+            background: transparent;
+            border: 1px solid var(--borda);
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+        }
+        .tema-btn:hover {
+            border-color: var(--siena-queimado);
+            color: var(--siena-queimado);
+        }
+        .dashboard-main {
+            margin-top: 4.5rem;
+            padding: 2rem 0;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 2rem;
+        }
+        .sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: var(--radius);
+            padding: 1.5rem 1rem;
+            height: fit-content;
+            position: sticky;
+            top: 4.5rem;
+        }
+        .sidebar .usuario-avatar {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--borda);
+        }
+        .sidebar .usuario-avatar .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--admin-cor);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+            font-family: var(--fonte-titulo);
+        }
+        .sidebar .usuario-avatar .nome {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .sidebar .usuario-avatar .email {
+            font-size: 0.7rem;
+            color: var(--texto-secundario);
+        }
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 0.4rem;
+            color: var(--texto-secundario);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .sidebar nav a:hover {
+            background: var(--bg-body);
+            color: var(--texto-principal);
+        }
+        .sidebar nav a.ativo {
+            background: rgba(200, 122, 78, 0.12);
+            color: var(--siena-queimado);
+        }
+        .sidebar nav a .icone {
+            font-size: 1rem;
+            width: 22px;
+            text-align: center;
+        }
+        .conteudo {
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: background var(--transicao), border var(--transicao);
+        }
+        .conteudo .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .conteudo .page-header h2 {
+            font-family: var(--fonte-titulo);
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .conteudo .page-header .data {
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+        }
+
+        /* ===== ADMIN - PAINEL DE CONTROLE ===== */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .admin-stat-card {
+            background: var(--bg-body);
+            border: 1px solid var(--borda);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+        }
+        .admin-stat-card .numero {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: var(--fonte-titulo);
+            color: var(--admin-cor);
+        }
+        .admin-stat-card .rotulo {
+            font-size: 0.75rem;
+            color: var(--texto-secundario);
+        }
+
+        .tabela-usuarios {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .tabela-usuarios th {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--borda);
+            color: var(--texto-secundario);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tabela-usuarios td {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--borda);
+        }
+        .tabela-usuarios .badge-role {
+            padding: 0.15rem 0.5rem;
+            border-radius: 2rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-role-normal {
+            background: var(--azul-cinza);
+            color: #fff;
+        }
+        .badge-role-vip {
+            background: var(--ouro);
+            color: #1A1A1A;
+        }
+        .badge-role-admin {
+            background: var(--admin-cor);
+            color: #fff;
+        }
+        .badge-role-banido {
+            background: var(--erro);
+            color: #fff;
+        }
+        .btn-acao {
+            padding: 0.2rem 0.6rem;
+            border: none;
+            border-radius: 0.3rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+            margin: 0.1rem;
+        }
+        .btn-acao.promover {
+            background: var(--ouro);
+            color: #1A1A1A;
+        }
+        .btn-acao.promover:hover {
+            transform: scale(1.05);
+        }
+        .btn-acao.rebaixar {
+            background: var(--azul-cinza);
+            color: #fff;
+        }
+        .btn-acao.rebaixar:hover {
+            transform: scale(1.05);
+        }
+        .btn-acao.banir {
+            background: var(--erro);
+            color: #fff;
+        }
+        .btn-acao.banir:hover {
+            transform: scale(1.05);
+        }
+        .btn-acao.desbanir {
+            background: var(--sucesso);
+            color: #fff;
+        }
+        .btn-acao.desbanir:hover {
+            transform: scale(1.05);
+        }
+        .btn-acao.remover {
+            background: #222;
+            color: #fff;
+        }
+        .btn-acao.remover:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback-global {
+            position: fixed;
+            top: 5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            padding: 0.7rem 1.8rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+        .feedback-global.visivel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .feedback-global.sucesso {
+            background: var(--sucesso);
+            color: #fff;
+        }
+        .feedback-global.erro {
+            background: var(--erro);
+            color: #fff;
+        }
+        .feedback-global.info {
+            background: var(--azul-cinza);
+            color: #fff;
+        }
+
+        @media (max-width:820px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                align-items: center;
+                padding: 0.8rem 1rem;
+            }
+            .sidebar .usuario-avatar {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                border-bottom: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
+                flex: 1;
+            }
+            .sidebar .usuario-avatar .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+                margin: 0;
+            }
+            .sidebar nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .sidebar nav a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .conteudo {
+                padding: 1.2rem;
+            }
+            .tabela-usuarios {
+                font-size: 0.7rem;
+            }
+            .tabela-usuarios th,
+            .tabela-usuarios td {
+                padding: 0.3rem;
+            }
+            .btn-acao {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.4rem;
+            }
+        }
+        @media (max-width:480px) {
+            .conteudo .page-header h2 {
+                font-size: 1.2rem;
+            }
+            .admin-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .top-bar .logo-mini {
+                font-size: 1rem;
+            }
+            .top-bar-acoes {
+                gap: 0.3rem;
+            }
+            .btn-sair {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.6rem;
+            }
+            .tema-btn {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .tabela-usuarios {
+                font-size: 0.6rem;
+            }
+            .tabela-usuarios th,
+            .tabela-usuarios td {
+                padding: 0.2rem;
+            }
+            .btn-acao {
+                font-size: 0.5rem;
+                padding: 0.1rem 0.3rem;
+                margin: 0.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <header class="top-bar">
+        <a href="dashboard-admin.html" class="logo-mini">Norvi <span>✦</span> <span style="font-size:0.6rem;color:var(--admin-cor);">ADMIN</span></a>
+        <div class="top-bar-acoes">
+            <div class="usuario-info">
+                <span id="usuarioNome">Admin</span>
+                <span class="badge badge-admin">Admin</span>
+            </div>
+            <button class="tema-btn" id="temaBtn">🌙</button>
+            <a href="login.html" class="btn-sair">Sair</a>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-grid">
+                <aside class="sidebar">
+                    <div class="usuario-avatar">
+                        <div class="avatar" id="avatarInicial">A</div>
+                        <div><div class="nome" id="sidebarNome">Admin</div><div class="email" id="sidebarEmail">admin@norvi.com</div></div>
+                    </div>
+                    <nav id="menuNav">
+                        <a class="ativo" data-pagina="painel"><span class="icone">📊</span> Painel</a>
+                        <a data-pagina="usuarios"><span class="icone">👥</span> Usuários</a>
+                        <a data-pagina="config"><span class="icone">⚙️</span> Configurações</a>
+                    </nav>
+                </aside>
+
+                <section class="conteudo" id="conteudoPrincipal">
+
+                    <!-- PAINEL -->
+                    <div id="paginaPainel">
+                        <div class="page-header">
+                            <h2>📊 Painel Administrativo</h2>
+                            <span class="data" id="dataAtual"></span>
+                        </div>
+
+                        <div class="admin-stats" id="adminStats">
+                            <div class="admin-stat-card">
+                                <div class="numero" id="totalUsuarios">0</div>
+                                <div class="rotulo">Total de Usuários</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="numero" id="totalVIP">0</div>
+                                <div class="rotulo">Usuários VIP</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="numero" id="totalBanidos">0</div>
+                                <div class="rotulo">Usuários Banidos</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="numero" id="totalAdmins">0</div>
+                                <div class="rotulo">Administradores</div>
+                            </div>
+                        </div>
+
+                        <div style="background:var(--bg-body);border-radius:var(--radius);padding:1rem;border:1px solid var(--borda);">
+                            <h4 style="margin-bottom:0.5rem;font-size:0.9rem;">📋 Últimas Atividades</h4>
+                            <div id="ultimasAtividades" style="font-size:0.85rem;color:var(--texto-secundario);">
+                                <p>✅ Bem-vindo ao painel administrativo, SrPão!</p>
+                                <p>👑 Você tem controle total sobre os usuários.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- USUÁRIOS -->
+                    <div id="paginaUsuarios" style="display:none;">
+                        <div class="page-header">
+                            <h2>👥 Gerenciar Usuários</h2>
+                            <span class="data">Sincronizado</span>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--texto-secundario);margin-bottom:1rem;">
+                            Gerencie todos os usuários da plataforma. Você pode promover, banir ou remover contas.
+                        </p>
+                        <div style="overflow-x:auto;">
+                            <table class="tabela-usuarios" id="tabelaUsuarios">
+                                <thead>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>E-mail</th>
+                                        <th>Cargo</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaUsuarios">
+                                    <!-- Injetado via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- CONFIGURAÇÕES -->
+                    <div id="paginaConfig" style="display:none;">
+                        <div class="page-header">
+                            <h2>⚙️ Configurações</h2>
+                            <span class="data">Admin</span>
+                        </div>
+                        <div style="background:var(--bg-body);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--borda);">
+                            <h4 style="margin-bottom:0.5rem;">🔧 Ações do Sistema</h4>
+                            <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:0.5rem;">
+                                <button onclick="if(confirm('Resetar todos os dados?')){localStorage.clear();location.reload();}" style="padding:0.4rem 1rem;background:var(--erro);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
+                                    Resetar Dados
+                                </button>
+                                <button onclick="mostrarFeedback('🔄 Dados sincronizados com sucesso!','sucesso');" style="padding:0.4rem 1rem;background:var(--sucesso);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
+                                    Sincronizar Agora
+                                </button>
+                                <button onclick="exportarDados();" style="padding:0.4rem 1rem;background:var(--azul-cinza);color:#fff;border:none;border-radius:0.3rem;cursor:pointer;font-weight:600;font-family:var(--fonte-corpo);">
+                                    Exportar Dados (JSON)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // SESSÃO
+            // ============================================================
+            const sessao = JSON.parse(localStorage.getItem('norvi_sessao') || '{}');
+            if (!sessao.email || sessao.tipo !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // ============================================================
+            // BASE DE DADOS DE USUÁRIOS (SIMULADA)
+            // ============================================================
+            let usuariosDB = [
+                { id: 1, nome: 'Ana C.', email: 'ana@email.com', tipo: 'normal', status: 'ativo' },
+                { id: 2, nome: 'João M.', email: 'joao@email.com', tipo: 'normal', status: 'ativo' },
+                { id: 3, nome: 'Carla S.', email: 'carla@email.com', tipo: 'vip', status: 'ativo' },
+                { id: 4, nome: 'Pedro R.', email: 'pedro@email.com', tipo: 'normal', status: 'banido' },
+                { id: 5, nome: 'SrPão', email: 'admin@norvi.com', tipo: 'admin', status: 'ativo' },
+                { id: 6, nome: 'VIP User', email: 'vip@email.com', tipo: 'vip', status: 'ativo' },
+            ];
+
+            // ============================================================
+            // FUNÇÕES DE RENDERIZAÇÃO
+            // ============================================================
+            function renderizarUsuario() {
+                const ini = sessao.nome.charAt(0).toUpperCase();
+                document.getElementById('avatarInicial').textContent = ini;
+                document.getElementById('sidebarNome').textContent = sessao.nome;
+                document.getElementById('sidebarEmail').textContent = sessao.email;
+                document.getElementById('usuarioNome').textContent = sessao.nome;
+            }
+
+            function renderizarStats() {
+                const total = usuariosDB.length;
+                const vips = usuariosDB.filter(u => u.tipo === 'vip' && u.status === 'ativo').length;
+                const banidos = usuariosDB.filter(u => u.status === 'banido').length;
+                const admins = usuariosDB.filter(u => u.tipo === 'admin').length;
+                document.getElementById('totalUsuarios').textContent = total;
+                document.getElementById('totalVIP').textContent = vips;
+                document.getElementById('totalBanidos').textContent = banidos;
+                document.getElementById('totalAdmins').textContent = admins;
+            }
+
+            function renderizarTabelaUsuarios() {
+                const tbody = document.getElementById('listaUsuarios');
+                tbody.innerHTML = '';
+
+                usuariosDB.forEach(u => {
+                    const tr = document.createElement('tr');
+
+                    // Nome
+                    const tdNome = document.createElement('td');
+                    tdNome.textContent = u.nome;
+
+                    // Email
+                    const tdEmail = document.createElement('td');
+                    tdEmail.textContent = u.email;
+
+                    // Cargo
+                    const tdCargo = document.createElement('td');
+                    const badge = document.createElement('span');
+                    badge.className = 'badge-role';
+                    if (u.tipo === 'admin') {
+                        badge.classList.add('badge-role-admin');
+                        badge.textContent = 'Admin';
+                    } else if (u.tipo === 'vip') {
+                        badge.classList.add('badge-role-vip');
+                        badge.textContent = 'VIP';
+                    } else {
+                        badge.classList.add('badge-role-normal');
+                        badge.textContent = 'Normal';
+                    }
+                    tdCargo.appendChild(badge);
+
+                    // Status
+                    const tdStatus = document.createElement('td');
+                    const statusBadge = document.createElement('span');
+                    statusBadge.className = 'badge-role';
+                    if (u.status === 'banido') {
+                        statusBadge.classList.add('badge-role-banido');
+                        statusBadge.textContent = 'Banido';
+                    } else {
+                        statusBadge.classList.add('badge-role-normal');
+                        statusBadge.textContent = 'Ativo';
+                    }
+                    tdStatus.appendChild(statusBadge);
+
+                    // Ações
+                    const tdAcoes = document.createElement('td');
+                    tdAcoes.style.display = 'flex';
+                    tdAcoes.style.gap = '0.2rem';
+                    tdAcoes.style.flexWrap = 'wrap';
+
+                    // Não pode remover/banir o próprio admin
+                    const isSelf = u.email === sessao.email;
+
+                    if (u.tipo !== 'admin' || isSelf) {
+                        // Promover a VIP
+                        if (u.tipo !== 'vip' && u.status !== 'banido' && !isSelf) {
+                            const btnPromover = document.createElement('button');
+                            btnPromover.className = 'btn-acao promover';
+                            btnPromover.textContent = '⬆ VIP';
+                            btnPromover.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.tipo = 'vip';
+                                u.status = 'ativo';
+                                renderizarTudo();
+                                mostrarFeedback(`✅ ${u.nome} promovido a VIP!`, 'sucesso');
+                            });
+                            tdAcoes.appendChild(btnPromover);
+                        }
+
+                        // Rebaixar de VIP
+                        if (u.tipo === 'vip' && !isSelf) {
+                            const btnRebaixar = document.createElement('button');
+                            btnRebaixar.className = 'btn-acao rebaixar';
+                            btnRebaixar.textContent = '⬇ Normal';
+                            btnRebaixar.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.tipo = 'normal';
+                                renderizarTudo();
+                                mostrarFeedback(`↕️ ${u.nome} rebaixado para Normal.`, 'info');
+                            });
+                            tdAcoes.appendChild(btnRebaixar);
+                        }
+
+                        // Banir
+                        if (u.status !== 'banido' && !isSelf) {
+                            const btnBanir = document.createElement('button');
+                            btnBanir.className = 'btn-acao banir';
+                            btnBanir.textContent = '🚫 Banir';
+                            btnBanir.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (confirm(`Banir ${u.nome}?`)) {
+                                    u.status = 'banido';
+                                    renderizarTudo();
+                                    mostrarFeedback(`⛔ ${u.nome} foi banido.`, 'erro');
+                                }
+                            });
+                            tdAcoes.appendChild(btnBanir);
+                        }
+
+                        // Desbanir
+                        if (u.status === 'banido' && !isSelf) {
+                            const btnDesbanir = document.createElement('button');
+                            btnDesbanir.className = 'btn-acao desbanir';
+                            btnDesbanir.textContent = '✅ Desbanir';
+                            btnDesbanir.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                u.status = 'ativo';
+                                renderizarTudo();
+                                mostrarFeedback(`✅ ${u.nome} foi desbanido.`, 'sucesso');
+                            });
+                            tdAcoes.appendChild(btnDesbanir);
+                        }
+
+                        // Remover (apenas para não-admin)
+                        if (u.tipo !== 'admin' && !isSelf) {
+                            const btnRemover = document.createElement('button');
+                            btnRemover.className = 'btn-acao remover';
+                            btnRemover.textContent = '🗑️';
+                            btnRemover.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (confirm(`Remover permanentemente ${u.nome}?`)) {
+                                    const idx = usuariosDB.indexOf(u);
+                                    if (idx > -1) {
+                                        usuariosDB.splice(idx, 1);
+                                        renderizarTudo();
+                                        mostrarFeedback(`🗑️ ${u.nome} removido do sistema.`, 'info');
+                                    }
+                                }
+                            });
+                            tdAcoes.appendChild(btnRemover);
+                        }
+                    } else {
+                        const span = document.createElement('span');
+                        span.style.fontSize = '0.6rem';
+                        span.style.color = 'var(--texto-secundario)';
+                        span.textContent = '👑 Você';
+                        tdAcoes.appendChild(span);
+                    }
+
+                    tr.appendChild(tdNome);
+                    tr.appendChild(tdEmail);
+                    tr.appendChild(tdCargo);
+                    tr.appendChild(tdStatus);
+                    tr.appendChild(tdAcoes);
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function renderizarTudo() {
+                renderizarStats();
+                renderizarTabelaUsuarios();
+            }
+
+            // ============================================================
+            // NAVEGAÇÃO
+            // ============================================================
+            function navegarPara(pagina) {
+                const paginas = ['painel', 'usuarios', 'config'];
+                paginas.forEach(p => {
+                    const el = document.getElementById('pagina' + p.charAt(0).toUpperCase() + p.slice(1));
+                    if (el) el.style.display = (p === pagina) ? 'block' : 'none';
+                });
+                document.querySelectorAll('#menuNav a').forEach(a => {
+                    a.classList.toggle('ativo', a.dataset.pagina === pagina);
+                });
+                if (pagina === 'painel') renderizarStats();
+                if (pagina === 'usuarios') renderizarTabelaUsuarios();
+                if (history.pushState) history.pushState(null, '', '#pagina=' + pagina);
+            }
+
+            document.querySelectorAll('#menuNav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navegarPara(this.dataset.pagina);
+                });
+            });
+
+            // ============================================================
+            // EXPORTAR DADOS
+            // ============================================================
+            window.exportarDados = function() {
+                const data = {
+                    usuarios: usuariosDB,
+                    exportado: new Date().toISOString()
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'norvi_usuarios_' + Date.now() + '.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                mostrarFeedback('📥 Dados exportados com sucesso!', 'sucesso');
+            };
+
+            // ============================================================
+            // TEMA
+            // ============================================================
+            function alternarTema() {
+                const html = document.documentElement;
+                const atual = html.getAttribute('data-theme');
+                const novo = atual === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', novo);
+                document.getElementById('temaBtn').textContent = novo === 'dark' ? '☀️' : '🌙';
+                localStorage.setItem('norvi_tema', novo);
+            }
+            const tema = localStorage.getItem('norvi_tema') || 'light';
+            document.documentElement.setAttribute('data-theme', tema);
+            document.getElementById('temaBtn').textContent = tema === 'dark' ? '☀️' : '🌙';
+            document.getElementById('temaBtn').addEventListener('click', alternarTema);
+
+            // ============================================================
+            // DATA
+            // ============================================================
+            function atualizarData() {
+                const agora = new Date();
+                const dias = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+                const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro',
+                    'outubro', 'novembro', 'dezembro'
+                ];
+                document.getElementById('dataAtual').textContent =
+                    `${dias[agora.getDay()]}, ${agora.getDate()} ${meses[agora.getMonth()]} ${agora.getFullYear()}`;
+            }
+
+            // ============================================================
+            // FEEDBACK
+            // ============================================================
+            let feedbackTimeout = null;
+
+            function mostrarFeedback(msg, tipo = 'info', duracao = 3500) {
+                let el = document.getElementById('feedbackGlobal');
+                if (!el) {
+                    const d = document.createElement('div');
+                    d.id = 'feedbackGlobal';
+                    d.className = 'feedback-global';
+                    document.body.appendChild(d);
+                    el = d;
+                }
+                if (feedbackTimeout) clearTimeout(feedbackTimeout);
+                el.className = 'feedback-global';
+                el.textContent = msg;
+                void el.offsetWidth;
+                el.classList.add('visivel', tipo);
+                feedbackTimeout = setTimeout(() => { el.classList.remove('visivel');
+                    feedbackTimeout = null; }, duracao);
+            }
+            window.mostrarFeedback = mostrarFeedback;
+
+            // ============================================================
+            // SAIR
+            // ============================================================
+            document.querySelector('.btn-sair').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Deseja sair?')) {
+                    localStorage.removeItem('norvi_sessao');
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // ============================================================
+            // INICIAR
+            // ============================================================
+            renderizarUsuario();
+            atualizarData();
+            renderizarTudo();
+
+            const hash = window.location.hash.match(/pagina=(\w+)/);
+            navegarPara(hash ? hash[1] : 'painel');
+
+            window.addEventListener('hashchange', function() {
+                const h = window.location.hash.match(/pagina=(\w+)/);
+                if (h) navegarPara(h[1]);
+            });
+
+        })();
+    </script>
+</body>
+</html>

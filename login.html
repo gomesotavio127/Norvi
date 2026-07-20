@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Norvi - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --off-white: #FDFBF7;
+            --cinza-pedra: #3A3A3A;
+            --siena-queimado: #C87A4E;
+            --azul-cinza: #6B7F8A;
+            --marrom-claro: #E6DED5;
+            --fonte-titulo: 'Playfair Display', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+            --bg-body: var(--off-white);
+            --bg-card: #FFFFFF;
+            --texto-principal: var(--cinza-pedra);
+            --texto-secundario: var(--azul-cinza);
+            --borda: var(--marrom-claro);
+            --radius: 0.75rem;
+            --erro: #D45A5A;
+        }
+        [data-theme="dark"] {
+            --off-white: #1A1A1A;
+            --cinza-pedra: #E8E0D8;
+            --siena-queimado: #D48A5A;
+            --azul-cinza: #9A9A9A;
+            --marrom-claro: #3A3A3A;
+            --bg-body: #121212;
+            --bg-card: #1E1E1E;
+            --texto-principal: #E8E0D8;
+            --texto-secundario: #9A9A9A;
+            --borda: #3A3A3A;
+            --erro: #D45A5A;
+        }
+        body {
+            background-color: var(--bg-body);
+            color: var(--texto-principal);
+            font-family: var(--fonte-corpo);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            transition: background var(--transicao), color var(--transicao);
+        }
+        .login-container {
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: var(--radius);
+            max-width: 400px;
+            width: 100%;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+            animation: slideUp 0.5s ease both;
+        }
+        @keyframes slideUp {
+            0% { opacity:0; transform:translateY(20px); }
+            100% { opacity:1; transform:translateY(0); }
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .logo h1 {
+            font-family: var(--fonte-titulo);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--texto-principal);
+        }
+        .logo h1 span {
+            color: var(--siena-queimado);
+        }
+        .tagline {
+            font-family: var(--fonte-titulo);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--borda);
+            padding-bottom: 0.75rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: var(--texto-principal);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            font-family: var(--fonte-corpo);
+            font-size: 0.95rem;
+            border: 1px solid var(--borda);
+            border-radius: 0.5rem;
+            background: var(--bg-body);
+            color: var(--texto-principal);
+            transition: border-color 0.2s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--siena-queimado);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 0.8rem;
+            font-family: var(--fonte-corpo);
+            font-size: 1rem;
+            font-weight: 600;
+            background-color: var(--siena-queimado);
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #B56A3E;
+        }
+        .erro-login {
+            color: var(--erro);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .erro-login.visivel {
+            display: block;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+        }
+        .register-link a {
+            color: var(--siena-queimado);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .tema-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: 1px solid var(--borda);
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--fonte-corpo);
+        }
+        .tema-btn:hover {
+            border-color: var(--siena-queimado);
+            color: var(--siena-queimado);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="tema-btn" id="temaBtn">🌙</button>
+
+    <div class="login-container">
+        <div class="logo">
+            <h1>Norvi <span>✦</span></h1>
+        </div>
+        <div class="tagline">Foque nos estudos. Construa hábitos.</div>
+
+        <h2 style="font-size:1.2rem; margin-bottom:0.5rem;">Entrar</h2>
+        <p style="color:var(--texto-secundario); font-size:0.9rem; margin-bottom:1.5rem;">Acesse sua conta para continuar.</p>
+
+        <form id="formLogin">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required />
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite sua senha" required />
+            </div>
+            <div class="erro-login" id="erroLogin">❌ E-mail ou senha incorretos.</div>
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <div class="register-link">
+            Não tem uma conta? <a href="onboarding.html">Criar conta</a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // TEMA
+        // ============================================================
+        function alternarTema() {
+            const html = document.documentElement;
+            const atual = html.getAttribute('data-theme');
+            const novo = atual === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', novo);
+            document.getElementById('temaBtn').textContent = novo === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('norvi_tema', novo);
+        }
+        const tema = localStorage.getItem('norvi_tema') || 'light';
+        document.documentElement.setAttribute('data-theme', tema);
+        document.getElementById('temaBtn').textContent = tema === 'dark' ? '☀️' : '🌙';
+        document.getElementById('temaBtn').addEventListener('click', alternarTema);
+
+        // ============================================================
+        // USUÁRIOS CADASTRADOS (SIMULAÇÃO)
+        // ============================================================
+        const usuarios = {
+            'usuario@email.com': { senha: '123456', tipo: 'normal', nome: 'Usuário Comum' },
+            'vip@email.com': { senha: '123456', tipo: 'vip', nome: 'Usuário VIP' },
+            'admin@norvi.com': { senha: 'Reipao20114377!', tipo: 'admin', nome: 'SrPão' }
+        };
+
+        // ============================================================
+        // LOGIN
+        // ============================================================
+        document.getElementById('formLogin').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            const erro = document.getElementById('erroLogin');
+
+            const usuario = usuarios[email];
+
+            if (!usuario || usuario.senha !== senha) {
+                erro.classList.add('visivel');
+                return;
+            }
+
+            erro.classList.remove('visivel');
+
+            // Salva sessão
+            const sessao = {
+                email: email,
+                nome: usuario.nome,
+                tipo: usuario.tipo
+            };
+            localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
+
+            // Redireciona para o dashboard correto
+            if (usuario.tipo === 'admin') {
+                window.location.href = 'dashboard-admin.html';
+            } else if (usuario.tipo === 'vip') {
+                window.location.href = 'dashboard-vip.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
