@@ -201,6 +201,12 @@
             color: var(--siena-queimado);
             text-decoration: underline;
         }
+        .campo-hint {
+            font-size: 0.7rem;
+            color: var(--texto-secundario);
+            margin-top: 0.2rem;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -214,12 +220,13 @@
         <div class="tagline">Foque nos estudos. Construa hábitos.</div>
 
         <h2 style="font-size:1.2rem; margin-bottom:0.5rem;">Entrar</h2>
-        <p style="color:var(--texto-secundario); font-size:0.9rem; margin-bottom:1.5rem;">Acesse sua conta para continuar.</p>
+        <p style="color:var(--texto-secundario); font-size:0.9rem; margin-bottom:1.5rem;">Acesse sua conta com e-mail ou nome de usuário.</p>
 
         <form id="formLogin">
             <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="seu@email.com" required />
+                <label for="email">E-mail ou Nome de Usuário</label>
+                <input type="text" id="email" placeholder="seu@email.com ou seu_nome" required />
+                <div class="campo-hint">Digite seu e-mail ou nome de usuário cadastrado</div>
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
@@ -228,7 +235,7 @@
             <div class="recuperar-senha">
                 <a href="#" id="linkRecuperar">Esqueceu a senha?</a>
             </div>
-            <div class="erro-login" id="erroLogin">❌ E-mail ou senha incorretos.</div>
+            <div class="erro-login" id="erroLogin">❌ Usuário ou senha incorretos.</div>
             <div class="sucesso-login" id="sucessoLogin">✅ Redirecionando...</div>
             <button type="submit" class="btn-primary" id="btnLogin">Entrar</button>
         </form>
@@ -256,27 +263,27 @@
         document.getElementById('temaBtn').addEventListener('click', alternarTema);
 
         // ============================================================
-        // LOGIN - BUSCA NO LOCALSTORAGE
+        // LOGIN - ACEITA E-MAIL OU NOME DE USUÁRIO
         // ============================================================
         document.getElementById('formLogin').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const email = document.getElementById('email').value.trim();
+            const login = document.getElementById('email').value.trim();
             const senha = document.getElementById('senha').value.trim();
             const erro = document.getElementById('erroLogin');
             const sucesso = document.getElementById('sucessoLogin');
             const btn = document.getElementById('btnLogin');
 
-            // Limpa mensagens anteriores
+            // Limpa mensagens
             erro.classList.remove('visivel');
             sucesso.classList.remove('visivel');
 
             // ============================================================
             // 1. VERIFICA ADMIN (FIXO)
             // ============================================================
-            if (email === 'admin@norvi.com' && senha === 'Reipao20114377!') {
+            if ((login === 'admin@norvi.com' || login === 'SrPão') && senha === 'Reipao20114377!') {
                 const sessao = {
-                    email: email,
+                    email: 'admin@norvi.com',
                     nome: 'SrPão',
                     tipo: 'admin'
                 };
@@ -297,16 +304,28 @@
             const usuariosStr = localStorage.getItem('norvi_usuarios');
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
 
-            // Busca usuário pelo email
-            const usuarioEncontrado = usuarios.find(u => u.email === email);
-
-            if (!usuarioEncontrado) {
-                erro.textContent = '❌ E-mail não encontrado. Crie uma conta primeiro.';
+            if (usuarios.length === 0) {
+                erro.textContent = '❌ Nenhum usuário cadastrado. Crie uma conta primeiro.';
                 erro.classList.add('visivel');
                 return;
             }
 
-            // Verifica se a senha está correta
+            // ============================================================
+            // 3. PROCURA POR E-MAIL OU NOME DE USUÁRIO
+            // ============================================================
+            const usuarioEncontrado = usuarios.find(u =>
+                u.email === login ||
+                u.nome === login ||
+                u.nome?.toLowerCase() === login.toLowerCase()
+            );
+
+            if (!usuarioEncontrado) {
+                erro.textContent = '❌ Usuário não encontrado. Verifique o e-mail ou nome digitado.';
+                erro.classList.add('visivel');
+                return;
+            }
+
+            // Verifica senha
             if (usuarioEncontrado.senha !== senha) {
                 erro.textContent = '❌ Senha incorreta. Tente novamente.';
                 erro.classList.add('visivel');
@@ -314,7 +333,7 @@
             }
 
             // ============================================================
-            // 3. LOGIN BEM-SUCEDIDO
+            // 4. LOGIN BEM-SUCEDIDO
             // ============================================================
             const sessao = {
                 email: usuarioEncontrado.email,
@@ -328,7 +347,6 @@
             btn.disabled = true;
             btn.textContent = 'Redirecionando...';
 
-            // Redireciona para o dashboard correto
             setTimeout(() => {
                 if (sessao.tipo === 'admin') {
                     window.location.href = 'dashboard-admin.html';
@@ -341,22 +359,35 @@
         });
 
         // ============================================================
-        // RECUPERAR SENHA (SIMPLES)
+        // RECUPERAR SENHA
         // ============================================================
         document.getElementById('linkRecuperar').addEventListener('click', function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            if (!email) {
-                alert('Digite seu e-mail para recuperar a senha.');
+            const login = document.getElementById('email').value.trim();
+            if (!login) {
+                alert('Digite seu e-mail ou nome de usuário para recuperar a senha.');
                 return;
             }
             const usuariosStr = localStorage.getItem('norvi_usuarios');
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
-            const user = usuarios.find(u => u.email === email);
+            const user = usuarios.find(u =>
+                u.email === login ||
+                u.nome === login ||
+                u.nome?.toLowerCase() === login.toLowerCase()
+            );
             if (user) {
                 alert(`🔑 Sua senha é: ${user.senha}\n\nRecomendamos alterá-la após o login.`);
             } else {
-                alert('❌ E-mail não encontrado. Crie uma conta primeiro.');
+                alert('❌ Usuário não encontrado. Crie uma conta primeiro.');
+            }
+        });
+
+        // ============================================================
+        // ENTER PARA SUBMIT
+        // ============================================================
+        document.getElementById('senha').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('formLogin').dispatchEvent(new Event('submit'));
             }
         });
     </script>
