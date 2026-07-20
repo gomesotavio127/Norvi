@@ -1,4 +1,4 @@
-]<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8" />
@@ -266,7 +266,7 @@
         </form>
 
         <div class="register-link">
-            Não tem uma conta? <a href="index.html#diagnostico" id="linkCriarConta">Começar Diagnóstico</a>
+            Não tem uma conta? <a href="index.html#diagnostico" id="linkCriarConta">Faça o diagnóstico primeiro</a>
         </div>
     </div>
 
@@ -294,10 +294,9 @@
         const checkbox = document.getElementById('manter-conectado');
         if (preferencia === 'true') checkbox.checked = true;
         else if (preferencia === 'false') checkbox.checked = false;
-        // Se não tiver preferência, mantém marcado (padrão)
 
         // ============================================================
-        // LOGIN - ACEITA E-MAIL OU NOME DE USUÁRIO
+        // LOGIN
         // ============================================================
         document.getElementById('formLogin').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -309,13 +308,10 @@
             const sucesso = document.getElementById('sucessoLogin');
             const btn = document.getElementById('btnLogin');
 
-            // Limpa mensagens
             erro.classList.remove('visivel');
             sucesso.classList.remove('visivel');
 
-            // ============================================================
-            // 1. VERIFICA ADMIN (FIXO)
-            // ============================================================
+            // Admin
             if ((login === 'admin@norvi.com' || login === 'SrPão') && senha === 'Reipao20114377!') {
                 const sessao = {
                     email: 'admin@norvi.com',
@@ -334,9 +330,7 @@
                 return;
             }
 
-            // ============================================================
-            // 2. BUSCA USUÁRIO NO LOCALSTORAGE
-            // ============================================================
+            // Busca usuário
             const usuariosStr = localStorage.getItem('norvi_usuarios');
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
 
@@ -346,9 +340,6 @@
                 return;
             }
 
-            // ============================================================
-            // 3. PROCURA POR E-MAIL OU NOME DE USUÁRIO
-            // ============================================================
             const usuarioEncontrado = usuarios.find(u =>
                 u.email === login ||
                 u.nome === login ||
@@ -356,28 +347,23 @@
             );
 
             if (!usuarioEncontrado) {
-                erro.textContent = '❌ Usuário não encontrado. Verifique o e-mail ou nome digitado.';
+                erro.textContent = '❌ Usuário não encontrado. Faça o diagnóstico primeiro.';
                 erro.classList.add('visivel');
                 return;
             }
 
-            // Verifica se o usuário está banido
             if (usuarioEncontrado.status === 'banido') {
-                erro.textContent = '⛔ Esta conta foi banida. Entre em contato com o suporte.';
+                erro.textContent = '⛔ Esta conta foi banida.';
                 erro.classList.add('visivel');
                 return;
             }
 
-            // Verifica senha
             if (usuarioEncontrado.senha !== senha) {
                 erro.textContent = '❌ Senha incorreta. Tente novamente.';
                 erro.classList.add('visivel');
                 return;
             }
 
-            // ============================================================
-            // 4. LOGIN BEM-SUCEDIDO
-            // ============================================================
             const sessao = {
                 email: usuarioEncontrado.email,
                 nome: usuarioEncontrado.nome || 'Usuário',
