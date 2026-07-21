@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Norvi - Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,12 +62,18 @@
             max-width: 400px;
             width: 100%;
             padding: 2.5rem 2rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
             animation: slideUp 0.5s ease both;
         }
         @keyframes slideUp {
-            0% { opacity:0; transform:translateY(20px); }
-            100% { opacity:1; transform:translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .logo {
             display: flex;
@@ -201,12 +207,6 @@
             color: var(--siena-queimado);
             text-decoration: underline;
         }
-        .campo-hint {
-            font-size: 0.7rem;
-            color: var(--texto-secundario);
-            margin-top: 0.2rem;
-            text-align: right;
-        }
         .form-group-checkbox {
             display: flex;
             align-items: center;
@@ -238,26 +238,24 @@
         <div class="tagline">Foque nos estudos. Construa hábitos.</div>
 
         <h2 style="font-size:1.2rem; margin-bottom:0.5rem;">Entrar</h2>
-        <p style="color:var(--texto-secundario); font-size:0.9rem; margin-bottom:1.5rem;">Acesse sua conta com e-mail ou nome de usuário.</p>
+        <p style="color:var(--texto-secundario); font-size:0.9rem; margin-bottom:1.5rem;">Acesse sua conta.</p>
 
         <form id="formLogin">
             <div class="form-group">
                 <label for="email">E-mail ou Nome de Usuário</label>
-                <input type="text" id="email" placeholder="seu@email.com ou seu_nome" required autocomplete="username" />
-                <div class="campo-hint">Digite seu e-mail ou nome de usuário cadastrado</div>
+                <input type="text" id="email" placeholder="seu@email.com" required />
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Digite sua senha" required autocomplete="current-password" />
+                <input type="password" id="senha" placeholder="Digite sua senha" required />
             </div>
             <div class="recuperar-senha">
                 <a href="#" id="linkRecuperar">Esqueceu a senha?</a>
             </div>
 
-            <!-- Checkbox: Manter conectado -->
             <div class="form-group-checkbox">
-                <input type="checkbox" id="manter-conectado" name="manter-conectado" checked />
-                <label for="manter-conectado">Manter-me conectado neste dispositivo</label>
+                <input type="checkbox" id="manter-conectado" checked />
+                <label for="manter-conectado">Manter-me conectado</label>
             </div>
 
             <div class="erro-login" id="erroLogin">❌ Usuário ou senha incorretos.</div>
@@ -266,14 +264,11 @@
         </form>
 
         <div class="register-link">
-            Não tem uma conta? <a href="index.html#diagnostico" id="linkCriarConta">Faça o diagnóstico primeiro</a>
+            Não tem uma conta? <a href="index.html#diagnostico">Faça o diagnóstico primeiro</a>
         </div>
     </div>
 
     <script>
-        // ============================================================
-        // TEMA
-        // ============================================================
         function alternarTema() {
             const html = document.documentElement;
             const atual = html.getAttribute('data-theme');
@@ -287,17 +282,11 @@
         document.getElementById('temaBtn').textContent = tema === 'dark' ? '☀️' : '🌙';
         document.getElementById('temaBtn').addEventListener('click', alternarTema);
 
-        // ============================================================
-        // CARREGAR PREFERÊNCIA "MANTER CONECTADO"
-        // ============================================================
         const preferencia = localStorage.getItem('norvi_manterConectado');
         const checkbox = document.getElementById('manter-conectado');
         if (preferencia === 'true') checkbox.checked = true;
         else if (preferencia === 'false') checkbox.checked = false;
 
-        // ============================================================
-        // LOGIN
-        // ============================================================
         document.getElementById('formLogin').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -311,26 +300,19 @@
             erro.classList.remove('visivel');
             sucesso.classList.remove('visivel');
 
-            // Admin
+            // Admin fixo
             if ((login === 'admin@norvi.com' || login === 'SrPão') && senha === 'Reipao20114377!') {
-                const sessao = {
-                    email: 'admin@norvi.com',
-                    nome: 'SrPão',
-                    tipo: 'admin'
-                };
+                const sessao = { email: 'admin@norvi.com', nome: 'SrPão', tipo: 'admin' };
                 localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
                 localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
                 sucesso.textContent = '✅ Bem-vindo, Admin!';
                 sucesso.classList.add('visivel');
                 btn.disabled = true;
                 btn.textContent = 'Redirecionando...';
-                setTimeout(() => {
-                    window.location.href = 'dashboard-admin.html';
-                }, 800);
+                setTimeout(() => { window.location.href = 'dashboard-admin.html'; }, 800);
                 return;
             }
 
-            // Busca usuário
             const usuariosStr = localStorage.getItem('norvi_usuarios');
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
 
@@ -353,13 +335,13 @@
             }
 
             if (usuarioEncontrado.status === 'banido') {
-                erro.textContent = '⛔ Esta conta foi banida.';
+                erro.textContent = '⛔ Conta banida.';
                 erro.classList.add('visivel');
                 return;
             }
 
             if (usuarioEncontrado.senha !== senha) {
-                erro.textContent = '❌ Senha incorreta. Tente novamente.';
+                erro.textContent = '❌ Senha incorreta.';
                 erro.classList.add('visivel');
                 return;
             }
@@ -372,32 +354,22 @@
             localStorage.setItem('norvi_sessao', JSON.stringify(sessao));
             localStorage.setItem('norvi_manterConectado', manterConectado ? 'true' : 'false');
 
-            sucesso.textContent = '✅ Login realizado com sucesso!';
+            sucesso.textContent = '✅ Login realizado!';
             sucesso.classList.add('visivel');
             btn.disabled = true;
             btn.textContent = 'Redirecionando...';
 
             setTimeout(() => {
-                if (sessao.tipo === 'admin') {
-                    window.location.href = 'dashboard-admin.html';
-                } else if (sessao.tipo === 'vip') {
-                    window.location.href = 'dashboard-vip.html';
-                } else {
-                    window.location.href = 'dashboard.html';
-                }
+                if (sessao.tipo === 'admin') window.location.href = 'dashboard-admin.html';
+                else if (sessao.tipo === 'vip') window.location.href = 'dashboard-vip.html';
+                else window.location.href = 'dashboard.html';
             }, 800);
         });
 
-        // ============================================================
-        // RECUPERAR SENHA
-        // ============================================================
         document.getElementById('linkRecuperar').addEventListener('click', function(e) {
             e.preventDefault();
             const login = document.getElementById('email').value.trim();
-            if (!login) {
-                alert('Digite seu e-mail ou nome de usuário para recuperar a senha.');
-                return;
-            }
+            if (!login) { alert('Digite seu e-mail ou nome de usuário.'); return; }
             const usuariosStr = localStorage.getItem('norvi_usuarios');
             const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
             const user = usuarios.find(u =>
@@ -406,15 +378,12 @@
                 u.nome?.toLowerCase() === login.toLowerCase()
             );
             if (user) {
-                alert(`🔑 Sua senha é: ${user.senha}\n\nRecomendamos alterá-la após o login.`);
+                alert(`🔑 Sua senha é: ${user.senha}`);
             } else {
-                alert('❌ Usuário não encontrado. Faça o diagnóstico primeiro.');
+                alert('❌ Usuário não encontrado.');
             }
         });
 
-        // ============================================================
-        // ENTER PARA SUBMIT
-        // ============================================================
         document.getElementById('senha').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('formLogin').dispatchEvent(new Event('submit'));

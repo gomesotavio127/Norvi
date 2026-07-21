@@ -8,15 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           RESET E VARIÁVEIS
-           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         :root {
             --off-white: #FDFBF7;
             --cinza-pedra: #3A3A3A;
@@ -38,7 +34,6 @@
             --sucesso: #5A9A7A;
             --erro: #D45A5A;
         }
-
         [data-theme="dark"] {
             --off-white: #1A1A1A;
             --cinza-pedra: #E8E0D8;
@@ -56,25 +51,18 @@
             --sucesso: #5A9A7A;
             --erro: #D45A5A;
         }
-
         body {
-            background-color: var(--bg-body);
+            background: var(--bg-body);
             color: var(--texto-principal);
             font-family: var(--fonte-corpo);
-            line-height: 1.6;
-            transition: background-color var(--transicao), color var(--transicao);
             min-height: 100vh;
+            transition: background var(--transicao), color var(--transicao);
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-
-        /* ============================================================
-           TOP BAR
-           ============================================================ */
         .top-bar {
             position: fixed;
             top: 0;
@@ -89,11 +77,10 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 0.5rem;
-            transition: background var(--transicao), border var(--transicao);
             min-height: 56px;
             backdrop-filter: blur(8px);
+            transition: background var(--transicao), border var(--transicao);
         }
-
         .top-bar .logo-mini {
             font-family: var(--fonte-titulo);
             font-weight: 700;
@@ -101,18 +88,15 @@
             color: var(--texto-principal);
             text-decoration: none;
         }
-
         .top-bar .logo-mini span {
             color: var(--siena-queimado);
         }
-
         .top-bar-acoes {
             display: flex;
             align-items: center;
             gap: 0.8rem;
             flex-wrap: wrap;
         }
-
         .top-bar .usuario-info {
             font-size: 0.8rem;
             color: var(--texto-secundario);
@@ -120,7 +104,6 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .top-bar .usuario-info .badge {
             padding: 0.15rem 0.6rem;
             border-radius: 2rem;
@@ -129,12 +112,10 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .badge-normal {
             background: var(--azul-cinza);
             color: #fff;
         }
-
         .btn-sair {
             background: transparent;
             border: 1px solid var(--borda);
@@ -148,12 +129,10 @@
             font-family: var(--fonte-corpo);
             text-decoration: none;
         }
-
         .btn-sair:hover {
             border-color: var(--erro);
             color: var(--erro);
         }
-
         .tema-btn {
             background: transparent;
             border: 1px solid var(--borda);
@@ -166,29 +145,19 @@
             transition: all 0.2s ease;
             font-family: var(--fonte-corpo);
         }
-
         .tema-btn:hover {
             border-color: var(--siena-queimado);
             color: var(--siena-queimado);
         }
-
-        /* ============================================================
-           LAYOUT PRINCIPAL
-           ============================================================ */
         .dashboard-main {
             margin-top: 4.5rem;
             padding: 2rem 0;
         }
-
         .dashboard-grid {
             display: grid;
             grid-template-columns: 220px 1fr;
             gap: 2rem;
         }
-
-        /* ============================================================
-           SIDEBAR
-           ============================================================ */
         .sidebar {
             background: var(--bg-card);
             border: 1px solid var(--borda);
@@ -198,14 +167,12 @@
             position: sticky;
             top: 4.5rem;
         }
-
         .sidebar .usuario-avatar {
             text-align: center;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--borda);
         }
-
         .sidebar .usuario-avatar .avatar {
             width: 56px;
             height: 56px;
@@ -220,23 +187,19 @@
             margin: 0 auto 0.5rem;
             font-family: var(--fonte-titulo);
         }
-
         .sidebar .usuario-avatar .nome {
             font-weight: 600;
             font-size: 0.9rem;
         }
-
         .sidebar .usuario-avatar .email {
             font-size: 0.7rem;
             color: var(--texto-secundario);
         }
-
         .sidebar nav {
             display: flex;
             flex-direction: column;
             gap: 0.2rem;
         }
-
         .sidebar nav a {
             display: flex;
             align-items: center;
@@ -250,26 +213,19 @@
             font-weight: 500;
             cursor: pointer;
         }
-
         .sidebar nav a:hover {
             background: var(--bg-body);
             color: var(--texto-principal);
         }
-
         .sidebar nav a.ativo {
             background: rgba(200, 122, 78, 0.12);
             color: var(--siena-queimado);
         }
-
         .sidebar nav a .icone {
             font-size: 1rem;
             width: 22px;
             text-align: center;
         }
-
-        /* ============================================================
-           CONTEÚDO
-           ============================================================ */
         .conteudo {
             background: var(--bg-card);
             border: 1px solid var(--borda);
@@ -277,7 +233,6 @@
             padding: 2rem;
             transition: background var(--transicao), border var(--transicao);
         }
-
         .conteudo .page-header {
             display: flex;
             justify-content: space-between;
@@ -286,21 +241,15 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
         .conteudo .page-header h2 {
             font-family: var(--fonte-titulo);
             font-size: 1.6rem;
             font-weight: 700;
         }
-
         .conteudo .page-header .data {
             font-size: 0.8rem;
             color: var(--texto-secundario);
         }
-
-        /* ============================================================
-           CHAMA DA CONSISTÊNCIA
-           ============================================================ */
         .chama-card {
             background: var(--bg-body);
             border-radius: var(--radius);
@@ -312,29 +261,24 @@
             flex-wrap: wrap;
             border: 1px solid var(--borda);
         }
-
         .chama-card .chama-icon {
             font-size: 2.5rem;
             text-align: center;
             min-width: 60px;
         }
-
         .chama-card .chama-info {
             flex: 1;
         }
-
         .chama-card .chama-info .dias {
             font-size: 1.8rem;
             font-weight: 700;
             font-family: var(--fonte-titulo);
             color: var(--siena-queimado);
         }
-
         .chama-card .chama-info .label {
             font-size: 0.8rem;
             color: var(--texto-secundario);
         }
-
         .chama-card .chama-info .progresso-chama {
             margin-top: 0.3rem;
             height: 5px;
@@ -343,7 +287,6 @@
             max-width: 250px;
             overflow: hidden;
         }
-
         .chama-card .chama-info .progresso-chama span {
             display: block;
             height: 100%;
@@ -351,16 +294,11 @@
             border-radius: 3px;
             transition: width 0.6s ease;
         }
-
-        /* ============================================================
-           MISSÕES
-           ============================================================ */
         .missoes-lista {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-
         .missao-item {
             display: flex;
             align-items: center;
@@ -370,7 +308,6 @@
             border-radius: 0.5rem;
             background: var(--bg-body);
         }
-
         .missao-item .checkbox {
             width: 20px;
             height: 20px;
@@ -386,49 +323,40 @@
             color: transparent;
             transition: all 0.2s ease;
         }
-
         .missao-item .checkbox:hover {
             border-color: var(--siena-queimado);
         }
-
         .missao-item .checkbox.concluida {
             background: var(--siena-queimado);
             border-color: var(--siena-queimado);
             color: #fff;
         }
-
         .missao-item .info {
             flex: 1;
         }
-
         .missao-item .info .titulo {
             font-weight: 600;
             font-size: 0.9rem;
         }
-
         .missao-item .info .titulo.concluido {
             text-decoration: line-through;
             color: var(--texto-secundario);
         }
-
         .missao-item .info .descricao {
             font-size: 0.75rem;
             color: var(--texto-secundario);
         }
-
         .missao-item .tempo {
             font-size: 0.7rem;
             color: var(--texto-secundario);
             white-space: nowrap;
         }
-
         .add-tarefa {
             margin-top: 1.5rem;
             display: flex;
             gap: 0.8rem;
             flex-wrap: wrap;
         }
-
         .add-tarefa input {
             flex: 1;
             padding: 0.6rem 0.9rem;
@@ -440,12 +368,10 @@
             color: var(--texto-principal);
             min-width: 180px;
         }
-
         .add-tarefa input:focus {
             outline: none;
             border-color: var(--siena-queimado);
         }
-
         .add-tarefa button {
             padding: 0.6rem 1.2rem;
             font-family: var(--fonte-corpo);
@@ -458,37 +384,28 @@
             cursor: pointer;
             transition: background 0.2s ease;
         }
-
         .add-tarefa button:hover {
             background: #B56A3E;
         }
-
-        /* ============================================================
-           VIP (BLOQUEADO PARA NORMAL)
-           ============================================================ */
         .vip-bloqueado {
             text-align: center;
             padding: 2rem 0;
         }
-
         .vip-bloqueado .icone-grande {
             font-size: 3rem;
             margin-bottom: 0.5rem;
         }
-
         .vip-bloqueado h3 {
             font-family: var(--fonte-titulo);
             font-size: 1.2rem;
             margin-bottom: 0.3rem;
         }
-
         .vip-bloqueado p {
             color: var(--texto-secundario);
             max-width: 400px;
             margin: 0 auto 1.5rem;
             font-size: 0.9rem;
         }
-
         .btn-vip {
             display: inline-block;
             padding: 0.6rem 2rem;
@@ -499,15 +416,10 @@
             text-decoration: none;
             transition: all 0.2s ease;
         }
-
         .btn-vip:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
         }
-
-        /* ============================================================
-           FEEDBACK
-           ============================================================ */
         .feedback-global {
             position: fixed;
             top: 5rem;
@@ -523,33 +435,25 @@
             transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
             max-width: 90%;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
-
         .feedback-global.visivel {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
-
         .feedback-global.sucesso {
             background: var(--sucesso);
             color: #fff;
         }
-
         .feedback-global.erro {
             background: var(--erro);
             color: #fff;
         }
-
         .feedback-global.info {
             background: var(--azul-cinza);
             color: #fff;
         }
-
-        /* ============================================================
-           RESPONSIVO
-           ============================================================ */
         @media (max-width: 820px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -594,7 +498,6 @@
                 gap: 0.5rem;
             }
         }
-
         @media (max-width: 480px) {
             .conteudo .page-header h2 {
                 font-size: 1.2rem;
@@ -629,8 +532,7 @@
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <header class="top-bar" id="topBar">
+    <header class="top-bar">
         <a href="dashboard.html" class="logo-mini">Norvi <span>✦</span></a>
         <div class="top-bar-acoes">
             <div class="usuario-info">
@@ -638,23 +540,17 @@
                 <span class="badge badge-normal" id="usuarioBadge">Normal</span>
             </div>
             <button class="tema-btn" id="temaBtn">🌙</button>
-            <a href="login.html" class="btn-sair" id="btnSair">Sair</a>
+            <a href="login.html" class="btn-sair">Sair</a>
         </div>
     </header>
 
-    <!-- DASHBOARD -->
     <main class="dashboard-main">
         <div class="container">
             <div class="dashboard-grid">
-
-                <!-- SIDEBAR -->
                 <aside class="sidebar">
                     <div class="usuario-avatar">
                         <div class="avatar" id="avatarInicial">U</div>
-                        <div>
-                            <div class="nome" id="sidebarNome">Usuário</div>
-                            <div class="email" id="sidebarEmail">usuario@email.com</div>
-                        </div>
+                        <div><div class="nome" id="sidebarNome">Usuário</div><div class="email" id="sidebarEmail">usuario@email.com</div></div>
                     </div>
                     <nav id="menuNav">
                         <a class="ativo" data-pagina="hoje"><span class="icone">📋</span> Hoje</a>
@@ -664,63 +560,37 @@
                     </nav>
                 </aside>
 
-                <!-- CONTEÚDO -->
                 <section class="conteudo" id="conteudoPrincipal">
-
-                    <!-- PÁGINA: HOJE -->
                     <div id="paginaHoje">
                         <div class="page-header">
                             <h2>Hoje</h2>
-                            <span class="data" id="dataAtual">segunda, 20 jul 2026</span>
+                            <span class="data" id="dataAtual"></span>
                         </div>
-
                         <div class="chama-card">
                             <div class="chama-icon" id="chamaIcon">🔥</div>
                             <div class="chama-info">
-                                <div>
-                                    <span class="dias" id="chamaDias">0</span>
-                                    <span class="label"> dias de ofensiva</span>
-                                </div>
+                                <div><span class="dias" id="chamaDias">0</span> <span class="label">dias de ofensiva</span></div>
                                 <div class="label" id="chamaEstagio">Centelha</div>
-                                <div class="progresso-chama">
-                                    <span id="chamaProgresso" style="width:0%"></span>
-                                </div>
+                                <div class="progresso-chama"><span id="chamaProgresso" style="width:0%"></span></div>
                             </div>
                         </div>
-
                         <h3 style="margin-bottom:0.6rem; font-size:0.95rem; font-weight:600;">Missões de Hoje</h3>
                         <div class="missoes-lista" id="missoesLista"></div>
-
                         <div class="add-tarefa">
                             <input type="text" id="novaTarefa" placeholder="+ Adicionar tarefa" />
                             <button id="btnAddTarefa">Adicionar</button>
                         </div>
                     </div>
-
-                    <!-- PÁGINA: CALENDÁRIO -->
                     <div id="paginaCalendario" style="display:none;">
-                        <div class="page-header">
-                            <h2>📅 Calendário</h2>
-                            <span class="data" id="mesAtual">Julho 2026</span>
-                        </div>
-                        <div id="calendarioGrid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; text-align:center; font-size:0.8rem;"></div>
+                        <div class="page-header"><h2>📅 Calendário</h2><span class="data" id="mesAtual"></span></div>
+                        <div id="calendarioGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:0.8rem;"></div>
                     </div>
-
-                    <!-- PÁGINA: RANKING -->
                     <div id="paginaRanking" style="display:none;">
-                        <div class="page-header">
-                            <h2>🏆 Ranking</h2>
-                            <span class="data">Semanal</span>
-                        </div>
+                        <div class="page-header"><h2>🏆 Ranking</h2><span class="data">Semanal</span></div>
                         <div id="rankingLista"></div>
                     </div>
-
-                    <!-- PÁGINA: VIP (BLOQUEADO) -->
                     <div id="paginaVip" style="display:none;">
-                        <div class="page-header">
-                            <h2>⭐ VIP</h2>
-                            <span class="data">🔓 Acesso gratuito</span>
-                        </div>
+                        <div class="page-header"><h2>⭐ VIP</h2><span class="data">🔓 Acesso gratuito</span></div>
                         <div class="vip-bloqueado">
                             <div class="icone-grande">🔒</div>
                             <h3>Desbloqueie o VIP</h3>
@@ -728,52 +598,37 @@
                             <a href="checkout.html" class="btn-vip">Assinar VIP</a>
                         </div>
                     </div>
-
                 </section>
-
             </div>
         </div>
     </main>
 
     <script>
         (function() {
-            'use strict';
-
-            // ============================================================
-            // SESSÃO DO USUÁRIO
-            // ============================================================
             const sessao = JSON.parse(localStorage.getItem('norvi_sessao') || '{}');
-
             if (!sessao.email || sessao.tipo === 'admin' || sessao.tipo === 'vip') {
-                // Se for admin ou VIP, redireciona para o dashboard correto
                 if (sessao.tipo === 'admin') window.location.href = 'dashboard-admin.html';
                 else if (sessao.tipo === 'vip') window.location.href = 'dashboard-vip.html';
                 else window.location.href = 'login.html';
                 return;
             }
 
-            // ============================================================
-            // ESTADO DO USUÁRIO
-            // ============================================================
             let usuario = {
                 nome: sessao.nome || 'Usuário',
                 email: sessao.email || 'usuario@email.com',
                 tipo: 'normal',
                 chama: { dias: 0 },
                 missoes: [
-                    { id: 1, titulo: 'Matemática - Conjuntos Numéricos', descricao: 'Revisar ℕ, ℤ, ℚ, ℝ e dar exemplos',
+                    { id: 1, titulo: 'Matemática - Conjuntos Numéricos', descricao: 'Revisar ℕ, ℤ, ℚ, ℝ',
                         tempo: '10 min', concluida: false },
-                    { id: 2, titulo: 'História - Grécia Antiga', descricao: 'Ler sobre o conceito de "pólis"',
-                        tempo: '10 min', concluida: false }
+                    { id: 2, titulo: 'História - Grécia Antiga', descricao: 'Ler sobre "pólis"', tempo: '10 min',
+                        concluida: false }
                 ]
             };
 
-            // ============================================================
-            // RENDERIZAÇÃO
-            // ============================================================
             function renderizarUsuario() {
-                const inicial = usuario.nome.charAt(0).toUpperCase();
-                document.getElementById('avatarInicial').textContent = inicial;
+                const ini = usuario.nome.charAt(0).toUpperCase();
+                document.getElementById('avatarInicial').textContent = ini;
                 document.getElementById('sidebarNome').textContent = usuario.nome;
                 document.getElementById('sidebarEmail').textContent = usuario.email;
                 document.getElementById('usuarioNome').textContent = usuario.nome;
@@ -789,35 +644,31 @@
                     { min: 22, label: 'Sol Interno', icon: '☀️' },
                     { min: 31, label: 'Lenda', icon: '🌟' }
                 ];
-                let estagioAtual = estagios[0];
-                for (const e of estagios) {
-                    if (dias >= e.min) estagioAtual = e;
-                }
-                const progresso = dias > 0 ? Math.min((dias / 30) * 100, 100) : 0;
+                let atual = estagios[0];
+                for (const e of estagios) { if (dias >= e.min) atual = e; }
                 document.getElementById('chamaDias').textContent = dias;
-                document.getElementById('chamaEstagio').textContent = estagioAtual.label;
-                document.getElementById('chamaIcon').textContent = estagioAtual.icon;
-                document.getElementById('chamaProgresso').style.width = progresso + '%';
+                document.getElementById('chamaEstagio').textContent = atual.label;
+                document.getElementById('chamaIcon').textContent = atual.icon;
+                document.getElementById('chamaProgresso').style.width = Math.min((dias / 30) * 100, 100) + '%';
             }
 
             function renderizarMissoes() {
                 const lista = document.getElementById('missoesLista');
                 lista.innerHTML = '';
                 if (usuario.missoes.length === 0) {
-                    lista.innerHTML =
-                        '<p style="color:var(--texto-secundario); font-size:0.85rem;">Nenhuma missão hoje.</p>';
+                    lista.innerHTML = '<p style="color:var(--texto-secundario);font-size:0.85rem;">Nenhuma missão hoje.</p>';
                     return;
                 }
-                usuario.missoes.forEach((missao) => {
+                usuario.missoes.forEach(m => {
                     const div = document.createElement('div');
                     div.className = 'missao-item';
                     const cb = document.createElement('div');
-                    cb.className = 'checkbox' + (missao.concluida ? ' concluida' : '');
-                    cb.textContent = missao.concluida ? '✓' : '';
+                    cb.className = 'checkbox' + (m.concluida ? ' concluida' : '');
+                    cb.textContent = m.concluida ? '✓' : '';
                     cb.addEventListener('click', function() {
-                        missao.concluida = !missao.concluida;
+                        m.concluida = !m.concluida;
                         renderizarMissoes();
-                        if (missao.concluida) {
+                        if (m.concluida) {
                             usuario.chama.dias += 1;
                             renderizarChama();
                             mostrarFeedback('🎉 Missão concluída! +1 dia.', 'sucesso');
@@ -825,17 +676,17 @@
                     });
                     const info = document.createElement('div');
                     info.className = 'info';
-                    const titulo = document.createElement('div');
-                    titulo.className = 'titulo' + (missao.concluida ? ' concluido' : '');
-                    titulo.textContent = missao.titulo;
+                    const tit = document.createElement('div');
+                    tit.className = 'titulo' + (m.concluida ? ' concluido' : '');
+                    tit.textContent = m.titulo;
                     const desc = document.createElement('div');
-                    desc.className = 'descricao' + (missao.concluida ? ' concluido' : '');
-                    desc.textContent = missao.descricao;
-                    info.appendChild(titulo);
+                    desc.className = 'descricao' + (m.concluida ? ' concluido' : '');
+                    desc.textContent = m.descricao;
+                    info.appendChild(tit);
                     info.appendChild(desc);
                     const tempo = document.createElement('span');
                     tempo.className = 'tempo';
-                    tempo.textContent = '⏱️ ' + missao.tempo;
+                    tempo.textContent = '⏱️ ' + m.tempo;
                     div.appendChild(cb);
                     div.appendChild(info);
                     div.appendChild(tempo);
@@ -847,18 +698,23 @@
                 const grid = document.getElementById('calendarioGrid');
                 const mes = document.getElementById('mesAtual');
                 const agora = new Date();
-                const ano = agora.getFullYear();
-                const mesNum = agora.getMonth();
-                const diasNoMes = new Date(ano, mesNum + 1, 0).getDate();
-                const primeiroDia = new Date(ano, mesNum, 1).getDay();
-                const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+                const ano = agora.getFullYear(),
+                    mesNum = agora.getMonth();
+                const diasNoMes = new Date(ano, mesNum + 1, 0).getDate(),
+                    primeiroDia = new Date(ano, mesNum, 1).getDay();
+                const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+                    'Outubro', 'Novembro', 'Dezembro'
+                ];
                 mes.textContent = meses[mesNum] + ' ' + ano;
-                const diasSemana = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-                let html = diasSemana.map(d => `<strong style="font-size:0.65rem;color:var(--texto-secundario);">${d}</strong>`).join('');
+                let html = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map(d =>
+                    `<strong style="font-size:0.65rem;color:var(--texto-secundario);">${d}</strong>`).join('');
                 for (let i = 0; i < primeiroDia; i++) html += `<span></span>`;
                 for (let dia = 1; dia <= diasNoMes; dia++) {
-                    const hoje = dia === agora.getDate() ? ' style="font-weight:700;color:var(--siena-queimado);"' : '';
-                    const estudado = dia <= usuario.chama.dias ? ' style="background:var(--verde-salvia);color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;margin:0 auto;"' : '';
+                    const hoje = dia === agora.getDate() ?
+                        ' style="font-weight:700;color:var(--siena-queimado);"' : '';
+                    const estudado = dia <= usuario.chama.dias ?
+                        ' style="background:var(--verde-salvia);color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;margin:0 auto;"' :
+                        '';
                     html += `<span${hoje}${estudado}>${dia}</span>`;
                 }
                 grid.innerHTML = html;
@@ -866,31 +722,27 @@
 
             function renderizarRanking() {
                 const lista = document.getElementById('rankingLista');
-                const usuarios = [
+                const users = [
                     { nome: 'Você', xp: usuario.chama.dias * 10 || 5 },
                     { nome: 'Ana C.', xp: 180 },
                     { nome: 'João M.', xp: 150 },
                     { nome: 'Carla S.', xp: 120 },
                     { nome: 'Pedro R.', xp: 90 }
                 ];
-                const ordenados = usuarios.sort((a, b) => b.xp - a.xp);
-                let html = '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;"><thead><tr style="border-bottom:1px solid var(--borda);"><th style="text-align:left;padding:0.4rem;">#</th><th style="text-align:left;padding:0.4rem;">Usuário</th><th style="text-align:right;padding:0.4rem;">XP</th></tr></thead><tbody>';
+                const ordenados = users.sort((a, b) => b.xp - a.xp);
+                let html =
+                    '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;"><thead><tr style="border-bottom:1px solid var(--borda);"><th style="text-align:left;padding:0.4rem;">#</th><th style="text-align:left;padding:0.4rem;">Usuário</th><th style="text-align:right;padding:0.4rem;">XP</th></tr></thead><tbody>';
                 ordenados.forEach((u, i) => {
                     const medalha = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
-                    const destaque = u.nome === 'Você' ? ' style="font-weight:600;color:var(--siena-queimado);"' : '';
-                    html += `<tr${destaque} style="border-bottom:1px solid var(--borda);">
-                            <td style="padding:0.4rem;">${medalha}</td>
-                            <td style="padding:0.4rem;">${u.nome}</td>
-                            <td style="padding:0.4rem;text-align:right;">${u.xp}</td>
-                        </tr>`;
+                    const destaque = u.nome === 'Você' ?
+                        ' style="font-weight:600;color:var(--siena-queimado);"' : '';
+                    html +=
+                        `<tr${destaque} style="border-bottom:1px solid var(--borda);"><td style="padding:0.4rem;">${medalha}</td><td style="padding:0.4rem;">${u.nome}</td><td style="padding:0.4rem;text-align:right;">${u.xp}</td></tr>`;
                 });
                 html += '</tbody></table>';
                 lista.innerHTML = html;
             }
 
-            // ============================================================
-            // NAVEGAÇÃO (HASH)
-            // ============================================================
             function navegarPara(pagina) {
                 const paginas = ['hoje', 'calendario', 'ranking', 'vip'];
                 paginas.forEach(p => {
@@ -912,41 +764,34 @@
                 });
             });
 
-            // ============================================================
-            // TEMA
-            // ============================================================
-            function alternarTema() {
+            document.getElementById('temaBtn').addEventListener('click', function() {
                 const html = document.documentElement;
                 const atual = html.getAttribute('data-theme');
                 const novo = atual === 'dark' ? 'light' : 'dark';
                 html.setAttribute('data-theme', novo);
-                document.getElementById('temaBtn').textContent = novo === 'dark' ? '☀️' : '🌙';
+                this.textContent = novo === 'dark' ? '☀️' : '🌙';
                 localStorage.setItem('norvi_tema', novo);
-            }
+            });
             const tema = localStorage.getItem('norvi_tema') || 'light';
             document.documentElement.setAttribute('data-theme', tema);
             document.getElementById('temaBtn').textContent = tema === 'dark' ? '☀️' : '🌙';
-            document.getElementById('temaBtn').addEventListener('click', alternarTema);
 
-            // ============================================================
-            // DATA
-            // ============================================================
             function atualizarData() {
                 const agora = new Date();
-                const dias = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
-                const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-                document.getElementById('dataAtual').textContent = `${dias[agora.getDay()]}, ${agora.getDate()} ${meses[agora.getMonth()]} ${agora.getFullYear()}`;
+                const dias = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+                const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro',
+                    'outubro', 'novembro', 'dezembro'
+                ];
+                document.getElementById('dataAtual').textContent =
+                    `${dias[agora.getDay()]}, ${agora.getDate()} ${meses[agora.getMonth()]} ${agora.getFullYear()}`;
             }
 
-            // ============================================================
-            // ADICIONAR TAREFA
-            // ============================================================
             document.getElementById('btnAddTarefa').addEventListener('click', function() {
                 const input = document.getElementById('novaTarefa');
                 const texto = input.value.trim();
                 if (!texto) { mostrarFeedback('Digite uma tarefa.', 'info'); return; }
-                usuario.missoes.push({ id: Date.now(), titulo: texto, descricao: 'Tarefa personalizada', tempo: '5 min',
-                    concluida: false });
+                usuario.missoes.push({ id: Date.now(), titulo: texto, descricao: 'Tarefa personalizada',
+                    tempo: '5 min', concluida: false });
                 renderizarMissoes();
                 input.value = '';
                 mostrarFeedback('✅ Tarefa adicionada!', 'sucesso');
@@ -955,20 +800,15 @@
                 if (e.key === 'Enter') document.getElementById('btnAddTarefa').click();
             });
 
-            // ============================================================
-            // FEEDBACK
-            // ============================================================
             let feedbackTimeout = null;
 
             function mostrarFeedback(msg, tipo = 'info', duracao = 3500) {
                 let el = document.getElementById('feedbackGlobal');
-                if (!el) {
-                    const div = document.createElement('div');
-                    div.id = 'feedbackGlobal';
-                    div.className = 'feedback-global';
-                    document.body.appendChild(div);
-                    el = div;
-                }
+                if (!el) { const d = document.createElement('div');
+                    d.id = 'feedbackGlobal';
+                    d.className = 'feedback-global';
+                    document.body.appendChild(d);
+                    el = d; }
                 if (feedbackTimeout) clearTimeout(feedbackTimeout);
                 el.className = 'feedback-global';
                 el.textContent = msg;
@@ -978,40 +818,22 @@
                     feedbackTimeout = null; }, duracao);
             }
 
-            // ============================================================
-            // SAIR
-            // ============================================================
-            document.getElementById('btnSair').addEventListener('click', function(e) {
+            document.querySelector('.btn-sair').addEventListener('click', function(e) {
                 e.preventDefault();
-                if (confirm('Deseja sair?')) {
-                    localStorage.removeItem('norvi_sessao');
-                    window.location.href = 'login.html';
-                }
+                if (confirm('Deseja sair?')) { localStorage.removeItem('norvi_sessao');
+                    window.location.href = 'login.html'; }
             });
 
-            // ============================================================
-            // INICIAR
-            // ============================================================
             renderizarUsuario();
             renderizarChama();
             renderizarMissoes();
             atualizarData();
-
             const hash = window.location.hash.match(/pagina=(\w+)/);
             navegarPara(hash ? hash[1] : 'hoje');
-
-            window.addEventListener('hashchange', function() {
-                const h = window.location.hash.match(/pagina=(\w+)/);
-                if (h) navegarPara(h[1]);
-            });
-
+            window.addEventListener('hashchange', function() { const h = window.location.hash.match(/pagina=(\w+)/);
+                if (h) navegarPara(h[1]); });
             window.mostrarFeedback = mostrarFeedback;
-            window.usuario = usuario;
-            window.renderizarChama = renderizarChama;
-            window.renderizarMissoes = renderizarMissoes;
-
         })();
     </script>
-
 </body>
 </html>

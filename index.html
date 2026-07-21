@@ -4,23 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Norvi - Disciplina que transforma</title>
-    <meta name="description" content="Norvi - Plataforma de estudos com foco em disciplina e hábitos. Diagnóstico adaptativo em 10 perguntas." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        /* ============================================================
-                   RESET E VARIÁVEIS (PALETA NORVI + TEMA)
-                   ============================================================ */
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         :root {
             --off-white: #FDFBF7;
             --cinza-pedra: #3A3A3A;
@@ -38,8 +30,9 @@
             --sombra: rgba(0, 0, 0, 0.04);
             --transicao: 0.3s ease;
             --radius: 0.75rem;
+            --sucesso: #5A9A7A;
+            --erro: #D45A5A;
         }
-
         [data-theme="dark"] {
             --off-white: #1A1A1A;
             --cinza-pedra: #E8E0D8;
@@ -53,13 +46,13 @@
             --texto-secundario: #9A9A9A;
             --borda: #3A3A3A;
             --sombra: rgba(0, 0, 0, 0.3);
+            --sucesso: #5A9A7A;
+            --erro: #D45A5A;
         }
-
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 4.5rem;
         }
-
         body {
             background-color: var(--bg-body);
             color: var(--texto-principal);
@@ -70,16 +63,12 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
         .container {
             max-width: 1120px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
 
-        /* ============================================================
-                   TOP BAR (IDIOMAS + TEMA + ENTRAR)
-                   ============================================================ */
         .top-bar {
             position: fixed;
             top: 0;
@@ -94,12 +83,11 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 0.5rem;
-            transition: background var(--transicao), border var(--transicao);
             min-height: 56px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+            transition: background var(--transicao), border var(--transicao);
         }
-
         .top-bar .logo-mini {
             font-family: var(--fonte-titulo);
             font-weight: 700;
@@ -109,23 +97,19 @@
             letter-spacing: -0.5px;
             cursor: pointer;
         }
-
         .top-bar .logo-mini span {
             color: var(--siena-queimado);
         }
-
         .top-bar-acoes {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             flex-wrap: wrap;
         }
-
         .idiomas {
             display: flex;
             gap: 0.25rem;
         }
-
         .idioma-btn {
             background: transparent;
             border: 1px solid var(--borda);
@@ -140,18 +124,15 @@
             font-family: var(--fonte-corpo);
             letter-spacing: 0.3px;
         }
-
         .idioma-btn:hover {
             border-color: var(--siena-queimado);
             color: var(--siena-queimado);
         }
-
         .idioma-btn.ativo {
             background: var(--siena-queimado);
             color: #fff;
             border-color: var(--siena-queimado);
         }
-
         .tema-btn {
             background: transparent;
             border: 1px solid var(--borda);
@@ -164,12 +145,10 @@
             transition: all 0.2s ease;
             font-family: var(--fonte-corpo);
         }
-
         .tema-btn:hover {
             border-color: var(--siena-queimado);
             color: var(--siena-queimado);
         }
-
         .btn-entrar {
             background: var(--siena-queimado);
             border: none;
@@ -184,15 +163,11 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .btn-entrar:hover {
             background: #B56A3E;
             transform: scale(1.02);
         }
 
-        /* ============================================================
-                   SEÇÃO 1: HERO
-                   ============================================================ */
         .hero {
             min-height: 80vh;
             display: flex;
@@ -203,25 +178,21 @@
             padding: 5rem 1.5rem 3rem;
             transition: background var(--transicao);
         }
-
         .hero-conteudo {
             max-width: 720px;
             animation: fadeUp 0.8s ease both;
         }
-
         .hero-icon {
             display: inline-block;
             margin-bottom: 1rem;
             animation: pulse 3s ease-in-out infinite;
         }
-
         .hero-icon svg {
             width: 56px;
             height: 56px;
             stroke: var(--siena-queimado);
             fill: none;
         }
-
         .hero h1 {
             font-family: var(--fonte-titulo);
             font-size: clamp(2.5rem, 8vw, 3.8rem);
@@ -230,11 +201,9 @@
             color: var(--texto-principal);
             margin-bottom: 0.25rem;
         }
-
         .hero h1 span {
             color: var(--siena-queimado);
         }
-
         .hero-tagline {
             font-family: var(--fonte-titulo);
             font-style: italic;
@@ -242,14 +211,12 @@
             color: var(--texto-secundario);
             margin-bottom: 0.5rem;
         }
-
         .hero-descricao {
             font-size: clamp(0.95rem, 2vw, 1.1rem);
             color: var(--texto-secundario);
             max-width: 520px;
             margin: 0 auto 2rem;
         }
-
         .btn-primario {
             display: inline-block;
             padding: 0.9rem 2.8rem;
@@ -266,33 +233,26 @@
             box-shadow: 0 4px 16px rgba(200, 122, 78, 0.25);
             will-change: transform;
         }
-
         .btn-primario:hover {
             background-color: #B56A3E;
             transform: translateY(-3px);
             box-shadow: 0 8px 24px rgba(200, 122, 78, 0.35);
         }
-
         .btn-primario:active {
             transform: scale(0.97);
         }
 
-        /* ============================================================
-                   SEÇÃO 2: O PROBLEMA
-                   ============================================================ */
         .problema {
             padding: 4rem 1.5rem;
             background-color: var(--bg-card);
             transition: background var(--transicao);
         }
-
         .problema-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
-
         .problema-texto h2 {
             font-family: var(--fonte-titulo);
             font-size: clamp(1.8rem, 4vw, 2.4rem);
@@ -300,18 +260,15 @@
             margin-bottom: 1rem;
             color: var(--texto-principal);
         }
-
         .problema-texto p {
             font-size: clamp(0.95rem, 1.5vw, 1.05rem);
             color: var(--texto-secundario);
             margin-bottom: 0.8rem;
         }
-
         .problema-texto .destaque {
             font-weight: 600;
             color: var(--texto-principal);
         }
-
         .problema-imagem img {
             width: 100%;
             height: auto;
@@ -321,27 +278,21 @@
             box-shadow: 0 8px 24px var(--sombra);
             transition: transform 0.5s ease;
         }
-
         .problema-imagem img:hover {
             transform: scale(1.02);
         }
 
-        /* ============================================================
-                   SEÇÃO 3: SOLUÇÃO
-                   ============================================================ */
         .solucao {
             padding: 4rem 1.5rem;
             background-color: var(--bg-body);
             transition: background var(--transicao);
         }
-
         .solucao-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
-
         .solucao-imagem img {
             width: 100%;
             height: auto;
@@ -351,11 +302,9 @@
             box-shadow: 0 8px 24px var(--sombra);
             transition: transform 0.5s ease;
         }
-
         .solucao-imagem img:hover {
             transform: scale(1.02);
         }
-
         .solucao-texto h2 {
             font-family: var(--fonte-titulo);
             font-size: clamp(1.8rem, 4vw, 2.4rem);
@@ -363,13 +312,11 @@
             margin-bottom: 1rem;
             color: var(--texto-principal);
         }
-
         .solucao-texto p {
             font-size: clamp(0.95rem, 1.5vw, 1.05rem);
             color: var(--texto-secundario);
             margin-bottom: 0.8rem;
         }
-
         .solucao-texto .citacao {
             font-family: var(--fonte-titulo);
             font-style: italic;
@@ -380,38 +327,30 @@
             margin: 1.5rem 0;
         }
 
-        /* ============================================================
-                   SEÇÃO 4: VANTAGENS
-                   ============================================================ */
         .vantagens {
             padding: 4rem 1.5rem;
             background-color: var(--bg-card);
             transition: background var(--transicao);
         }
-
         .vantagens-header {
             text-align: center;
             margin-bottom: 3rem;
         }
-
         .vantagens-header h2 {
             font-family: var(--fonte-titulo);
             font-size: clamp(1.8rem, 4vw, 2.4rem);
             font-weight: 700;
             color: var(--texto-principal);
         }
-
         .vantagens-header p {
             color: var(--texto-secundario);
             font-size: clamp(0.95rem, 1.5vw, 1.05rem);
         }
-
         .vantagens-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
-
         .vantagem-card {
             background: var(--bg-body);
             border: 1px solid var(--borda);
@@ -421,13 +360,11 @@
             transition: box-shadow 0.4s ease, transform 0.3s ease, border-color 0.3s ease;
             will-change: transform;
         }
-
         .vantagem-card:hover {
             box-shadow: 0 12px 32px var(--sombra);
             transform: translateY(-6px);
             border-color: var(--siena-queimado);
         }
-
         .vantagem-card svg {
             width: 40px;
             height: 40px;
@@ -435,7 +372,6 @@
             fill: none;
             margin-bottom: 1rem;
         }
-
         .vantagem-card h3 {
             font-family: var(--fonte-titulo);
             font-size: 1.1rem;
@@ -443,39 +379,31 @@
             color: var(--texto-principal);
             margin-bottom: 0.5rem;
         }
-
         .vantagem-card p {
             font-size: 0.9rem;
             color: var(--texto-secundario);
         }
 
-        /* ============================================================
-                   SEÇÃO 5: DIAGNÓSTICO
-                   ============================================================ */
         .diagnostico {
             padding: 4rem 1.5rem 5rem;
             background-color: var(--bg-body);
             scroll-margin-top: 4.5rem;
             transition: background var(--transicao);
         }
-
         .diagnostico-header {
             text-align: center;
             margin-bottom: 2.5rem;
         }
-
         .diagnostico-header h2 {
             font-family: var(--fonte-titulo);
             font-size: clamp(1.8rem, 4vw, 2.4rem);
             font-weight: 700;
             color: var(--texto-principal);
         }
-
         .diagnostico-header p {
             color: var(--texto-secundario);
             font-size: clamp(0.95rem, 1.5vw, 1.05rem);
         }
-
         .perguntas-container {
             max-width: 720px;
             margin: 0 auto;
@@ -486,14 +414,12 @@
             box-shadow: 0 8px 24px var(--sombra);
             transition: background var(--transicao), border var(--transicao), box-shadow var(--transicao);
         }
-
         .progresso {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-
         .progresso-bar {
             flex: 1;
             height: 6px;
@@ -501,7 +427,6 @@
             border-radius: 3px;
             overflow: hidden;
         }
-
         .progresso-bar span {
             display: block;
             height: 100%;
@@ -510,23 +435,19 @@
             border-radius: 3px;
             transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
         .progresso-texto {
             font-size: 0.85rem;
             font-weight: 500;
             color: var(--texto-secundario);
             white-space: nowrap;
         }
-
         .pergunta {
             display: none;
             animation: fadeSubir 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
         .pergunta.ativa {
             display: block;
         }
-
         @keyframes fadeSubir {
             0% {
                 opacity: 0;
@@ -537,7 +458,6 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes fadeUp {
             0% {
                 opacity: 0;
@@ -548,7 +468,6 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes pulse {
             0%,
             100% {
@@ -558,7 +477,6 @@
                 transform: scale(1.05);
             }
         }
-
         .pergunta h3 {
             font-family: var(--fonte-titulo);
             font-size: 1.3rem;
@@ -566,20 +484,17 @@
             color: var(--texto-principal);
             margin-bottom: 0.25rem;
         }
-
         .pergunta .subtitulo {
             font-size: 0.9rem;
             color: var(--texto-secundario);
             margin-bottom: 1.5rem;
         }
-
         .opcoes {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             margin-bottom: 2rem;
         }
-
         .opcao {
             display: flex;
             align-items: center;
@@ -593,18 +508,15 @@
             color: var(--texto-principal);
             background: transparent;
         }
-
         .opcao:hover {
             border-color: var(--azul-cinza);
             background: var(--bg-body);
         }
-
         .opcao.selecionada {
             border-color: var(--siena-queimado);
             background: rgba(200, 122, 78, 0.08);
             box-shadow: 0 0 0 3px rgba(200, 122, 78, 0.1);
         }
-
         .opcao input[type="radio"],
         .opcao input[type="checkbox"] {
             width: 18px;
@@ -613,12 +525,10 @@
             flex-shrink: 0;
             cursor: pointer;
         }
-
         .opcao label {
             cursor: pointer;
             flex: 1;
         }
-
         .botoes-pergunta {
             display: flex;
             justify-content: space-between;
@@ -627,7 +537,6 @@
             margin-top: 0.5rem;
             flex-wrap: wrap;
         }
-
         .btn-secundario {
             padding: 0.6rem 1.8rem;
             font-family: var(--fonte-corpo);
@@ -640,17 +549,14 @@
             cursor: pointer;
             transition: background 0.2s ease, color 0.2s ease;
         }
-
         .btn-secundario:hover:not(:disabled) {
             background: var(--borda);
             color: var(--texto-principal);
         }
-
         .btn-secundario:disabled {
             opacity: 0.4;
             cursor: not-allowed;
         }
-
         .btn-primario-pequeno {
             padding: 0.6rem 2rem;
             font-family: var(--fonte-corpo);
@@ -664,32 +570,26 @@
             transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
             box-shadow: 0 2px 8px rgba(200, 122, 78, 0.2);
         }
-
         .btn-primario-pequeno:hover:not(:disabled) {
             background: #B56A3E;
             box-shadow: 0 4px 12px rgba(200, 122, 78, 0.3);
         }
-
         .btn-primario-pequeno:active:not(:disabled) {
             transform: scale(0.96);
         }
-
         .btn-primario-pequeno:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .resultado {
             display: none;
             text-align: center;
             padding: 1rem 0;
         }
-
         .resultado.ativo {
             display: block;
             animation: fadeSubir 0.5s ease;
         }
-
         .resultado h3 {
             font-family: var(--fonte-titulo);
             font-size: 1.8rem;
@@ -697,7 +597,6 @@
             color: var(--siena-queimado);
             margin-bottom: 0.5rem;
         }
-
         .resultado .perfil {
             display: inline-block;
             padding: 0.3rem 1.2rem;
@@ -708,50 +607,40 @@
             color: var(--texto-principal);
             margin-bottom: 1rem;
         }
-
         .resultado p {
             color: var(--texto-secundario);
             max-width: 480px;
             margin: 0 auto 1.5rem;
             font-size: 0.95rem;
         }
-
         .resultado .btn-primario {
             font-size: 0.95rem;
             padding: 0.8rem 2.4rem;
         }
 
-        /* ============================================================
-                   RODAPÉ
-                   ============================================================ */
         .rodape {
             padding: 2.5rem 1.5rem;
             background: var(--cinza-pedra);
             color: #C5C0B8;
             text-align: center;
         }
-
         [data-theme="dark"] .rodape {
             background: #0A0A0A;
         }
-
         .rodape .container {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-
         .rodape .logo-rodape {
             font-family: var(--fonte-titulo);
             font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
         }
-
         .rodape .logo-rodape span {
             color: var(--siena-queimado);
         }
-
         .rodape a {
             color: var(--marrom-claro);
             text-decoration: none;
@@ -759,112 +648,88 @@
             font-size: 0.9rem;
             transition: color 0.2s ease;
         }
-
         .rodape a:hover {
             color: #fff;
         }
-
         .rodape .copy {
             font-size: 0.8rem;
             margin-top: 0.5rem;
             color: #8A8580;
         }
 
-        /* ============================================================
-                   RESPONSIVO
-                   ============================================================ */
         @media (max-width: 820px) {
             .problema-grid,
             .solucao-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-
             .problema-imagem img,
             .solucao-imagem img {
                 max-height: 220px;
             }
-
             .top-bar {
                 padding: 0.4rem 0.8rem;
             }
-
             .top-bar .logo-mini {
                 font-size: 1rem;
             }
-
             .idioma-btn {
                 font-size: 0.55rem;
                 padding: 0.15rem 0.4rem;
             }
-
             .tema-btn {
                 font-size: 0.7rem;
                 padding: 0.15rem 0.5rem;
             }
-
             .btn-entrar {
                 font-size: 0.65rem;
                 padding: 0.2rem 0.8rem;
             }
-
             .perguntas-container {
                 padding: 1.5rem 1.2rem;
             }
-
             .botoes-pergunta {
                 flex-wrap: wrap;
                 justify-content: center;
             }
         }
-
         @media (max-width: 480px) {
             .hero {
                 min-height: 70vh;
                 padding: 5rem 1rem 2rem;
             }
-
             .hero h1 {
                 font-size: 2.2rem;
             }
-
             .hero-tagline {
                 font-size: 1rem;
             }
-
             .vantagens-grid {
                 grid-template-columns: 1fr;
             }
-
             .perguntas-container {
                 padding: 1rem 0.8rem;
             }
-
             .top-bar-acoes {
                 gap: 0.3rem;
             }
-
             .idioma-btn {
                 font-size: 0.5rem;
                 padding: 0.1rem 0.35rem;
             }
-
             .btn-entrar {
                 font-size: 0.6rem;
                 padding: 0.15rem 0.6rem;
             }
-
             .opcao {
                 font-size: 0.85rem;
                 padding: 0.6rem 0.8rem;
             }
-
             .btn-primario {
                 padding: 0.7rem 2rem;
                 font-size: 0.9rem;
             }
         }
-
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -874,8 +739,6 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
-        /* Otimização de performance: GPU acceleration */
         .vantagem-card,
         .problema-imagem img,
         .solucao-imagem img {
@@ -883,36 +746,23 @@
         }
     </style>
 </head>
-
 <body>
 
-    <!-- ============================================================
-    TOP BAR (IDIOMAS + TEMA + ENTRAR)
-    ============================================================ -->
     <header class="top-bar" id="topBar">
         <a href="#" class="logo-mini" id="logoLink">Norvi <span>✦</span></a>
-
         <div class="top-bar-acoes">
-            <!-- Idiomas -->
             <div class="idiomas" id="idiomasContainer">
-                <button class="idioma-btn ativo" data-idioma="pt-BR" aria-label="Português do Brasil">PT</button>
-                <button class="idioma-btn" data-idioma="pt-PT" aria-label="Português de Portugal">PT-PT</button>
-                <button class="idioma-btn" data-idioma="en" aria-label="English">EN</button>
-                <button class="idioma-btn" data-idioma="es" aria-label="Español">ES</button>
-                <button class="idioma-btn" data-idioma="ru" aria-label="Русский">RU</button>
+                <button class="idioma-btn ativo" data-idioma="pt-BR">PT</button>
+                <button class="idioma-btn" data-idioma="pt-PT">PT-PT</button>
+                <button class="idioma-btn" data-idioma="en">EN</button>
+                <button class="idioma-btn" data-idioma="es">ES</button>
+                <button class="idioma-btn" data-idioma="ru">RU</button>
             </div>
-
-            <!-- Tema Claro/Escuro -->
-            <button class="tema-btn" id="temaBtn" aria-label="Alternar tema claro/escuro">🌙</button>
-
-            <!-- Botão Entrar (agora com link funcional) -->
-            <a href="onboarding.html" class="btn-entrar" id="entrarBtn">Entrar</a>
+            <button class="tema-btn" id="temaBtn">🌙</button>
+            <a href="login.html" class="btn-entrar" id="entrarBtn">Entrar</a>
         </div>
     </header>
 
-    <!-- ============================================================
-    SEÇÃO 1: HERO
-    ============================================================ -->
     <section class="hero" id="hero">
         <div class="container hero-conteudo">
             <div class="hero-icon">
@@ -923,16 +773,11 @@
             </div>
             <h1>Norvi</h1>
             <p class="hero-tagline" data-chave="tagline">Foque nos estudos. Construa hábitos.</p>
-            <p class="hero-descricao" data-chave="descricao">
-                Sua rotina de estudos simplificada, um dia de cada vez.
-            </p>
-            <a href="#" class="btn-primario" data-chave="btnComecar" id="btnComecar">Começar Jornada</a>
+            <p class="hero-descricao" data-chave="descricao">Sua rotina de estudos simplificada, um dia de cada vez.</p>
+            <a href="#diagnostico" class="btn-primario" data-chave="btnComecar" id="btnComecar">Começar Jornada</a>
         </div>
     </section>
 
-    <!-- ============================================================
-    SEÇÃO 2: O PROBLEMA
-    ============================================================ -->
     <section class="problema" id="problema">
         <div class="container problema-grid">
             <div class="problema-texto">
@@ -947,9 +792,6 @@
         </div>
     </section>
 
-    <!-- ============================================================
-    SEÇÃO 3: SOLUÇÃO
-    ============================================================ -->
     <section class="solucao" id="solucao">
         <div class="container solucao-grid">
             <div class="solucao-imagem">
@@ -964,9 +806,6 @@
         </div>
     </section>
 
-    <!-- ============================================================
-    SEÇÃO 4: VANTAGENS
-    ============================================================ -->
     <section class="vantagens" id="vantagens">
         <div class="container">
             <div class="vantagens-header">
@@ -974,7 +813,6 @@
                 <p data-chave="vantagensSubtitulo">Quatro pilares que transformam estudo em hábito.</p>
             </div>
             <div class="vantagens-grid">
-
                 <div class="vantagem-card">
                     <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -985,7 +823,6 @@
                     <h3 data-chave="v1Titulo">Rotina Personalizada</h3>
                     <p data-chave="v1Desc">O Norvi cria um plano de estudos que se ajusta ao seu nível escolar, às suas dificuldades e ao tempo que você tem. Não o contrário.</p>
                 </div>
-
                 <div class="vantagem-card">
                     <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -995,7 +832,6 @@
                     <h3 data-chave="v2Titulo">Chama da Consistência</h3>
                     <p data-chave="v2Desc">Cada dia de estudo alimenta uma chama que cresce com você — de Centelha a Sol. Não quebre a corrente.</p>
                 </div>
-
                 <div class="vantagem-card">
                     <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 4v16h16V4z" />
@@ -1005,7 +841,6 @@
                     <h3 data-chave="v3Titulo">Acompanhamento Diário</h3>
                     <p data-chave="v3Desc">Missões claras todos os dias, com checkboxes simples e progresso visível no calendário. Você sempre sabe o próximo passo.</p>
                 </div>
-
                 <div class="vantagem-card">
                     <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
@@ -1014,48 +849,32 @@
                     <h3 data-chave="v4Titulo">Conteúdo Adaptativo</h3>
                     <p data-chave="v4Desc">Do ensino fundamental à pós-graduação, as matérias e os textos se adaptam ao seu momento de jornada.</p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-    SEÇÃO 5: DIAGNÓSTICO
-    ============================================================ -->
     <section class="diagnostico" id="diagnostico">
         <div class="container">
             <div class="diagnostico-header">
                 <h2 data-chave="diagnosticoTitulo">Monte seu plano em 10 perguntas</h2>
                 <p data-chave="diagnosticoSubtitulo">As perguntas se adaptam às suas respostas. Leva menos de 2 minutos.</p>
             </div>
-
             <div class="perguntas-container" id="perguntasContainer">
-
                 <div class="progresso">
-                    <div class="progresso-bar">
-                        <span id="progressoBar" style="width: 0%;"></span>
-                    </div>
+                    <div class="progresso-bar"><span id="progressoBar" style="width:0%;"></span></div>
                     <span class="progresso-texto" id="progressoTexto">1 / 10</span>
                 </div>
-
-                <div id="perguntasWrapper">
-                    <!-- As perguntas serão injetadas aqui via JavaScript -->
-                </div>
-
+                <div id="perguntasWrapper"></div>
                 <div class="resultado" id="resultado">
                     <h3 data-chave="resultadoTitulo">✧ Diagnóstico Concluído!</h3>
                     <div class="perfil" id="perfilResultado">Perfil</div>
                     <p id="resumoResultado">Seu plano de estudos está pronto.</p>
                     <a href="onboarding.html" class="btn-primario" data-chave="btnCriarConta">Criar minha conta</a>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-    RODAPÉ
-    ============================================================ -->
     <footer class="rodape">
         <div class="container">
             <div class="logo-rodape">Norvi <span>✦</span></div>
@@ -1066,23 +885,36 @@
                 <a href="#" data-chave="rodapePolitica">Política</a>
                 <a href="#" data-chave="rodapeAjuda">Ajuda</a>
             </div>
-            <div class="copy">
-                &copy; 2026 Norvi. <span data-chave="rodapeCopy">Feito com dedicação.</span>
-            </div>
+            <div class="copy">&copy; 2026 Norvi. <span data-chave="rodapeCopy">Feito com dedicação.</span></div>
         </div>
     </footer>
 
-
-    <!-- ============================================================
-    JAVASCRIPT COMPLETO CORRIGIDO (SCROLL + BOTÕES)
-    ============================================================ -->
     <script>
+        // ============================================================
+        // DIAGNÓSTICO + IDIOMAS + TEMA
+        // ============================================================
         (function() {
             'use strict';
 
-            // ============================================================
-            // 1. TRADUÇÕES (5 IDIOMAS) - VERSÃO RESUMIDA PARA ECONOMIZAR
-            // ============================================================
+            const materiasPorNivel = {
+                'fundamental_i': ['Matemática', 'Língua Portuguesa', 'Ciências (Natureza)', 'História', 'Geografia',
+                    'Arte', 'Educação Física (teoria)'
+                ],
+                'fundamental_ii': ['Matemática', 'Língua Portuguesa', 'Ciências', 'História', 'Geografia', 'Inglês',
+                    'Arte', 'Educação Física (teoria)'
+                ],
+                'ensino_medio': ['Matemática', 'Língua Portuguesa', 'Física', 'Química', 'Biologia', 'História',
+                    'Geografia', 'Filosofia', 'Sociologia', 'Inglês'
+                ],
+                'graduacao': ['Cálculo/Matemática Avançada', 'Estatística', 'Física', 'Química', 'Biologia/Bioquímica',
+                    'Programação/Algoritmos', 'Economia/Finanças', 'Direito/Leis', 'Filosofia/Ética',
+                    'Metodologia Científica', 'Línguas'
+                ],
+                'pos_graduacao': ['Métodos Quantitativos', 'Métodos Qualitativos', 'Escrita Científica',
+                    'Revisão Bibliográfica', 'Programação/Análise de Dados', 'Ética em Pesquisa', 'Inglês Técnico',
+                    'Preparação para Defesa'
+                ]
+            };
 
             const traducoes = {
                 'pt-BR': {
@@ -1168,15 +1000,11 @@
                     p9Subtitulo: 'Revise as informações e confirme para gerar seu plano.',
                     p9op1: 'Sim, está correto. Quero meu plano!',
                 },
-                'pt-PT': {
-                    tagline: 'Foque nos estudos. Construa hábitos.',
-                    descricao: 'A sua rotina de estudos simplificada, um dia de cada vez.',
-                    btnComecar: 'Começar Jornada',
-                    problemaTitulo: 'O Problema',
+                'pt-PT': { tagline: 'Foque nos estudos. Construa hábitos.', descricao: 'A sua rotina de estudos simplificada, um dia de cada vez.',
+                    btnComecar: 'Começar Jornada', problemaTitulo: 'O Problema',
                     problemaP1: 'Já começaste a estudar e paraste a meio do caminho?',
                     problemaP2: 'Já te sentiste perdido sobre o que estudar, ou tiveste vontade de desistir porque não vias resultados?',
-                    problemaP3: 'A dificuldade não está no conteúdo. Está na disciplina.',
-                    solucaoTitulo: 'A Solução',
+                    problemaP3: 'A dificuldade não está no conteúdo. Está na disciplina.', solucaoTitulo: 'A Solução',
                     solucaoCitacao: '“A disciplina não é um dom, é um hábito.”',
                     solucaoP1: 'A disciplina não é um dom com o qual tu nasces. É um hábito que tu constróis, um dia de cada vez.',
                     solucaoP2: 'O Norvi é o teu companheiro nesta jornada: ele transforma grandes objetivos em pequenas missões diárias, personalizadas para o teu nível, o teu tempo e o teu ritmo.',
@@ -1192,19 +1020,13 @@
                     v4Desc: 'Do ensino fundamental à pós-graduação, as matérias e os textos adaptam-se ao teu momento de jornada.',
                     diagnosticoTitulo: 'Monta o teu plano em 10 perguntas',
                     diagnosticoSubtitulo: 'As perguntas adaptam-se às tuas respostas. Leva menos de 2 minutos.',
-                    resultadoTitulo: '✧ Diagnóstico Concluído!',
-                    btnCriarConta: 'Criar a minha conta',
-                    rodapeFrase: 'A disciplina é um hábito, não um dom.',
-                    rodapeSobre: 'Sobre',
-                    rodapeContato: 'Contacto',
-                    rodapePolitica: 'Política',
-                    rodapeAjuda: 'Ajuda',
-                    rodapeCopy: 'Feito com dedicação.',
-                    p0Titulo: 'Qual é o teu nível de escolaridade?',
+                    resultadoTitulo: '✧ Diagnóstico Concluído!', btnCriarConta: 'Criar a minha conta',
+                    rodapeFrase: 'A disciplina é um hábito, não um dom.', rodapeSobre: 'Sobre',
+                    rodapeContato: 'Contacto', rodapePolitica: 'Política', rodapeAjuda: 'Ajuda',
+                    rodapeCopy: 'Feito com dedicação.', p0Titulo: 'Qual é o teu nível de escolaridade?',
                     p0Subtitulo: 'Isso ajuda-nos a adaptar o conteúdo para ti.',
                     p0op1: 'Ensino Fundamental I (1º ao 5º ano)',
-                    p0op2: 'Ensino Fundamental II (6º ao 9º ano)',
-                    p0op3: 'Ensino Médio',
+                    p0op2: 'Ensino Fundamental II (6º ao 9º ano)', p0op3: 'Ensino Médio',
                     p0op4: 'Graduação (Ensino Superior)',
                     p0op5: 'Pós-Graduação (Mestrado/Doutorado)',
                     p1Titulo: 'Quais matérias tens mais dificuldade?',
@@ -1212,55 +1034,37 @@
                     p2Titulo: 'Quais matérias tens mais facilidade?',
                     p2Subtitulo: 'Escolhe até 2 matérias que consideras mais fáceis.',
                     p3Titulo: 'Como preferes aprender?',
-                    p3Subtitulo: 'Escolhe o formato que mais combina contigo.',
-                    p3op1: 'Lendo resumos e textos',
-                    p3op2: 'Resolvendo questões e exercícios',
-                    p3op3: 'Criando mapas mentais e esquemas',
+                    p3Subtitulo: 'Escolhe o formato que mais combina contigo.', p3op1: 'Lendo resumos e textos',
+                    p3op2: 'Resolvendo questões e exercícios', p3op3: 'Criando mapas mentais e esquemas',
                     p3op4: 'Misturando leitura com exercícios',
                     p4Titulo: 'Quanto tempo por dia consegues estudar?',
-                    p4Subtitulo: 'Sê honesto: o Norvi adapta-se ao teu ritmo.',
-                    p4op1: 'Menos de 15 minutos',
-                    p4op2: '15 a 30 minutos',
-                    p4op3: '30 a 60 minutos',
-                    p4op4: 'Mais de 1 hora',
+                    p4Subtitulo: 'Sê honesto: o Norvi adapta-se ao teu ritmo.', p4op1: 'Menos de 15 minutos',
+                    p4op2: '15 a 30 minutos', p4op3: '30 a 60 minutos', p4op4: 'Mais de 1 hora',
                     p5Titulo: 'Com que frequência estudas atualmente?',
                     p5Subtitulo: 'Sem julgamentos. Só queremos entender a tua rotina.',
-                    p5op1: 'Raramente (menos de 1x por semana)',
-                    p5op2: '1 a 2 vezes por semana',
-                    p5op3: '3 a 4 vezes por semana',
-                    p5op4: 'Todos os dias (ou quase)',
+                    p5op1: 'Raramente (menos de 1x por semana)', p5op2: '1 a 2 vezes por semana',
+                    p5op3: '3 a 4 vezes por semana', p5op4: 'Todos os dias (ou quase)',
                     p6Titulo: 'Qual é o teu objetivo principal com os estudos?',
-                    p6Subtitulo: 'O que mais queres alcançar?',
-                    p6op1: 'Passar de ano / vestibular',
-                    p6op2: 'Aprender um assunto específico',
-                    p6op3: 'Criar o hábito de estudar',
+                    p6Subtitulo: 'O que mais queres alcançar?', p6op1: 'Passar de ano / vestibular',
+                    p6op2: 'Aprender um assunto específico', p6op3: 'Criar o hábito de estudar',
                     p6op4: 'Aprofundar conhecimento numa área',
                     p7Titulo: 'Qual é o teu maior obstáculo para estudar?',
                     p7Subtitulo: 'Identificar o que te atrapalha é o primeiro passo.',
-                    p7op1: 'Falta de foco / concentração',
-                    p7op2: 'Procrastinação - não consigo começar',
-                    p7op3: 'Não sei o que estudar nem por onde começar',
-                    p7op4: 'Cansaço mental ou físico',
+                    p7op1: 'Falta de foco / concentração', p7op2: 'Procrastinação - não consigo começar',
+                    p7op3: 'Não sei o que estudar nem por onde começar', p7op4: 'Cansaço mental ou físico',
                     p8Titulo: 'Qual é a tua meta para o próximo mês?',
-                    p8Subtitulo: 'Uma meta clara ajuda a criar direção.',
-                    p8op1: 'Estudar pelo menos 3 dias por semana',
-                    p8op2: 'Finalizar um assunto específico',
-                    p8op3: 'Estudar pelo menos 5 dias por semana',
-                    p8op4: 'Manter uma ofensiva de 30 dias',
-                    p9Titulo: 'Confirma as tuas respostas',
+                    p8Subtitulo: 'Uma meta clara ajuda a criar direção.', p8op1: 'Estudar pelo menos 3 dias por semana',
+                    p8op2: 'Finalizar um assunto específico', p8op3: 'Estudar pelo menos 5 dias por semana',
+                    p8op4: 'Manter uma ofensiva de 30 dias', p9Titulo: 'Confirma as tuas respostas',
                     p9Subtitulo: 'Revisa as informações e confirma para gerar o teu plano.',
-                    p9op1: 'Sim, está correto. Quero o meu plano!',
-                },
-                'en': {
-                    tagline: 'Focus on your studies. Build habits.',
-                    descricao: 'Your simplified study routine, one day at a time.',
-                    btnComecar: 'Start Journey',
+                    p9op1: 'Sim, está correto. Quero o meu plano!' },
+                'en': { tagline: 'Focus on your studies. Build habits.',
+                    descricao: 'Your simplified study routine, one day at a time.', btnComecar: 'Start Journey',
                     problemaTitulo: 'The Problem',
                     problemaP1: 'Have you ever started studying and stopped halfway?',
                     problemaP2: 'Have you ever felt lost about what to study, or wanted to give up because you didn\'t see results?',
                     problemaP3: 'The difficulty is not in the content. It\'s in discipline.',
-                    solucaoTitulo: 'The Solution',
-                    solucaoCitacao: '“Discipline is not a gift, it\'s a habit.”',
+                    solucaoTitulo: 'The Solution', solucaoCitacao: '“Discipline is not a gift, it\'s a habit.”',
                     solucaoP1: 'Discipline is not a gift you are born with. It\'s a habit you build, one day at a time.',
                     solucaoP2: 'Norvi is your companion on this journey: it transforms big goals into small daily missions, personalized for your level, your time, and your pace.',
                     vantagensTitulo: 'Made for those who want consistency',
@@ -1275,75 +1079,50 @@
                     v4Desc: 'From elementary school to postgraduate studies, the subjects and texts adapt to your journey.',
                     diagnosticoTitulo: 'Build your plan in 10 questions',
                     diagnosticoSubtitulo: 'Questions adapt to your answers. Takes less than 2 minutes.',
-                    resultadoTitulo: '✧ Diagnosis Complete!',
-                    btnCriarConta: 'Create my account',
-                    rodapeFrase: 'Discipline is a habit, not a gift.',
-                    rodapeSobre: 'About',
-                    rodapeContato: 'Contact',
-                    rodapePolitica: 'Privacy',
-                    rodapeAjuda: 'Help',
-                    rodapeCopy: 'Made with dedication.',
-                    p0Titulo: 'What is your education level?',
+                    resultadoTitulo: '✧ Diagnosis Complete!', btnCriarConta: 'Create my account',
+                    rodapeFrase: 'Discipline is a habit, not a gift.', rodapeSobre: 'About',
+                    rodapeContato: 'Contact', rodapePolitica: 'Privacy', rodapeAjuda: 'Help',
+                    rodapeCopy: 'Made with dedication.', p0Titulo: 'What is your education level?',
                     p0Subtitulo: 'This helps us adapt the content for you.',
                     p0op1: 'Elementary School I (1st to 5th grade)',
-                    p0op2: 'Elementary School II (6th to 9th grade)',
-                    p0op3: 'High School',
-                    p0op4: 'Undergraduate (College)',
-                    p0op5: 'Postgraduate (Master\'s/Doctorate)',
+                    p0op2: 'Elementary School II (6th to 9th grade)', p0op3: 'High School',
+                    p0op4: 'Undergraduate (College)', p0op5: 'Postgraduate (Master\'s/Doctorate)',
                     p1Titulo: 'Which subjects do you have the most difficulty with?',
                     p1Subtitulo: 'Choose up to 3 subjects you find most challenging.',
                     p2Titulo: 'Which subjects do you have the most ease with?',
                     p2Subtitulo: 'Choose up to 2 subjects you find easiest.',
                     p3Titulo: 'How do you prefer to learn?',
-                    p3Subtitulo: 'Choose the format that best suits you.',
-                    p3op1: 'Reading summaries and texts',
-                    p3op2: 'Solving questions and exercises',
-                    p3op3: 'Creating mind maps and schemes',
+                    p3Subtitulo: 'Choose the format that best suits you.', p3op1: 'Reading summaries and texts',
+                    p3op2: 'Solving questions and exercises', p3op3: 'Creating mind maps and schemes',
                     p3op4: 'Mixing reading with exercises',
                     p4Titulo: 'How much time per day can you study?',
-                    p4Subtitulo: 'Be honest: Norvi adapts to your pace.',
-                    p4op1: 'Less than 15 minutes',
-                    p4op2: '15 to 30 minutes',
-                    p4op3: '30 to 60 minutes',
-                    p4op4: 'More than 1 hour',
+                    p4Subtitulo: 'Be honest: Norvi adapts to your pace.', p4op1: 'Less than 15 minutes',
+                    p4op2: '15 to 30 minutes', p4op3: '30 to 60 minutes', p4op4: 'More than 1 hour',
                     p5Titulo: 'How often do you currently study?',
                     p5Subtitulo: 'No judgment. We just want to understand your routine.',
-                    p5op1: 'Rarely (less than 1x per week)',
-                    p5op2: '1 to 2 times per week',
-                    p5op3: '3 to 4 times per week',
-                    p5op4: 'Every day (or almost)',
+                    p5op1: 'Rarely (less than 1x per week)', p5op2: '1 to 2 times per week',
+                    p5op3: '3 to 4 times per week', p5op4: 'Every day (or almost)',
                     p6Titulo: 'What is your main goal with studying?',
-                    p6Subtitulo: 'What do you most want to achieve?',
-                    p6op1: 'Pass the year / entrance exam',
-                    p6op2: 'Learn a specific subject',
-                    p6op3: 'Create the habit of studying',
+                    p6Subtitulo: 'What do you most want to achieve?', p6op1: 'Pass the year / entrance exam',
+                    p6op2: 'Learn a specific subject', p6op3: 'Create the habit of studying',
                     p6op4: 'Deepen knowledge in an area',
                     p7Titulo: 'What is your biggest obstacle to studying?',
                     p7Subtitulo: 'Identifying what holds you back is the first step.',
-                    p7op1: 'Lack of focus / concentration',
-                    p7op2: 'Procrastination - can\'t get started',
-                    p7op3: 'Don\'t know what or where to start',
-                    p7op4: 'Mental or physical fatigue',
+                    p7op1: 'Lack of focus / concentration', p7op2: 'Procrastination - can\'t get started',
+                    p7op3: 'Don\'t know what or where to start', p7op4: 'Mental or physical fatigue',
                     p8Titulo: 'What is your goal for the next month?',
-                    p8Subtitulo: 'A clear goal helps create direction.',
-                    p8op1: 'Study at least 3 days a week',
-                    p8op2: 'Finish a specific subject',
-                    p8op3: 'Study at least 5 days a week',
-                    p8op4: 'Maintain a 30-day streak',
-                    p9Titulo: 'Confirm your answers',
+                    p8Subtitulo: 'A clear goal helps create direction.', p8op1: 'Study at least 3 days a week',
+                    p8op2: 'Finish a specific subject', p8op3: 'Study at least 5 days a week',
+                    p8op4: 'Maintain a 30-day streak', p9Titulo: 'Confirm your answers',
                     p9Subtitulo: 'Review the information and confirm to generate your plan.',
-                    p9op1: 'Yes, it\'s correct. I want my plan!',
-                },
-                'es': {
-                    tagline: 'Enfócate en tus estudios. Construye hábitos.',
-                    descricao: 'Tu rutina de estudios simplificada, un día a la vez.',
-                    btnComecar: 'Comenzar Jornada',
+                    p9op1: 'Yes, it\'s correct. I want my plan!' },
+                'es': { tagline: 'Enfócate en tus estudios. Construye hábitos.',
+                    descricao: 'Tu rutina de estudios simplificada, un día a la vez.', btnComecar: 'Comenzar Jornada',
                     problemaTitulo: 'El Problema',
                     problemaP1: '¿Has empezado a estudiar y te has detenido a mitad de camino?',
                     problemaP2: '¿Te has sentido perdido sobre qué estudiar, o has querido rendirte porque no veías resultados?',
                     problemaP3: 'La dificultad no está en el contenido. Está en la disciplina.',
-                    solucaoTitulo: 'La Solución',
-                    solucaoCitacao: '“La disciplina no es un don, es un hábito.”',
+                    solucaoTitulo: 'La Solución', solucaoCitacao: '“La disciplina no es un don, es un hábito.”',
                     solucaoP1: 'La disciplina no es un don con el que naces. Es un hábito que construyes, un día a la vez.',
                     solucaoP2: 'Norvi es tu compañero en este viaje: transforma grandes objetivos en pequeñas misiones diarias, personalizadas para tu nivel, tu tiempo y tu ritmo.',
                     vantagensTitulo: 'Hecho para quienes quieren constancia',
@@ -1358,74 +1137,50 @@
                     v4Desc: 'Desde la escuela primaria hasta el posgrado, las materias y los textos se adaptan a tu momento de viaje.',
                     diagnosticoTitulo: 'Construye tu plan en 10 preguntas',
                     diagnosticoSubtitulo: 'Las preguntas se adaptan a tus respuestas. Tarda menos de 2 minutos.',
-                    resultadoTitulo: '✧ ¡Diagnóstico Completado!',
-                    btnCriarConta: 'Crear mi cuenta',
-                    rodapeFrase: 'La disciplina es un hábito, no un don.',
-                    rodapeSobre: 'Sobre',
-                    rodapeContato: 'Contacto',
-                    rodapePolitica: 'Política',
-                    rodapeAjuda: 'Ayuda',
-                    rodapeCopy: 'Hecho con dedicación.',
-                    p0Titulo: '¿Cuál es tu nivel de escolaridad?',
+                    resultadoTitulo: '✧ ¡Diagnóstico Completado!', btnCriarConta: 'Crear mi cuenta',
+                    rodapeFrase: 'La disciplina es un hábito, no un don.', rodapeSobre: 'Sobre',
+                    rodapeContato: 'Contacto', rodapePolitica: 'Política', rodapeAjuda: 'Ayuda',
+                    rodapeCopy: 'Hecho con dedicación.', p0Titulo: '¿Cuál es tu nivel de escolaridad?',
                     p0Subtitulo: 'Esto nos ayuda a adaptar el contenido para ti.',
                     p0op1: 'Educación Primaria I (1º a 5º año)',
-                    p0op2: 'Educación Primaria II (6º a 9º año)',
-                    p0op3: 'Educación Secundaria',
-                    p0op4: 'Grado (Educación Superior)',
-                    p0op5: 'Posgrado (Maestría/Doctorado)',
+                    p0op2: 'Educación Primaria II (6º a 9º año)', p0op3: 'Educación Secundaria',
+                    p0op4: 'Grado (Educación Superior)', p0op5: 'Posgrado (Maestría/Doctorado)',
                     p1Titulo: '¿En qué materias tienes más dificultad?',
                     p1Subtitulo: 'Elige hasta 3 materias que consideres más desafiantes.',
                     p2Titulo: '¿En qué materias tienes más facilidad?',
                     p2Subtitulo: 'Elige hasta 2 materias que consideres más fáciles.',
                     p3Titulo: '¿Cómo prefieres aprender?',
                     p3Subtitulo: 'Elige el formato que mejor se adapte a ti.',
-                    p3op1: 'Leyendo resúmenes y textos',
-                    p3op2: 'Resolviendo preguntas y ejercicios',
-                    p3op3: 'Creando mapas mentales y esquemas',
-                    p3op4: 'Mezclando lectura con ejercicios',
+                    p3op1: 'Leyendo resúmenes y textos', p3op2: 'Resolviendo preguntas y ejercicios',
+                    p3op3: 'Creando mapas mentales y esquemas', p3op4: 'Mezclando lectura con ejercicios',
                     p4Titulo: '¿Cuánto tiempo al día puedes estudiar?',
-                    p4Subtitulo: 'Sé honesto: Norvi se adapta a tu ritmo.',
-                    p4op1: 'Menos de 15 minutos',
-                    p4op2: '15 a 30 minutos',
-                    p4op3: '30 a 60 minutos',
-                    p4op4: 'Más de 1 hora',
+                    p4Subtitulo: 'Sé honesto: Norvi se adapta a tu ritmo.', p4op1: 'Menos de 15 minutos',
+                    p4op2: '15 a 30 minutos', p4op3: '30 a 60 minutos', p4op4: 'Más de 1 hora',
                     p5Titulo: '¿Con qué frecuencia estudias actualmente?',
                     p5Subtitulo: 'Sin juicios. Solo queremos entender tu rutina.',
-                    p5op1: 'Raramente (menos de 1x por semana)',
-                    p5op2: '1 a 2 veces por semana',
-                    p5op3: '3 a 4 veces por semana',
-                    p5op4: 'Todos los días (o casi)',
+                    p5op1: 'Raramente (menos de 1x por semana)', p5op2: '1 a 2 veces por semana',
+                    p5op3: '3 a 4 veces por semana', p5op4: 'Todos los días (o casi)',
                     p6Titulo: '¿Cuál es tu objetivo principal con los estudios?',
-                    p6Subtitulo: '¿Qué es lo que más quieres lograr?',
-                    p6op1: 'Aprobar el año / examen de ingreso',
-                    p6op2: 'Aprender un tema específico',
-                    p6op3: 'Crear el hábito de estudiar',
+                    p6Subtitulo: '¿Qué es lo que más quieres lograr?', p6op1: 'Aprobar el año / examen de ingreso',
+                    p6op2: 'Aprender un tema específico', p6op3: 'Crear el hábito de estudiar',
                     p6op4: 'Profundizar el conocimiento en un área',
                     p7Titulo: '¿Cuál es tu mayor obstáculo para estudiar?',
                     p7Subtitulo: 'Identificar lo que te frena es el primer paso.',
-                    p7op1: 'Falta de enfoque / concentración',
-                    p7op2: 'Procrastinación - no puedo empezar',
-                    p7op3: 'No sé qué estudiar ni por dónde empezar',
-                    p7op4: 'Cansancio mental o físico',
+                    p7op1: 'Falta de enfoque / concentración', p7op2: 'Procrastinación - no puedo empezar',
+                    p7op3: 'No sé qué estudiar ni por dónde empezar', p7op4: 'Cansancio mental o físico',
                     p8Titulo: '¿Cuál es tu meta para el próximo mes?',
                     p8Subtitulo: 'Una meta clara ayuda a crear dirección.',
-                    p8op1: 'Estudiar al menos 3 días a la semana',
-                    p8op2: 'Terminar un tema específico',
-                    p8op3: 'Estudiar al menos 5 días a la semana',
-                    p8op4: 'Mantener una racha de 30 días',
+                    p8op1: 'Estudiar al menos 3 días a la semana', p8op2: 'Terminar un tema específico',
+                    p8op3: 'Estudiar al menos 5 días a la semana', p8op4: 'Mantener una racha de 30 días',
                     p9Titulo: 'Confirma tus respuestas',
                     p9Subtitulo: 'Revisa la información y confirma para generar tu plan.',
-                    p9op1: 'Sí, es correcto. ¡Quiero mi plan!',
-                },
-                'ru': {
-                    tagline: 'Сосредоточьтесь на учебе. Формируйте привычки.',
-                    descricao: 'Ваш упрощенный распорядок учебы, день за днем.',
-                    btnComecar: 'Начать путь',
+                    p9op1: 'Sí, es correcto. ¡Quiero mi plan!' },
+                'ru': { tagline: 'Сосредоточьтесь на учебе. Формируйте привычки.',
+                    descricao: 'Ваш упрощенный распорядок учебы, день за днем.', btnComecar: 'Начать путь',
                     problemaTitulo: 'Проблема',
                     problemaP1: 'Вы начинали учиться и останавливались на полпути?',
                     problemaP2: 'Чувствовали ли вы себя потерянным в том, что учить, или хотели бросить, потому что не видели результатов?',
-                    problemaP3: 'Сложность не в содержании. Она в дисциплине.',
-                    solucaoTitulo: 'Решение',
+                    problemaP3: 'Сложность не в содержании. Она в дисциплине.', solucaoTitulo: 'Решение',
                     solucaoCitacao: '«Дисциплина — это не дар, это привычка».',
                     solucaoP1: 'Дисциплина — это не дар, с которым вы рождаетесь. Это привычка, которую вы строите день за днем.',
                     solucaoP2: 'Norvi — ваш спутник в этом путешествии: он превращает большие цели в маленькие ежедневные миссии, адаптированные к вашему уровню, вашему времени и вашему ритму.',
@@ -1441,20 +1196,13 @@
                     v4Desc: 'От начальной школы до магистратуры предметы и тексты адаптируются к вашему этапу пути.',
                     diagnosticoTitulo: 'Составьте свой план из 10 вопросов',
                     diagnosticoSubtitulo: 'Вопросы адаптируются к вашим ответам. Занимает менее 2 минут.',
-                    resultadoTitulo: '✧ Диагностика завершена!',
-                    btnCriarConta: 'Создать аккаунт',
-                    rodapeFrase: 'Дисциплина — это привычка, а не дар.',
-                    rodapeSobre: 'О нас',
-                    rodapeContato: 'Контакты',
-                    rodapePolitica: 'Политика',
-                    rodapeAjuda: 'Помощь',
-                    rodapeCopy: 'Сделано с душой.',
-                    p0Titulo: 'Каков ваш уровень образования?',
+                    resultadoTitulo: '✧ Диагностика завершена!', btnCriarConta: 'Создать аккаунт',
+                    rodapeFrase: 'Дисциплина — это привычка, а не дар.', rodapeSobre: 'О нас',
+                    rodapeContato: 'Контакты', rodapePolitica: 'Политика', rodapeAjuda: 'Помощь',
+                    rodapeCopy: 'Сделано с душой.', p0Titulo: 'Каков ваш уровень образования?',
                     p0Subtitulo: 'Это помогает нам адаптировать контент для вас.',
-                    p0op1: 'Начальная школа I (1-5 классы)',
-                    p0op2: 'Начальная школа II (6-9 классы)',
-                    p0op3: 'Средняя школа',
-                    p0op4: 'Высшее образование (Бакалавриат)',
+                    p0op1: 'Начальная школа I (1-5 классы)', p0op2: 'Начальная школа II (6-9 классы)',
+                    p0op3: 'Средняя школа', p0op4: 'Высшее образование (Бакалавриат)',
                     p0op5: 'Послевузовское образование (Магистратура/Докторантура)',
                     p1Titulo: 'Какие предметы вызывают у вас наибольшие трудности?',
                     p1Subtitulo: 'Выберите до 3 предметов, которые вы считаете наиболее сложными.',
@@ -1462,78 +1210,31 @@
                     p2Subtitulo: 'Выберите до 2 предметов, которые вы считаете наиболее легкими.',
                     p3Titulo: 'Как вы предпочитаете учиться?',
                     p3Subtitulo: 'Выберите формат, который лучше всего подходит вам.',
-                    p3op1: 'Чтение конспектов и текстов',
-                    p3op2: 'Решение вопросов и упражнений',
-                    p3op3: 'Создание интеллект-карт и схем',
-                    p3op4: 'Смешивание чтения с упражнениями',
+                    p3op1: 'Чтение конспектов и текстов', p3op2: 'Решение вопросов и упражнений',
+                    p3op3: 'Создание интеллект-карт и схем', p3op4: 'Смешивание чтения с упражнениями',
                     p4Titulo: 'Сколько времени в день вы можете уделять учебе?',
                     p4Subtitulo: 'Будьте честны: Norvi адаптируется к вашему ритму.',
-                    p4op1: 'Меньше 15 минут',
-                    p4op2: '15-30 минут',
-                    p4op3: '30-60 минут',
-                    p4op4: 'Более 1 часа',
-                    p5Titulo: 'Как часто вы учитесь в настоящее время?',
+                    p4op1: 'Меньше 15 минут', p4op2: '15-30 минут', p4op3: '30-60 минут',
+                    p4op4: 'Более 1 часа', p5Titulo: 'Как часто вы учитесь в настоящее время?',
                     p5Subtitulo: 'Без осуждения. Мы просто хотим понять ваш распорядок.',
-                    p5op1: 'Редко (менее 1 раза в неделю)',
-                    p5op2: '1-2 раза в неделю',
-                    p5op3: '3-4 раза в неделю',
-                    p5op4: 'Каждый день (или почти)',
+                    p5op1: 'Редко (менее 1 раза в неделю)', p5op2: '1-2 раза в неделю',
+                    p5op3: '3-4 раза в неделю', p5op4: 'Каждый день (или почти)',
                     p6Titulo: 'Какова ваша основная цель в учебе?',
-                    p6Subtitulo: 'Чего вы больше всего хотите достичь?',
-                    p6op1: 'Сдать экзамены / поступить',
-                    p6op2: 'Изучить конкретную тему',
-                    p6op3: 'Сформировать привычку учиться',
+                    p6Subtitulo: 'Чего вы больше всего хотите достичь?', p6op1: 'Сдать экзамены / поступить',
+                    p6op2: 'Изучить конкретную тему', p6op3: 'Сформировать привычку учиться',
                     p6op4: 'Углубить знания в области',
                     p7Titulo: 'Какое ваше самое большое препятствие для учебы?',
                     p7Subtitulo: 'Выявление того, что вас сдерживает, — это первый шаг.',
-                    p7op1: 'Отсутствие фокуса / концентрации',
-                    p7op2: 'Прокрастинация - не могу начать',
-                    p7op3: 'Не знаю, что и с чего начать',
-                    p7op4: 'Умственная или физическая усталость',
+                    p7op1: 'Отсутствие фокуса / концентрации', p7op2: 'Прокрастинация - не могу начать',
+                    p7op3: 'Не знаю, что и с чего начать', p7op4: 'Умственная или физическая усталость',
                     p8Titulo: 'Какова ваша цель на следующий месяц?',
                     p8Subtitulo: 'Четкая цель помогает задать направление.',
-                    p8op1: 'Заниматься не менее 3 дней в неделю',
-                    p8op2: 'Завершить конкретную тему',
-                    p8op3: 'Заниматься не менее 5 дней в неделю',
-                    p8op4: 'Поддерживать серию из 30 дней',
+                    p8op1: 'Заниматься не менее 3 дней в неделю', p8op2: 'Завершить конкретную тему',
+                    p8op3: 'Заниматься не менее 5 дней в неделю', p8op4: 'Поддерживать серию из 30 дней',
                     p9Titulo: 'Подтвердите свои ответы',
                     p9Subtitulo: 'Проверьте информацию и подтвердите, чтобы сгенерировать ваш план.',
-                    p9op1: 'Да, все верно. Я хочу свой план!',
-                }
+                    p9op1: 'Да, все верно. Я хочу свой план!' }
             };
-
-            // ============================================================
-            // 2. LISTAS DE MATÉRIAS POR NÍVEL
-            // ============================================================
-
-            const materiasPorNivel = {
-                'fundamental_i': [
-                    'Matemática', 'Língua Portuguesa', 'Ciências (Natureza)',
-                    'História', 'Geografia', 'Arte', 'Educação Física (teoria)'
-                ],
-                'fundamental_ii': [
-                    'Matemática', 'Língua Portuguesa', 'Ciências',
-                    'História', 'Geografia', 'Inglês', 'Arte', 'Educação Física (teoria)'
-                ],
-                'ensino_medio': [
-                    'Matemática', 'Língua Portuguesa', 'Física', 'Química',
-                    'Biologia', 'História', 'Geografia', 'Filosofia', 'Sociologia', 'Inglês'
-                ],
-                'graduacao': [
-                    'Cálculo/Matemática Avançada', 'Estatística', 'Física', 'Química',
-                    'Biologia/Bioquímica', 'Programação/Algoritmos', 'Economia/Finanças',
-                    'Direito/Leis', 'Filosofia/Ética', 'Metodologia Científica', 'Línguas'
-                ],
-                'pos_graduacao': [
-                    'Métodos Quantitativos', 'Métodos Qualitativos', 'Escrita Científica',
-                    'Revisão Bibliográfica', 'Programação/Análise de Dados',
-                    'Ética em Pesquisa', 'Inglês Técnico', 'Preparação para Defesa'
-                ]
-            };
-
-            // ============================================================
-            // 3. ESTADO
-            // ============================================================
 
             let respostas = {};
             let perguntaAtual = 0;
@@ -1541,29 +1242,17 @@
             let idiomaAtual = 'pt-BR';
             let temaAtual = 'light';
 
-            // ============================================================
-            // 4. FUNÇÕES DE IDIOMA E TEMA
-            // ============================================================
-
             function aplicarIdioma(idioma) {
                 idiomaAtual = idioma;
                 const t = traducoes[idioma] || traducoes['pt-BR'];
-
                 document.querySelectorAll('[data-chave]').forEach(el => {
                     const chave = el.dataset.chave;
-                    if (t[chave] !== undefined) {
-                        el.textContent = t[chave];
-                    }
+                    if (t[chave] !== undefined) el.textContent = t[chave];
                 });
-
                 document.querySelectorAll('.idioma-btn').forEach(btn => {
                     btn.classList.toggle('ativo', btn.dataset.idioma === idioma);
                 });
-
-                if (perguntas.length > 0) {
-                    renderizarPergunta(perguntaAtual);
-                }
-
+                if (perguntas.length > 0) renderizarPergunta(perguntaAtual);
                 localStorage.setItem('norvi_idioma', idioma);
             }
 
@@ -1580,22 +1269,16 @@
             function carregarPreferencias() {
                 const idiomaSalvo = localStorage.getItem('norvi_idioma') || 'pt-BR';
                 aplicarIdioma(idiomaSalvo);
-
                 const temaSalvo = localStorage.getItem('norvi_tema') || 'light';
                 document.documentElement.setAttribute('data-theme', temaSalvo);
                 temaAtual = temaSalvo;
                 document.getElementById('temaBtn').textContent = temaSalvo === 'dark' ? '☀️' : '🌙';
             }
 
-            // ============================================================
-            // 5. PERGUNTAS
-            // ============================================================
-
             function getPerguntas(respostas) {
                 const nivel = respostas[0] || 'fundamental_i';
                 const materias = materiasPorNivel[nivel] || materiasPorNivel['fundamental_i'];
                 const t = traducoes[idiomaAtual] || traducoes['pt-BR'];
-
                 return [{
                     id: 0,
                     titulo: t.p0Titulo || 'Qual é o seu nível de escolaridade?',
@@ -1614,9 +1297,7 @@
                     titulo: t.p1Titulo || 'Quais matérias você tem mais dificuldade?',
                     subtitulo: t.p1Subtitulo || 'Escolha até 3 matérias que você considera mais desafiadoras.',
                     tipo: 'checkbox',
-                    opcoes: function() {
-                        return materias.map(m => ({ valor: m, label: m }));
-                    },
+                    opcoes: function() { return materias.map(m => ({ valor: m, label: m })); },
                     adaptar: true,
                     maxSelecoes: 3
                 }, {
@@ -1624,9 +1305,7 @@
                     titulo: t.p2Titulo || 'Quais matérias você tem mais facilidade?',
                     subtitulo: t.p2Subtitulo || 'Escolha até 2 matérias que você considera mais fáceis.',
                     tipo: 'checkbox',
-                    opcoes: function() {
-                        return materias.map(m => ({ valor: m, label: m }));
-                    },
+                    opcoes: function() { return materias.map(m => ({ valor: m, label: m })); },
                     adaptar: true,
                     maxSelecoes: 2
                 }, {
@@ -1713,55 +1392,38 @@
                 }];
             }
 
-            // ============================================================
-            // 6. FUNÇÕES DE RENDERIZAÇÃO
-            // ============================================================
-
             function obterOpcoes(pergunta) {
-                if (typeof pergunta.opcoes === 'function') {
-                    return pergunta.opcoes();
-                }
+                if (typeof pergunta.opcoes === 'function') return pergunta.opcoes();
                 return pergunta.opcoes;
             }
 
             function renderizarPergunta(index) {
                 const wrapper = document.getElementById('perguntasWrapper');
-                const container = document.getElementById('perguntasContainer');
-
                 document.getElementById('resultado').classList.remove('ativo');
                 wrapper.innerHTML = '';
-
                 const p = perguntas[index];
                 if (!p) return;
-
                 const opcoes = obterOpcoes(p);
                 const isConfirmacao = p.tipo === 'confirmacao';
                 const isRadio = p.tipo === 'radio';
                 const isCheckbox = p.tipo === 'checkbox';
-
                 const divPergunta = document.createElement('div');
                 divPergunta.className = 'pergunta ativa';
                 divPergunta.dataset.pergunta = index;
-
                 const h3 = document.createElement('h3');
                 h3.textContent = p.titulo;
                 divPergunta.appendChild(h3);
-
                 const subt = document.createElement('p');
                 subt.className = 'subtitulo';
                 subt.textContent = p.subtitulo;
                 divPergunta.appendChild(subt);
-
                 const divOpcoes = document.createElement('div');
                 divOpcoes.className = 'opcoes';
-
                 opcoes.forEach((op, idx) => {
                     const divOpcao = document.createElement('div');
                     divOpcao.className = 'opcao';
-
                     const input = document.createElement('input');
                     const id = `p${index}_${idx}`;
-
                     if (isRadio) {
                         input.type = 'radio';
                         input.name = `pergunta${index}`;
@@ -1790,11 +1452,9 @@
                             divOpcao.classList.add('selecionada');
                         }
                     }
-
                     const label = document.createElement('label');
                     label.htmlFor = id;
                     label.textContent = op.label;
-
                     divOpcao.appendChild(input);
                     divOpcao.appendChild(label);
                     divOpcao.addEventListener('click', function(e) {
@@ -1814,11 +1474,9 @@
                         }
                         atualizarSelecao(this);
                     });
-
                     input.addEventListener('change', function(e) {
                         const valor = this.value;
                         const idPerg = index;
-
                         if (isRadio || isConfirmacao) {
                             if (this.checked) {
                                 respostas[idPerg] = valor;
@@ -1856,7 +1514,6 @@
                                 this.closest('.opcao').classList.remove('selecionada');
                             }
                         }
-
                         const btnProx = document.querySelector(
                             `.pergunta[data-pergunta="${index}"] .btn-primario-pequeno`);
                         if (btnProx) {
@@ -1864,24 +1521,15 @@
                         }
                         atualizarProgresso();
                     });
-
                     divOpcoes.appendChild(divOpcao);
                 });
-
                 divPergunta.appendChild(divOpcoes);
-
                 const divBotoes = document.createElement('div');
                 divBotoes.className = 'botoes-pergunta';
-
                 const btnVoltar = document.createElement('button');
                 btnVoltar.className = 'btn-secundario';
-                const textosVoltar = {
-                    'pt-BR': '← Voltar',
-                    'pt-PT': '← Voltar',
-                    'en': '← Back',
-                    'es': '← Volver',
-                    'ru': '← Назад'
-                };
+                const textosVoltar = { 'pt-BR': '← Voltar', 'pt-PT': '← Voltar', 'en': '← Back', 'es': '← Volver',
+                    'ru': '← Назад' };
                 btnVoltar.textContent = textosVoltar[idiomaAtual] || '← Voltar';
                 btnVoltar.disabled = index === 0;
                 btnVoltar.addEventListener('click', function() {
@@ -1891,20 +1539,16 @@
                         atualizarProgresso();
                     }
                 });
-
                 const btnProximo = document.createElement('button');
                 btnProximo.className = 'btn-primario-pequeno';
-                const textosProx = {
-                    'pt-BR': index === perguntas.length - 1 ? 'Concluir' : 'Próximo →',
+                const textosProx = { 'pt-BR': index === perguntas.length - 1 ? 'Concluir' : 'Próximo →',
                     'pt-PT': index === perguntas.length - 1 ? 'Concluir' : 'Próximo →',
                     'en': index === perguntas.length - 1 ? 'Finish' : 'Next →',
                     'es': index === perguntas.length - 1 ? 'Finalizar' : 'Siguiente →',
-                    'ru': index === perguntas.length - 1 ? 'Завершить' : 'Далее →'
-                };
+                    'ru': index === perguntas.length - 1 ? 'Завершить' : 'Далее →' };
                 btnProximo.textContent = textosProx[idiomaAtual] || (index === perguntas.length - 1 ? 'Concluir' :
                     'Próximo →');
                 btnProximo.disabled = !perguntaPreenchida(index);
-
                 btnProximo.addEventListener('click', function() {
                     if (index === perguntas.length - 1) {
                         mostrarResultado();
@@ -1916,14 +1560,11 @@
                         }
                     }
                 });
-
                 divBotoes.appendChild(btnVoltar);
                 divBotoes.appendChild(btnProximo);
                 divPergunta.appendChild(divBotoes);
-
                 wrapper.appendChild(divPergunta);
                 atualizarProgresso();
-
                 const firstInput = wrapper.querySelector('input');
                 if (firstInput) firstInput.focus();
             }
@@ -1933,7 +1574,6 @@
                 if (!parent) return;
                 const inputs = parent.querySelectorAll('input');
                 const isRadio = inputs.length > 0 && inputs[0].type === 'radio';
-
                 if (isRadio) {
                     parent.querySelectorAll('.opcao').forEach(el => {
                         const inp = el.querySelector('input');
@@ -1971,34 +1611,22 @@
                 const respondidas = perguntas.filter((p, i) => perguntaPreenchida(i)).length;
                 const pct = Math.round((respondidas / total) * 100);
                 document.getElementById('progressoBar').style.width = pct + '%';
-                const textos = {
-                    'pt-BR': `${respondidas} / ${total}`,
-                    'pt-PT': `${respondidas} / ${total}`,
-                    'en': `${respondidas} / ${total}`,
-                    'es': `${respondidas} / ${total}`,
-                    'ru': `${respondidas} / ${total}`
-                };
+                const textos = { 'pt-BR': `${respondidas} / ${total}`, 'pt-PT': `${respondidas} / ${total}`,
+                    'en': `${respondidas} / ${total}`, 'es': `${respondidas} / ${total}`,
+                    'ru': `${respondidas} / ${total}` };
                 document.getElementById('progressoTexto').textContent = textos[idiomaAtual] || `${respondidas} / ${total}`;
             }
-
-            // ============================================================
-            // 7. RESULTADO
-            // ============================================================
 
             function mostrarResultado() {
                 const wrapper = document.getElementById('perguntasWrapper');
                 wrapper.innerHTML = '';
                 document.querySelector('.progresso').style.display = 'none';
-
                 const resultadoDiv = document.getElementById('resultado');
                 resultadoDiv.classList.add('ativo');
-
                 const nivel = respostas[0] || 'fundamental_i';
                 const dificuldades = respostas[1] || [];
-                const facilidades = respostas[2] || [];
                 const tempo = respostas[4] || '30';
                 const estilo = respostas[3] || 'mix';
-
                 const niveisLabels = {
                     'fundamental_i': 'Fundamental I (1º ao 5º ano)',
                     'fundamental_ii': 'Fundamental II (6º ao 9º ano)',
@@ -2007,117 +1635,53 @@
                     'pos_graduacao': 'Pós-Graduação (Mestrado/Doutorado)'
                 };
                 const nomeNivel = niveisLabels[nivel] || 'Nível não identificado';
-
                 let perfil = '';
                 let descricao = '';
-
                 const qtdDificuldades = Array.isArray(dificuldades) ? dificuldades.length : 0;
                 const tempoNum = parseInt(tempo) || 30;
-
                 if (qtdDificuldades >= 3) {
-                    const perfis = {
-                        'pt-BR': 'Aprendiz Desafiado',
-                        'pt-PT': 'Aprendiz Desafiado',
-                        'en': 'Challenged Learner',
-                        'es': 'Aprendiz Desafiado',
-                        'ru': 'Испытывающий трудности ученик'
-                    };
-                    const descs = {
-                        'pt-BR': `Você tem várias áreas para desenvolver. Com ${tempoNum} minutos por dia, vamos construir uma base sólida.`,
-                        'pt-PT': `Tens várias áreas para desenvolver. Com ${tempoNum} minutos por dia, vamos construir uma base sólida.`,
-                        'en': `You have several areas to develop. With ${tempoNum} minutes per day, let's build a solid foundation.`,
-                        'es': `Tienes varias áreas para desarrollar. Con ${tempoNum} minutos al día, vamos a construir una base sólida.`,
-                        'ru': `У вас есть несколько областей для развития. За ${tempoNum} минут в день мы построим прочную основу.`
-                    };
-                    perfil = perfis[idiomaAtual] || perfis['pt-BR'];
-                    descricao = descs[idiomaAtual] || descs['pt-BR'];
+                    perfil = 'Aprendiz Desafiado';
+                    descricao =
+                        `Você tem várias áreas para desenvolver. Com ${tempoNum} minutos por dia, vamos construir uma base sólida.`;
                 } else if (qtdDificuldades >= 1) {
-                    const perfis = {
-                        'pt-BR': 'Aprendiz Focado',
-                        'pt-PT': 'Aprendiz Focado',
-                        'en': 'Focused Learner',
-                        'es': 'Aprendiz Enfocado',
-                        'ru': 'Целеустремленный ученик'
-                    };
-                    const descs = {
-                        'pt-BR': `Você já sabe onde precisa melhorar. Com ${tempoNum} minutos por dia, vamos focar nas suas dificuldades.`,
-                        'pt-PT': `Já sabes onde precisas melhorar. Com ${tempoNum} minutos por dia, vamos focar nas tuas dificuldades.`,
-                        'en': `You already know where you need to improve. With ${tempoNum} minutes per day, let's focus on your challenges.`,
-                        'es': `Ya sabes dónde necesitas mejorar. Con ${tempoNum} minutos al día, vamos a enfocarnos en tus dificultades.`,
-                        'ru': `Вы уже знаете, где нужно улучшиться. За ${tempoNum} минут в день мы сосредоточимся на ваших трудностях.`
-                    };
-                    perfil = perfis[idiomaAtual] || perfis['pt-BR'];
-                    descricao = descs[idiomaAtual] || descs['pt-BR'];
+                    perfil = 'Aprendiz Focado';
+                    descricao =
+                        `Você já sabe onde precisa melhorar. Com ${tempoNum} minutos por dia, vamos focar nas suas dificuldades.`;
                 } else {
-                    const perfis = {
-                        'pt-BR': 'Aprendiz Consistente',
-                        'pt-PT': 'Aprendiz Consistente',
-                        'en': 'Consistent Learner',
-                        'es': 'Aprendiz Consistente',
-                        'ru': 'Последовательный ученик'
-                    };
-                    const descs = {
-                        'pt-BR': `Você tem uma boa base. Com ${tempoNum} minutos por dia, vamos aprofundar seu conhecimento.`,
-                        'pt-PT': `Tens uma boa base. Com ${tempoNum} minutos por dia, vamos aprofundar o teu conhecimento.`,
-                        'en': `You have a good foundation. With ${tempoNum} minutes per day, let's deepen your knowledge.`,
-                        'es': `Tienes una buena base. Con ${tempoNum} minutos al día, vamos a profundizar tu conocimiento.`,
-                        'ru': `У вас хорошая база. За ${tempoNum} минут в день мы углубим ваши знания.`
-                    };
-                    perfil = perfis[idiomaAtual] || perfis['pt-BR'];
-                    descricao = descs[idiomaAtual] || descs['pt-BR'];
+                    perfil = 'Aprendiz Consistente';
+                    descricao =
+                        `Você tem uma boa base. Com ${tempoNum} minutos por dia, vamos aprofundar seu conhecimento.`;
                 }
-
-                const estilosMap = {
-                    'leitura': 'leitura e resumos',
-                    'exercicios': 'exercícios práticos',
-                    'esquemas': 'mapas mentais',
-                    'mix': 'uma mistura de métodos'
-                };
+                const estilosMap = { 'leitura': 'leitura e resumos', 'exercicios': 'exercícios práticos',
+                    'esquemas': 'mapas mentais', 'mix': 'uma mistura de métodos' };
                 const estiloTexto = estilosMap[estilo] || 'vários métodos';
-
                 document.getElementById('perfilResultado').textContent = perfil;
                 document.getElementById('resumoResultado').innerHTML = `
-                        <strong>${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Nível' : idiomaAtual === 'en' ? 'Level' : idiomaAtual === 'es' ? 'Nivel' : 'Уровень'}:</strong> ${nomeNivel}<br>
-                        <strong>${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Dificuldades' : idiomaAtual === 'en' ? 'Challenges' : idiomaAtual === 'es' ? 'Dificultades' : 'Трудности'}:</strong> ${Array.isArray(dificuldades) && dificuldades.length ? dificuldades.join(', ') : (idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Nenhuma específica' : idiomaAtual === 'en' ? 'None specified' : idiomaAtual === 'es' ? 'Ninguna específica' : 'Не указаны')}<br>
-                        <strong>${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Estilo' : idiomaAtual === 'en' ? 'Style' : idiomaAtual === 'es' ? 'Estilo' : 'Стиль'}:</strong> ${estiloTexto}<br>
-                        <strong>${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Tempo' : idiomaAtual === 'en' ? 'Time' : idiomaAtual === 'es' ? 'Tiempo' : 'Время'}:</strong> ${tempoNum} ${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'minutos por dia' : idiomaAtual === 'en' ? 'minutes per day' : idiomaAtual === 'es' ? 'minutos al día' : 'минут в день'}<br><br>
+                        <strong>Nível:</strong> ${nomeNivel}<br>
+                        <strong>Dificuldades:</strong> ${Array.isArray(dificuldades) && dificuldades.length ? dificuldades.join(', ') : 'Nenhuma específica'}<br>
+                        <strong>Estilo:</strong> ${estiloTexto}<br>
+                        <strong>Tempo:</strong> ${tempoNum} minutos por dia<br><br>
                         ${descricao}
                         <br><br>
-                        <em>${idiomaAtual === 'pt-BR' || idiomaAtual === 'pt-PT' ? 'Seu plano personalizado será gerado ao criar sua conta.' : idiomaAtual === 'en' ? 'Your personalized plan will be generated when you create your account.' : idiomaAtual === 'es' ? 'Tu plan personalizado se generará al crear tu cuenta.' : 'Ваш персонализированный план будет сгенерирован при создании аккаунта.'}</em>
+                        <em>Seu plano personalizado será gerado ao criar sua conta.</em>
                     `;
             }
 
-            // ============================================================
-            // 8. INICIALIZAÇÃO (TOTALMENTE FUNCIONAL - SEM SCROLL AUTOMÁTICO)
-            // ============================================================
-
             function init() {
                 carregarPreferencias();
-
                 const saved = localStorage.getItem('norvi_diagnostico');
                 if (saved) {
-                    try {
-                        respostas = JSON.parse(saved);
-                    } catch (e) {
-                        respostas = {};
-                    }
+                    try { respostas = JSON.parse(saved); } catch (e) { respostas = {}; }
                 }
-
                 perguntas = getPerguntas(respostas);
                 renderizarPergunta(perguntaAtual);
                 atualizarProgresso();
-
                 setInterval(function() {
                     localStorage.setItem('norvi_diagnostico', JSON.stringify(respostas));
                 }, 3000);
-
-                // ============================================================
-                // BOTÃO DE IDIOMA (FUNCIONANDO - SEM ROLAR)
-                // ============================================================
                 document.querySelectorAll('.idioma-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
-                        e.stopPropagation();
                         const idioma = this.dataset.idioma;
                         aplicarIdioma(idioma);
                         perguntas = getPerguntas(respostas);
@@ -2125,32 +1689,16 @@
                         atualizarProgresso();
                     });
                 });
-
-                // ============================================================
-                // BOTÃO DE TEMA (FUNCIONANDO - SEM ROLAR)
-                // ============================================================
                 document.getElementById('temaBtn').addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     alternarTema();
                 });
-
-                // ============================================================
-                // LOGO (ROLA PARA O TOPO)
-                // ============================================================
                 document.getElementById('logoLink').addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
-
-                // ============================================================
-                // BOTÃO "COMEÇAR JORNADA" - SÓ ROLA QUANDO CLICAR
-                // ============================================================
-                const btnComecar = document.getElementById('btnComecar');
-                btnComecar.addEventListener('click', function(e) {
+                document.getElementById('btnComecar').addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     const target = document.getElementById('diagnostico');
                     if (target) {
                         const topBarHeight = document.querySelector('.top-bar').offsetHeight || 60;
@@ -2159,15 +1707,6 @@
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 });
-
-                // ============================================================
-                // BOTÃO "ENTRAR" - REDIRECIONA PARA ONBOARDING
-                // ============================================================
-                // (já é um link HTML, não precisa de JS)
-
-                // ============================================================
-                // ATUALIZAR PERGUNTAS QUANDO P1 MUDAR
-                // ============================================================
                 document.addEventListener('change', function(e) {
                     if (e.target.name === 'pergunta0') {
                         const novoNivel = e.target.value;
@@ -2181,17 +1720,12 @@
                 });
             }
 
-            // ============================================================
-            // INICIAR QUANDO O DOM ESTIVER PRONTO
-            // ============================================================
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {
                 init();
             }
-
         })();
     </script>
-
 </body>
 </html>
